@@ -3,6 +3,9 @@ import Login from './pages/login_register/login/Login'
 import Register from './pages/login_register/register/Register'
 import Home from './pages/home/Home'
 import Navbar from './components/navbar/Navbar'
+import About from './pages/about/About'
+import NotFound from './components/not_found/NotFound'
+import Footer from './components/footer/Footer'
 
 //Config react router
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
@@ -13,11 +16,16 @@ function App() {
     <>
       <BrowserRouter>
         <Navbar />
-        <Routes>
-          <Route path='/login' element={<Login />} />
-          <Route path='/Register' element={<Register />} />
-          <Route path='/' element={<Home />} />
-        </Routes>
+        <div className='container'>
+          <Routes>
+            <Route path='/login' element={<Login />} />
+            <Route path='/Register' element={<Register />} />
+            <Route path='/about' element={<About />} />
+            <Route path='*' element={<NotFound />} />
+            <Route path='/' element={<Home />} />
+          </Routes>
+        </div>
+        <Footer />
       </BrowserRouter>
     </>
   )

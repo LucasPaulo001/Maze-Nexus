@@ -1,0 +1,12 @@
+a{
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+}
+.title{
+    text-align: center;
+}
+.contentLogin{
+    width: 100%;
+}

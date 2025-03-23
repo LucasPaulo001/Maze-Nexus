@@ -1,10 +1,12 @@
 import '../Login_register.css'
 import { Link } from 'react-router-dom'
+import styles from './Register.module.css'
 
 function Register(){
     return(
         <>
             <div className='loginContent'>
+                <h1>Faça seu cadastro</h1>
                 <form id='formData' action="" method="post">
                     <div className='localInput'>
                         <label htmlFor="name">Nome Completo:</label>
@@ -27,8 +29,8 @@ function Register(){
                         <input type="password" name='password' placeholder='Informe sua senha...' />
                     </div>
                     <div className='btns'>
-                    <Link className='btnAction' to="/login"><button className='btnAction'>Login</button></Link> 
-                    <button>Cadastro</button>
+                    <button className='btn'>Fazer cadastro</button>
+                    <Link to="/login"><button className='btn'>Login</button></Link> 
                     </div>
                 </form>
             </div>
