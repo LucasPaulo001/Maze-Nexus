@@ -13,18 +13,12 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
+    margin-top: 20px;
 }
 .btnAction{
     width: 100px;
 }
-.localInput input{
-    width: 100%;
-    height: 35px;
-    border: 1px solid #646cff;
-    border-radius: 10px;
-    text-indent: 5px;
-    font-size: 1em;
-}
+
 .loginContent{
     width: 100%;
     display: flex;
@@ -33,13 +27,67 @@
     justify-content: center;
     height: 80vh;
     align-items: center;
+    flex-direction: column;
+    gap: 50px;
+}
+#msgErroPass{
+    display: none;
+}
+.error{
+    display: flex;
+    color: rgb(255, 110, 110);
+}
+.input-verify{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
-@media (max-width: 640px){
+.successMessage {
+    position: fixed;
+    background-color: #0080009c;
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(1px);
+    font-size: 2vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 20px;
+}
+.errorMessage{
+    position: fixed;
+    background-color: rgba(255, 0, 0, 0.267);
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(1px);
+    font-size: 2vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 20px;
+}
+.ok {
+    color: green;
+    font-weight: bold;
+}
+
+.noOk {
+    color: red;
+    font-weight: bold;
+}
+
+@media(max-width: 640px){
+    #formData{
+        width: 90%;
+    }
+    .errorMessage, .successMessage{
+        font-size: 5vw;
+    }
     #formData{
         width: 80%;
-    }
-    .loginContent{
-        height: 100vh;
     }
 }
