@@ -11,15 +11,31 @@ const app = express()
 //Configuração de tratamento de dados
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    exposedHeaders: ['Authorization']
+}))
+
+//Middleware de configuração de cabeçalhos
+app.use((req, res, next) => {
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+    res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    next();
+});
+
 
 //Conexão ao banco de dados
 connectDB(app)
 
 //Importação de rotas
 import routerRegister from './routes/register.mjs'
+import routerLogin from './routes/login.mjs'
 
 app.use('/user', routerRegister)
+app.use('/user', routerLogin)
 
 //Inicialização do servidor
 const PORT = process.env.PORT

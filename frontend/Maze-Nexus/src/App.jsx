@@ -2,6 +2,7 @@ import './App.css'
 import Login from './pages/login_register/login/Login'
 import Register from './pages/login_register/register/Register'
 import Home from './pages/home/Home'
+import Auth from './pages/auth/Auth'
 import Navbar from './components/navbar/Navbar'
 
 //Config react router
@@ -14,6 +15,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
+          <Route path='/verify/:token' element={<Auth />} />
           <Route path='/login' element={<Login />} />
           <Route path='/Register' element={<Register />} />
           <Route path='/' element={<Home />} />

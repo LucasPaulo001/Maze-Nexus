@@ -1,11 +1,12 @@
 import '../Login_register.css'
-import { data, Link } from 'react-router-dom'
+import { data, Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-const url = 'http://localhost:1526/user/register'
+const url = 'http://localhost:5173/user/register'
 const urlCheckName = 'http://localhost:1526/user/checkName'
 
 function Register() {
+    const navigate = useNavigate()
     const [name, setName] = useState("")
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
@@ -56,16 +57,21 @@ function Register() {
             if (res.ok) {
                 setSuccessMsg("Cadastrado realizado com sucesso!")
                 setErrorMsg("")
-                setTimeout(() => {
-                    setSuccessMsg("")
-                    setErrorMsg("")
-                }, 600)
                 setName("")
                 setUsername("")
                 setEmail("")
                 setDateBirth("")
                 setPassword("")
                 setPassReap("")
+                
+                // Aqui, pegamos o token gerado pelo backend (caso ele tenha retornado com sucesso)
+                const token = data.tokenVerification; // Supondo que o backend retorne o token
+                console.log(token)
+
+                if (token) {
+                // Redirecionando para a página de verificação, passando o token na URL
+                navigate(`/verify/${token}`);
+                }
             } else {
                 setErrorMsg(data.message || "Erro ao cadastrar usuário!")
             }
