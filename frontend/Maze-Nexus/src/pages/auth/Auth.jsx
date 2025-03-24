@@ -1,5 +1,6 @@
 import { useState } from "react"
-import './Auth.css'
+import styles from './Auth.module.css'
+import '../../App.css'
 import { Link } from "react-router-dom"
 
 function Auth(){
@@ -12,16 +13,17 @@ function Auth(){
 
     return(
         <>
-            <div className="local-form-code">
-                <form className="form-insert" onSubmit={handleSubmit} action="" method="post">
-                    <div className="localInput">
+            <div className={styles.localFormCode}>
+                <form className={styles.formInsert} onSubmit={handleSubmit} action="" method="post">
+                    <div className={styles.localInput}>
                         <label htmlFor="code">Código de verificação</label>
                         <input type="text"
+                        placeholder="Insira o código enviado no seu E-mail..."
                         onChange={(e) => {setCode(e.target.value)}}
                         />
                     </div>
-                    <div>
-                        <button type="submit">Verificar</button>
+                    <div className={styles.localBtn}>
+                        <button className="btnVerifyCode" type="submit">Verificar</button>
                     </div>
                 </form>
             </div>

@@ -1,7 +1,7 @@
 a{
     width: 100%;
     display: flex;
-    text-decoration: none;
+    text-decoration: none !important;
     justify-content: center;
 }
 .title{

@@ -4,3 +4,13 @@ a{
     text-decoration: none;
     justify-content: center;
 }
+.btnVerify{
+    border: none;
+    font-size: 2vw !important;
+}
+
+@media(max-width: 640px){
+    .btnVerify{
+        font-size: 6vw !important;
+    }
+}

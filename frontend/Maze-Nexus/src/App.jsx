@@ -1,4 +1,6 @@
 import './App.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import Login from './pages/login_register/login/Login'
 import Register from './pages/login_register/register/Register'
 import Home from './pages/home/Home'
@@ -20,7 +22,7 @@ function App() {
         <div className='container'>
           <Routes>
             <Route path='/verify/:token' element={<Auth />} />
-          <Route path='/login' element={<Login />} />
+            <Route path='/login' element={<Login />} />
             <Route path='/Register' element={<Register />} />
             <Route path='/about' element={<About />} />
             <Route path='*' element={<NotFound />} />

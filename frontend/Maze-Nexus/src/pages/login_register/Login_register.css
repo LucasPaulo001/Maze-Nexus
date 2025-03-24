@@ -19,13 +19,23 @@
     width: 100px;
 }
 
+.localInput input{
+    width: 100%;
+    height: 35px;
+    border: 1px solid #646cff;
+    border-radius: 10px;
+    text-indent: 5px;
+    font-size: 1em;
+}
+
 .loginContent{
+    margin-top: 4em;
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 2em;
     justify-content: center;
-    height: 80vh;
+    /* height: 100vh; */
     align-items: center;
     flex-direction: column;
     gap: 50px;
@@ -57,9 +67,9 @@
     text-align: center;
     margin: 20px;
 }
-.errorMessage{
+.errorMessage {
     position: fixed;
-    background-color: rgba(255, 0, 0, 0.267);
+    background-color: rgb(255 0 0 / 60%);
     padding: 15px;
     border-radius: 10px;
     backdrop-filter: blur(1px);
@@ -69,6 +79,7 @@
     right: 0;
     text-align: center;
     margin: 20px;
+    color: white;
 }
 .ok {
     color: green;
@@ -80,7 +91,38 @@
     font-weight: bold;
 }
 
+.btns .btn{
+    height: 2.8em;
+    font-weight: 700;
+    border-radius: 5px;
+    background-color: #9f72ff;
+    color: white;
+    border: 1px solid;
+    cursor: pointer;
+    width: 50%;
+    transition: .2s ease-in-out;
+}
+.btnNoChecking small{
+    font-size: .9vw !important;
+}
+.btnNoChecking i{
+    border: 1px solid #7235f7;
+    border-radius: 50px;
+    padding: 5px;
+    transition: .4s ease-in-out;
+}
+.btnNoChecking i:hover{
+    border: 3px solid #37089b;
+}
+.btns .btn:hover{
+    background-color: #7235f7;
+    color: white;
+}
+
 @media(max-width: 640px){
+    .btnNoChecking small{
+        font-size: 4vw !important
+    }
     #formData{
         width: 90%;
     }
@@ -89,5 +131,8 @@
     }
     #formData{
         width: 80%;
+    }
+    .btns .btn{
+        width: 100%;
     }
 }

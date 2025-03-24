@@ -4,12 +4,13 @@ import styles from './Login.module.css'
 import { useState } from 'react'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+import { useNavigate } from 'react-router-dom'
 
 const url = 'http://localhost:1526/user/google-login'
 
 function Login(){
     
-
+    let navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -47,14 +48,18 @@ function Login(){
             headers: {
                 "Content-Type": "application/json" 
             },
-            body: JSON.stringify({ token })
+            body: JSON.stringify({ credential: token })
         })
 
         const data = await res.json();
         console.log("Resposta do backend:", data);
-
+        console.log("Valor de data.success:", data.success);
+        if(data.success === true){
+            console.log("Redirecionando para a página inicial...")
+            navigate('/')
+        }
         if (data.user) {
-            window.opener.postMessage(data, "*");  // Forçar a comunicação entre janelas
+            window.opener.postMessage(data, "*");
         }
 
     }

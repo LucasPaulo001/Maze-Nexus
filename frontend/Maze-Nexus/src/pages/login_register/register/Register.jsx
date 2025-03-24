@@ -3,7 +3,7 @@ import { data, Link, useNavigate } from 'react-router-dom'
 import styles from './Register.module.css'
 import { useState } from 'react'
 
-const url = 'http://localhost:5173/user/register'
+const url = 'http://localhost:1526/user/register'
 const urlCheckName = 'http://localhost:1526/user/checkName'
 
 function Register() {
@@ -89,32 +89,35 @@ function Register() {
         }
 
         setIsChecking(true)
-        try{
-            const res = await fetch(urlCheckName, {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify({username})
-            })
-            const data = await res.json()
-            console.log(data.available)
-            if(data.available){
-                setIsUsernameAvailable(true)
-                setUsernameAvailable("Nome disponível!")
+        setTimeout( async () => {
+            try{
+                const res = await fetch(urlCheckName, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({username})
+                })
+                const data = await res.json()
+                console.log(data.available)
+                if(data.available){
+                    setIsUsernameAvailable(true)
+                    setUsernameAvailable("Nome disponível!")
+                }
+                else{
+                    setIsUsernameAvailable(false)
+                    setUsernameAvailable("Nome já está em uso!")
+                }
             }
-            else{
+            catch{
                 setIsUsernameAvailable(false)
-                setUsernameAvailable("Nome já está em uso!")
+                console.log('Erro ao verificar nome de usuário')
             }
-        }
-        catch{
-            setIsUsernameAvailable(false)
-            console.log('Erro ao verificar nome de usuário')
-        }
-        finally{
-            setIsChecking(false)
-        }
+            finally{
+                setIsChecking(false)
+            }
+        }, 1000)
+        
     }
 
 
@@ -122,11 +125,16 @@ function Register() {
         <>
             <div className='loginContent'>
                 <h1>Faça seu cadastro</h1>
+                {/* Formulário de cadastro */}
                 <form onSubmit={handleSubmit} id='formData'>
+
+                    {/* Nome completo */}
                     <div className='localInput'>
                         <label htmlFor="name">Nome Completo:</label>
                         <input type="text" name='name' placeholder='Informe seu nome...' value={name} onChange={(e) => setName(e.target.value)} />
                     </div>
+
+                    {/* Nome de usuário */}
                     <div className='localInput'>
                         <div>
                             <label htmlFor="username">Nome de usuário:</label>
@@ -137,8 +145,16 @@ function Register() {
                                 onChange={
                                     (e) => setUsername(e.target.value)
                                 } />
-                                <button type='button' onClick={checkUsername} disabled={isChecking}>
-                                    {isChecking ? "Verificando..." : "Verificar"}
+
+                                {/* Botão de verificação */}
+                                <button className={`btn ${styles.btnVerify}`} type='button' onClick={checkUsername} disabled={isChecking}>
+                                    {isChecking ? 
+                                    <div className="spinner-grow text-primary" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </div> : 
+                                    <div className='d-flex btnNoChecking align-items-center gap-2'>
+                                        <i className="bi bi-person-check"></i> <small>Verificar</small>
+                                    </div>}
                                 </button>
                             </div>
                         </div>
