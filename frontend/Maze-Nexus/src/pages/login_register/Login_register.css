@@ -19,13 +19,21 @@
     width: 100px;
 }
 
-.localInput input{
+/* .localInput input{
     width: 100%;
     height: 35px;
     border: 1px solid #646cff;
     border-radius: 10px;
     text-indent: 5px;
     font-size: 1em;
+} */
+.input-icon{
+    position: relative;
+}
+.input-icon i::before {
+    font-size: 1.5vw !important; 
+    position: absolute !important;
+    bottom: 6px;
 }
 
 .loginContent{
@@ -56,37 +64,10 @@
 .input-verify{
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 10px;
 }
 
-.successMessage {
-    position: fixed;
-    background-color: #0080009c;
-    padding: 15px;
-    border-radius: 10px;
-    backdrop-filter: blur(1px);
-    font-size: 2vw;
-    top: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-    margin: 20px;
-}
-.errorMessage {
-    position: fixed;
-    background-color: rgb(255 0 0 / 60%);
-    padding: 15px;
-    border-radius: 10px;
-    backdrop-filter: blur(1px);
-    font-size: 2vw;
-    top: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-    margin: 20px;
-    color: white;
-}
+
 .ok {
     color: green;
     font-weight: bold;
@@ -137,6 +118,9 @@
 }
 
 @media(max-width: 640px){
+    .input-icon i::before {
+        font-size: 5.5vw !important; 
+    }
     .btnNoChecking small{
         font-size: 4vw !important
     }

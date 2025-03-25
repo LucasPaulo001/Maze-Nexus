@@ -17,7 +17,7 @@ routerRegister.post('/register', async (req, res) => {
 
     //Senha de validação
     const length = 4
-    const verificationCode = crypto.randomBytes(length).toString('hex').toUpperCase().slice(0, length)
+    const verificationCode = Array.from({ length }, () => Math.floor(Math.random() * 10)).join("")
 
     //Token único para acesso a página de validação
     const tokenVerification = crypto.randomBytes(32).toString('hex')
@@ -164,6 +164,34 @@ routerRegister.post('/checkName', async (req, res) => {
     catch{
         console.log('Erro ao tentar verificar nome de usuário')
         return res.status(500).json({ error: 'Erro interno no servidor' })
+    }
+})
+
+//Rota para verificar senha de autenticação
+
+routerRegister.post('/verifyCode', async (req, res) => {
+    try{
+        const {otpValue} = req.body
+        console.log(otpValue)
+
+        const user = await User.findOne({verificationCode: otpValue})
+        const idUser = user._id
+
+        if(!user){
+            return res.status(400).json({message: 'Senha de verificação não existe!'})
+        }
+
+        if(user){
+            user.tokenVerification = null
+            user.isVerified = true
+
+            await user.save()
+            res.json({message: 'Autênticado com sucesso!',  ok: true})
+        }
+    }
+    catch(error){
+        res.status(500).json({message: 'Erro ao validar código!'})
+        console.log(error)
     }
 })
 

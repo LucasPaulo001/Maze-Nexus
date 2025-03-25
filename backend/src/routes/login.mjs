@@ -67,6 +67,10 @@ router.post('/login', async (req, res) => {
         if(!user){
             return res.json({message: 'Usuário não encontrado!'})
         }
+
+        if(!user.isVerified){
+            return res.json({message: 'Usuário não autênticado, verifique seu E-mail para mais informações!'})
+        }
         
         const okPass = await bcrypt.compare(password, user.password)
         if(!okPass){

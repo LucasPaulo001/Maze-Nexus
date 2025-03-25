@@ -5,7 +5,10 @@ export const AuthContext = createContext()
 
 //Criando o Provider
 export function AuthProvider({ children }){
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(() => {
+        const token = localStorage.getItem("token")
+        return token ? { token } : null
+    })
 
     useEffect(() => {
         const token = localStorage.getItem("token")

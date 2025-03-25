@@ -131,7 +131,11 @@ function Register() {
                         {/* Nome completo */}
                         <div className='localInput'>
                             <label htmlFor="name">Nome Completo:</label>
-                            <input type="text" name='name' placeholder='Informe seu nome...' value={name} onChange={(e) => setName(e.target.value)} />
+
+                            <div className='input-icon'>
+                                <i class="bi bi-person"></i>
+                                <input type="text" name='name' placeholder='Informe seu nome...' value={name} onChange={(e) => setName(e.target.value)} />
+                            </div>
                         </div>
                         {/* Nome de usuário */}
                         <div className='localInput'>
@@ -140,10 +144,14 @@ function Register() {
                                 <div className='input-verify'>
                                     {/* Input de username e botão de verificação */}
                 
-                                    <input type="text" name='username' placeholder='Informe seu nome de usuário...' value={username}
-                                    onChange={
-                                        (e) => setUsername(e.target.value)
-                                    } />
+                                    <div className='input-icon'>
+
+                                        <i class="bi bi-person-badge"></i>
+                                        <input type="text" name='username' placeholder='Informe seu nome de usuário...' value={username}
+                                        onChange={
+                                            (e) => setUsername(e.target.value)
+                                        } />
+                                    </div>
                                     {/* Botão de verificação */}
                                     <button className={`btn ${styles.btnVerify}`} type='button' onClick={checkUsername} disabled={isChecking}>
                                         {isChecking ?
@@ -161,34 +169,48 @@ function Register() {
                         </div>
                         <div className='localInput'>
                             <label htmlFor="email">E-mail:</label>
-                            <input type="email" name='email' placeholder='Informe seu email...' value={email} onChange={(e) => setEmail(e.target.value)} />
+
+                            <div className='input-icon'>
+                                <i class="bi bi-envelope"></i>
+                                <input type="email" name='email' placeholder='Informe seu email...' value={email} onChange={(e) => setEmail(e.target.value)} />
+                            </div>
                         </div>
                         <div className='localInput'>
                             <label htmlFor="dateBirth">Data de nascimento:</label>
-                            <input type="date" name='dateBirth' value={dateBirth} onChange={(e) => setDateBirth(e.target.value)} />
+                            <div className='input-icon'>
+                                <i class="bi bi-calendar"></i>
+                                <input type="date" name='dateBirth' value={dateBirth} onChange={(e) => setDateBirth(e.target.value)} />
+                            </div>
                         </div>
                         <div className='localInput'>
                             <label htmlFor="password">Senha:</label>
-                            <input
-                                type="password"
-                                name='password'
-                                placeholder='Informe sua senha...'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className={password.length > 0 && password.length < 6 ? "error" : ""}
-                            />
+                            <div className='input-icon'>
+
+                                <i class="bi bi-lock"></i>
+                                <input
+                                    type="password"
+                                    name='password'
+                                    placeholder='Informe sua senha...'
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className={password.length > 0 && password.length < 6 ? "error" : ""}
+                                />
+                            </div>
                             {password.length > 0 && password.length < 6 && <small className="error">A senha deve conter no mínimo 6 caracteres.</small>}
                         </div>
                         <div className='localInput'>
                             <label htmlFor="passReap">Repita a senha:</label>
-                            <input
-                                type="password"
-                                name='passReap'
-                                placeholder='Informe sua senha...'
-                                value={passReap}
-                                onChange={(e) => setPassReap(e.target.value)}
-                                className={passReap.length > 0 && passReap !== password ? "error" : ""}
-                            />
+                            <div className='input-icon'>
+                                <i class="bi bi-lock"></i>
+                                <input
+                                    type="password"
+                                    name='passReap'
+                                    placeholder='Informe sua senha...'
+                                    value={passReap}
+                                    onChange={(e) => setPassReap(e.target.value)}
+                                    className={passReap.length > 0 && passReap !== password ? "error" : ""}
+                                />
+                            </div>
                             {passReap.length > 0 && passReap !== password && <small className="error">As senhas não coincidem.</small>}
                         </div>
                         <div className='btns'>

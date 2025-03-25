@@ -1,33 +1,80 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styles from './Auth.module.css'
 import '../../App.css'
 import { Link } from "react-router-dom"
+import OTPinput from "./otpInput/OTPinput"
+import { useNavigate } from "react-router-dom"
+const urlVerify = 'http://localhost:1526/user/verifyCode'
 
 function Auth(){
-    const [code, setCode] = useState("")
+    const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
+    const [success, setSuccess] = useState("")
+    const [error, setError] = useState("")
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        console.log(code)
+    const handleOtpComplete = async (otp) => {
+        console.log("Código inserido:", otp);
+        // Aqui você pode chamar a API para validar o código
+        setLoading(true)
+        try{
+            setError("")
+            setSuccess("")
+            const res = await fetch(urlVerify, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({otpValue: otp})
+            })
+    
+            const dataJson = await res.json()
+            
+            if(dataJson.ok){
+                setTimeout(() => {
+                    setError("")
+                    setSuccess("Validado com sucesso! redirecionando...")
+                    setLoading(false)
+                }, 1500)
+                
+                setTimeout(() => {
+                    navigate('/login')
+                }, 1500)
+            }
+            else{
+                setTimeout(() => {
+                    setSuccess("")
+                    setError("Código de verificação incorreto!")
+                    setLoading(false)
+                }, 900)
+                
+            }
+            console.log(dataJson)
+        }
+        catch (error){
+            setLoading(false)
+            setError("Erro interno do servidor, tente novamente mais tarde!")
+            console.log(error)
+        }
+        
     }
 
     return(
-        <>
-            <div className={styles.localFormCode}>
-                <form className={styles.formInsert} onSubmit={handleSubmit} action="" method="post">
-                    <div className={styles.localInput}>
-                        <label htmlFor="code">Código de verificação</label>
-                        <input type="text"
-                        placeholder="Insira o código enviado no seu E-mail..."
-                        onChange={(e) => {setCode(e.target.value)}}
-                        />
-                    </div>
-                    <div className={styles.localBtn}>
-                        <button className="btnVerifyCode" type="submit">Verificar</button>
-                    </div>
-                </form>
+        
+        <div className={styles.localFormCode}>
+            {error && <div className="errorMessage">{error}</div>}
+            {success && <div className="successMessage">{success}</div>}
+            <h4>Enviamos um código de verificação para você via E-mail</h4>
+            <p>Digite para validar sua conta!</p>
+            <div className={styles.localOtp}>
+                <OTPinput length={4} onComplete={handleOtpComplete} />
             </div>
-        </>
+            {loading && (
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            )}
+        </div>
+        
     )
 }
 

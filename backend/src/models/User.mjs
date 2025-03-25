@@ -19,7 +19,7 @@ const UserSchema = Schema({
         required: false 
     },
     dateBirth: { type: Date, required: false },
-    verificationCode: { type: String, required: false },
+    verificationCode: { type: Number, required: false },
     verificationCodeExpires: { type: Date, required: false },
     tokenVerification: { type: String, required: false },
     isVerified: { type: Boolean, default: false }, 

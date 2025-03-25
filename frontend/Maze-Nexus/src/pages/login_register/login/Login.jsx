@@ -23,7 +23,7 @@ function Login(){
 
 
     useEffect(() => {
-        if (user) {
+        if (user?.token) {
             navigate('/')
         }
     }, [user, navigate])
@@ -51,6 +51,8 @@ function Login(){
             
             //Armazenando token no localstorage
             localStorage.setItem("token", data.token)
+
+            login(data.token)
 
             navigate('/')
         }
@@ -83,10 +85,10 @@ function Login(){
             //Armazenando token no localstorage
             localStorage.setItem("token", data.token)
 
-            // Atualizando o estado do usuário no contexto
+            //Atualizando o estado do usuário no contexto
             login(data.token)
 
-            // Redireciona para a página inicial após o login
+            //Redireciona para a página inicial após o login
             navigate('/')
         }
         if (data.user) {
@@ -109,15 +111,22 @@ function Login(){
                     <form onSubmit={handleLogin} id='formData' action="" method="post">
                         <div className='localInput'>
                             <label htmlFor="email">E-mail:</label>
-                            <input type="email" name='email' placeholder='Informe seu email...'
-                            onChange={(e) => {setEmail(e.target.value)}}
-                            />
+                            <div className='input-icon'>
+                                <i class="bi bi-envelope"></i>
+                                <input type="email" name='email' placeholder='Informe seu email...'
+                                onChange={(e) => {setEmail(e.target.value)}}
+                                />
+                            </div>
                         </div>
                         <div className='localInput'>
                             <label htmlFor="password">Senha:</label>
-                            <input type="password" name='password' placeholder='Informe sua senha...'
-                            onChange={(e) => {setPassword(e.target.value)}}
-                            />
+
+                            <div className='input-icon'>
+                                <i class="bi bi-lock"></i>
+                                <input type="password" name='password' placeholder='Informe sua senha...'
+                                onChange={(e) => {setPassword(e.target.value)}}
+                                />
+                            </div>
                         </div>
                         <div className='btns'>
                             <button className='btn'>Login</button>
