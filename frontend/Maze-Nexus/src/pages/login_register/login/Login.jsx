@@ -1,39 +1,64 @@
 import '../Login_register.css'
 import { Link } from 'react-router-dom'
 import styles from './Login.module.css'
-import { useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../../contexts/AuthContext'
 
-const url = 'http://localhost:1526/user/google-login'
+//Imagens
+import imgLogin from '../../.././../public/images/loginPage.png'
+
+const urlLoginGoogle = 'http://localhost:1526/user/google-login'
+const urlLoginCommom = 'http://localhost:1526/user/login'
 
 function Login(){
     
     let navigate = useNavigate()
+    const { user, login } = useContext(AuthContext)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
+
+
+    useEffect(() => {
+        if (user) {
+            navigate('/')
+        }
+    }, [user, navigate])
 
     //Função de submit do formulário de login
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault()
+    const handleLogin = async (e) => {
+        e.preventDefault()
 
-    //     try{
-    //         const res = await fetch(url, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-type': 'application/json'
-    //             },
-    //             body: JSON.stringify({email, password})
-    //         })
+        try{
+            const res = await fetch(urlLoginCommom, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({email, password})
+            })
 
-    //         const data = await res.json()
-    //         console.log(data)
-    //     }
-    //     catch{
-    //         console.log('Erro ao processar login1')
-    //     }
-    // }
+            const data = await res.json()
+            console.log(data)
+            if(!data.ok){
+                setError(data.message)
+                console.log(error)
+                return
+            }
+            
+            //Armazenando token no localstorage
+            localStorage.setItem("token", data.token)
+
+            navigate('/')
+        }
+        catch{
+            setError("Erro ao conectar com o servidor!")
+            console.log('Erro ao processar login1')
+        }
+    }
 
     //Login com o google
     const handleSuccess = async (response) => {
@@ -43,7 +68,7 @@ function Login(){
 
         const token = response.credential
 
-        const res = await fetch(url, {
+        const res = await fetch(urlLoginGoogle, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json" 
@@ -55,11 +80,17 @@ function Login(){
         console.log("Resposta do backend:", data);
         console.log("Valor de data.success:", data.success);
         if(data.success === true){
-            console.log("Redirecionando para a página inicial...")
+            //Armazenando token no localstorage
+            localStorage.setItem("token", data.token)
+
+            // Atualizando o estado do usuário no contexto
+            login(data.token)
+
+            // Redireciona para a página inicial após o login
             navigate('/')
         }
         if (data.user) {
-            window.opener.postMessage(data, "*");
+            window.opener.postMessage(data, "*")
         }
 
     }
@@ -70,33 +101,43 @@ function Login(){
 
     return(
         <>    
-            <div className='loginContent'>
-                <h1 className={styles.title}>Fazer Login</h1>
-                <form  id='formData' action="" method="post">
-                    <div className='localInput'>
-                        <label htmlFor="email">E-mail:</label>
-                        <input type="email" name='email' placeholder='Informe seu email...' 
-                        onChange={(e) => {setEmail(e.target.value)}}
+            {error && <div className="errorMessage">{error}</div>}
+            <div className="background">
+                <div className='loginContent'>
+                    <h1 className={styles.title}>Fazer Login</h1>
+                
+                    <form onSubmit={handleLogin} id='formData' action="" method="post">
+                        <div className='localInput'>
+                            <label htmlFor="email">E-mail:</label>
+                            <input type="email" name='email' placeholder='Informe seu email...'
+                            onChange={(e) => {setEmail(e.target.value)}}
+                            />
+                        </div>
+                        <div className='localInput'>
+                            <label htmlFor="password">Senha:</label>
+                            <input type="password" name='password' placeholder='Informe sua senha...'
+                            onChange={(e) => {setPassword(e.target.value)}}
+                            />
+                        </div>
+                        <div className='btns'>
+                            <button className='btn'>Login</button>
+                            <Link to="/register"><button className='btn'>Cadastro</button></Link>
+                        </div>
+                    </form>
+                    <div className={styles.divider}>
+                        <span>ou</span>
+                    </div>
+                    <GoogleOAuthProvider clientId={clientId}>
+                        <GoogleLogin
+                        onSuccess={handleSuccess}
+                        onError={handleFailure}
                         />
-                    </div>
-                    <div className='localInput'>
-                        <label htmlFor="password">Senha:</label>
-                        <input type="password" name='password' placeholder='Informe sua senha...' 
-                        onChange={(e) => {setPassword(e.target.value)}}
-                        />
-                    </div>
-                    <div className='btns'>
-                        <button className='btn'>Login</button>
-                        <Link to="/register"><button className='btn'>Cadastro</button></Link>
-                    </div>
-                </form>
-
-                <GoogleOAuthProvider clientId={clientId}>
-                    <GoogleLogin 
-                    onSuccess={handleSuccess}
-                    onError={handleFailure}
-                    />
-                </GoogleOAuthProvider>
+                    </GoogleOAuthProvider>
+                </div>
+                <div className={styles.localImage}>
+                    <h3>Conecte-se, ensine e aprenda!</h3>
+                    <img src={imgLogin} alt="" />
+                </div>
             </div>
         </>
     )

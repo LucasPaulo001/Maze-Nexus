@@ -14,9 +14,22 @@
     background-color: #ffffff;
     height: 100px;
     box-shadow: 1px 1px 6px #260E59;
-    margin-bottom: 2vw;
+    background-color: #ffffff38;
+    backdrop-filter: blur(1px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
 }
-
+.navbarLC{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    height: 100px;
+    color: black;
+}
 
 .navLink{
     color: rgb(0, 0, 0) !important;
@@ -25,23 +38,57 @@
     border: 1px solid white;
     padding: 10px;
     border-radius: 5px;
-    font-size: 1.8vw;
+    font-size: 1.5vw;
 }
 .linkList{
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logout{
+    display: flex;
+    height: 3vw;
+    width: auto;
+    border-radius: 5px;
+    width: 10vw;
+    gap: 5px;
+    background-color: #ff5050;
+    color: white;
+    border: none;
+    align-items: center;
+    justify-content: center;
+}
+.logout:hover{
+    background-color: #ff3939;
 }
 .linkList li{
     list-style: none;
     margin: .2em .9em;
-    font-size: 1.5vw;
+    font-size: 1.2vw;
 }
-.linkList li a{
+.navbar .textLogo{
+    color: rgb(0, 0, 0);
+}
+.navbarLC .textLogo{
+    color: rgb(255, 255, 255);
+}
+.navbar .linkList li a{
     padding: 1.3vw;
     transition: .2s ease-in-out;
     color: rgb(0, 0, 0);
     text-decoration: none;
     border-radius: 5px;
-    border: 1px solid transparent
+    border: 1px solid transparent;
+    color: rgb(0, 0, 0);
+}
+.navbarLC .linkList li a{
+    padding: 1.3vw;
+    transition: .2s ease-in-out;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    color: rgb(0, 0, 0);
 }
 .linkList li a:hover{
     border: 1px solid #260E59;

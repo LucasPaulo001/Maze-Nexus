@@ -2,12 +2,11 @@
     background-color: #260E59;
     color: rgb(255, 255, 255) !important;
 }
-.container{
-    min-height: 60vh;
+.containerBody{
     display: flex;
     justify-content: center;
-    margin-bottom: 5em;
 }
+
 .btnVerifyCode{
     height: 2.8em;
     font-weight: 700;

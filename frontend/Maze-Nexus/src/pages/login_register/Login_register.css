@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 30%;
+    width: 80%;
 }
 .btns{
     display: flex;
@@ -30,7 +30,7 @@
 
 .loginContent{
     margin-top: 4em;
-    width: 100%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     gap: 2em;
@@ -38,7 +38,13 @@
     /* height: 100vh; */
     align-items: center;
     flex-direction: column;
-    gap: 50px;
+    gap: 25px;
+    padding: 1.5em 0.2em;
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+    margin-bottom: 4em;
+    position: relative;
+    z-index: 9;
 }
 #msgErroPass{
     display: none;
@@ -118,11 +124,23 @@
     background-color: #7235f7;
     color: white;
 }
+.background{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-image: url('../../../../public/images/cool-background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    align-items: center; */
+}
 
 @media(max-width: 640px){
     .btnNoChecking small{
         font-size: 4vw !important
     }
+    
     #formData{
         width: 90%;
     }
@@ -134,5 +152,10 @@
     }
     .btns .btn{
         width: 100%;
+    }
+}
+@media(max-width: 800px){
+    .loginContent{
+        width: 95%;
     }
 }

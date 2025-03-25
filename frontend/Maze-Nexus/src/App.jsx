@@ -9,28 +9,41 @@ import Navbar from './components/navbar/Navbar'
 import About from './pages/about/About'
 import NotFound from './components/not_found/NotFound'
 import Footer from './components/footer/Footer'
+import PrivateRoute from './routes/PrivateRoute'
+import { AuthContext, AuthProvider } from './contexts/AuthContext'
+import { useContext } from 'react'
 
 //Config react router
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 
+
+
 function App() {
+
   return (
     <>
+    <AuthProvider>
       <BrowserRouter>
         <Navbar />
-        <div className='container'>
+        <div className='containerBody'>
           <Routes>
             <Route path='/verify/:token' element={<Auth />} />
             <Route path='/login' element={<Login />} />
             <Route path='/Register' element={<Register />} />
             <Route path='/about' element={<About />} />
             <Route path='*' element={<NotFound />} />
-            <Route path='/' element={<Home />} />
+            <Route path='/'
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            } />
           </Routes>
         </div>
         <Footer />
       </BrowserRouter>
+    </AuthProvider>
     </>
   )
 }

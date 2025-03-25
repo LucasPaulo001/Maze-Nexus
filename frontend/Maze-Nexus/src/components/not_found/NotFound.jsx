@@ -1,10 +1,12 @@
-
+import styles from './NotFound.module.css'
 
 const NotFound = () => {
   return (
     <>
-        <h1>404</h1>
-        <p>Página não encontrada...</p>
+        <div className={styles.contentNot}>
+          <h1>404</h1>
+          <p>Página não encontrada...</p>
+        </div>
     </>
   )
 }
