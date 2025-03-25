@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose"
 
 const UserSchema = Schema({
     name: { type: String, required: true },
@@ -6,24 +6,25 @@ const UserSchema = Schema({
     email: { type: String, required: true, unique: true },
     password: { 
         type: String, 
-        required: function () { return !this.googleId; }, // Obrigatório se não for login Google
+        required: function () { return !this.googleId; }, 
     },
     googleId: { 
         type: String, 
         unique: true, 
-        sparse: true // Permite que o googleId seja único sem validar se o campo está vazio
+        sparse: true 
     },
+
     googleProfilePicture: { 
         type: String, 
-        required: false // Caso você queira armazenar a foto de perfil do Google
+        required: false 
     },
     dateBirth: { type: Date, required: false },
     verificationCode: { type: String, required: false },
     verificationCodeExpires: { type: Date, required: false },
     tokenVerification: { type: String, required: false },
-    isVerified: { type: Boolean, default: false }, // Para verificar se o e-mail foi validado
+    isVerified: { type: Boolean, default: false }, 
 }, {
-    timestamps: true, // Garante que os campos createdAt e updatedAt sejam gerenciados automaticamente
-});
+    timestamps: true, 
+})
 
-export default mongoose.model('User', UserSchema);
+export default mongoose.model('User', UserSchema)
