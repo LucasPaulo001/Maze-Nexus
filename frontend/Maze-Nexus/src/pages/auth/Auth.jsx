@@ -14,7 +14,7 @@ function Auth(){
 
     const handleOtpComplete = async (otp) => {
         console.log("Código inserido:", otp);
-        // Aqui você pode chamar a API para validar o código
+        
         setLoading(true)
         try{
             setError("")
@@ -34,11 +34,11 @@ function Auth(){
                     setError("")
                     setSuccess("Validado com sucesso! redirecionando...")
                     setLoading(false)
-                }, 1500)
+                }, 3000)
                 
                 setTimeout(() => {
                     navigate('/login')
-                }, 1500)
+                }, 5000)
             }
             else{
                 setTimeout(() => {

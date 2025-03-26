@@ -1,5 +1,4 @@
 .contentFeed{
-    height: 100vh;
     display: grid;
     grid-template-columns: 20% 1fr 20%;
     column-gap: 3em;
@@ -9,6 +8,19 @@
     border: 1px solid #471ba7;
     border-radius: 5px;
     padding: 2em;
+}
+.loadingPosts{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 4em;
+}
+.nothing{
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .localBtnPost{
     display: flex;

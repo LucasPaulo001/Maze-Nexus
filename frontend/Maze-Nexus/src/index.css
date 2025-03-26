@@ -5,7 +5,13 @@
     position: absolute;
     margin: .7em;
 }
-
+ul{
+    padding: 0 !important;
+}
+li{
+    list-style: none;
+    padding: 0;
+}
 input{
     outline: none;
     border-left: 0;
@@ -18,28 +24,20 @@ input{
     font-size: 1em;
 }
 .successMessage {
-    position: fixed;
-    background-color: #0080009c;
+    background-color: rgba(51, 255, 0, 0.397);
     padding: 15px;
     border-radius: 10px;
     backdrop-filter: blur(1px);
-    font-size: 2vw;
-    top: 0;
-    left: 0;
-    right: 0;
+    font-size: 1vw;
     text-align: center;
     margin: 20px;
 }
 .errorMessage {
-    position: fixed;
     background-color: rgb(255 0 0 / 60%);
     padding: 15px;
     border-radius: 10px;
     backdrop-filter: blur(1px);
-    font-size: 2vw;
-    top: 0;
-    left: 0;
-    right: 0;
+    font-size: 1vw;
     text-align: center;
     margin: 20px;
     color: white;

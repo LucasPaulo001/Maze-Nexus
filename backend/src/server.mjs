@@ -33,9 +33,11 @@ connectDB(app)
 //Importação de rotas
 import routerRegister from './routes/register.mjs'
 import routerLogin from './routes/login.mjs'
+import routerPost from './routes/posts.mjs'
 
 app.use('/user', routerRegister)
 app.use('/user', routerLogin)
+app.use('/user', routerPost)
 
 //Inicialização do servidor
 const PORT = process.env.PORT

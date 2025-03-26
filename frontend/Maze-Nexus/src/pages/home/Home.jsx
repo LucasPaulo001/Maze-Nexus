@@ -1,10 +1,40 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './Home.module.css'
 import Post from '../../components/modais/post/Post'
+import PostStructure from '../../components/postStructure/PostStructure'
+const urlPosts = 'http://localhost:1526/user/posts'
 
 function Home(){
+    const [loading, setLoading] = useState(false)
+    const [posts, setPosts] = useState([])
     const [isClose, seClose] = useState(false)
     const [drop, setDrop] = useState(false)
+
+    const addNewPost = (newPost) => {
+        setPosts((prevPosts) => [newPost, ...prevPosts])
+    }
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            setLoading(true)
+            try{
+                const res = await fetch(urlPosts)
+
+                const resData = await res.json()
+                console.log(resData)
+                if(resData.ok){
+                    setTimeout(() => {
+                        setLoading(false)
+                    }, 1500)
+                    setPosts(resData.posts)
+                }
+            }
+            catch(error){
+                console.log(error)
+            }
+        }
+        fetchPosts()
+    }, [urlPosts])
 
     const handleOpenPost = () => {
         seClose(true)
@@ -47,10 +77,23 @@ function Home(){
                     </div>
 
                     {/* Componente de janela modal para post */}
-                    <Post isClose={isClose} setClose={seClose} />
+                    <Post isClose={isClose} setClose={seClose} addNewPost={addNewPost} />
     
-                    <h4>Janela de postagens</h4>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum dolore rerum ratione, aut minima id exercitationem perspiciatis delectus, ipsam illum similique cupiditate maxime neque expedita omnis esse debitis nam? Minima.
+                    {posts.length > 0 ? (
+                        posts.map((post) => <PostStructure key={post._id} post={post} />)
+                    ):( loading ? 
+                        (<div className={styles.loadingPosts}>
+                            <span>Carregando posts</span>
+                            <div class="spinner-grow text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>):(
+                            <div className={styles.nothing}>
+                                <h4>Nenhum post por aqui...</h4>
+                            </div>
+                            
+                        )
+                    )}
                 </div>
 
                 {/* Janela de Sugestões e conteúdos relevântes */}

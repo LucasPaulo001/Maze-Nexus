@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 
 //Imagens
-import imgLogin from '../../.././../public/images/loginPage.png'
+import imgLogin from '../../../../public/images/loginPage.png'
 
 const urlLoginGoogle = 'http://localhost:1526/user/google-login'
 const urlLoginCommom = 'http://localhost:1526/user/login'
@@ -103,10 +103,18 @@ function Login(){
 
     return(
         <>    
-            {error && <div className="errorMessage">{error}</div>}
             <div className="background">
                 <div className='loginContent'>
-                    <h1 className={styles.title}>Fazer Login</h1>
+                    <div>
+                        <h1 className={styles.title}>Fazer Login</h1>
+                        {error &&
+                            <div className='d-flex justify-content-center'>
+                                <div className="errorMessage">
+                                    {error}
+                                </div>
+                            </div>
+                        }
+                    </div>
                 
                     <form onSubmit={handleLogin} id='formData' action="" method="post">
                         <div className='localInput'>
