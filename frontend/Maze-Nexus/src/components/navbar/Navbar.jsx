@@ -33,7 +33,16 @@ function Navbar(){
                 {user ? (
                     <>
                         <li>
-                            <NavLink to="/">Início</NavLink>
+                            <NavLink to="/">
+                                <i class="bi bi-house-door-fill"></i>
+                                <small>Início</small>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/notifications">
+                                <i class="bi bi-bell-fill"></i>
+                                <small>Notificações</small>
+                            </NavLink>
                         </li>
                         <li>
                             <NavLink to="/about">Sobre</NavLink>

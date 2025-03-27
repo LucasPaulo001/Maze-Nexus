@@ -5,7 +5,7 @@
     background-color: white;
     border: 1px solid rgba(137, 43, 226, 0.425);
     height: 150px;
-    width: 150px;
+    width: 400px;
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -13,15 +13,30 @@
 .listTools{
     width: 100%;
     display: flex;
+    padding: .5em !important;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+}
+.listTools li i{
+    font-size: 1.3em;
 }
 .listTools li{
     width: 100%;
-    text-align: center;
     padding: 8px 0;
     transition: .4s ease-in-out;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: .5em;
+    border-radius: 6px;
+}
+.spinner{
+    position: absolute;
+    left: 2px;
+}
+.spinner span{
+    font-size: 1.5em;
 }
 .listTools li:hover{
     background-color: rgba(137, 43, 226, 0.342);

@@ -7,12 +7,15 @@ const urlPosts = 'http://localhost:1526/user/posts'
 function Home(){
     const [loading, setLoading] = useState(false)
     const [posts, setPosts] = useState([])
+    const [postEdit, setPostEdit] = useState(null)
     const [isClose, seClose] = useState(false)
     const [drop, setDrop] = useState(false)
 
-    const addNewPost = (newPost) => {
-        setPosts((prevPosts) => [newPost, ...prevPosts])
+    //Função para atualizar feed ao fazer postagem ou editar postagens
+    const addNewPost = (post) => {
+        setPosts((prevPosts) => [post, ...prevPosts])
     }
+    console.log(addNewPost)
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -36,7 +39,12 @@ function Home(){
         fetchPosts()
     }, [urlPosts])
 
-    const handleOpenPost = () => {
+    const removePostDeleted = (postId) => {
+        setPosts(posts.filter(post => post._id !== postId))
+    }
+
+    const handleOpenPost = (post) => {
+        setPostEdit(post)
         seClose(true)
     }
     const handleEnter = () => {
@@ -62,7 +70,6 @@ function Home(){
 
                 {/* Janela de postagens */}
                 <div className={styles.toolFeed}>
-
                     {/* Input para iniciar publicações */}
                     <div className={styles.localBtnPost}>
                         <div className={styles.contentBtns}>
@@ -77,10 +84,18 @@ function Home(){
                     </div>
 
                     {/* Componente de janela modal para post */}
-                    <Post isClose={isClose} setClose={seClose} addNewPost={addNewPost} />
+                    {console.log(addNewPost)}
+                    {isClose && (
+                        <Post 
+                            isClose={isClose} 
+                            setClose={seClose} 
+                            addNewPost={addNewPost} 
+                            postEdit={postEdit}
+                        />
+                    )}
     
                     {posts.length > 0 ? (
-                        posts.map((post) => <PostStructure key={post._id} post={post} />)
+                        posts.map((post) => <PostStructure key={post._id} post={post} removePost={removePostDeleted} handleOpenPost={handleOpenPost} />)
                     ):( loading ? 
                         (<div className={styles.loadingPosts}>
                             <span>Carregando posts</span>
@@ -98,7 +113,7 @@ function Home(){
 
                 {/* Janela de Sugestões e conteúdos relevântes */}
                 <div className={styles.toolRelevants}>
-                    <h4>Janela de Sugestões e conteúdos relevântes</h4>
+                    <h4>Janela de Sugestões e conteúdos relevantes</h4>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum iusto numquam quas nobis pariatur incidunt doloremque. Porro pariatur ullam cumque debitis id itaque suscipit, voluptatum, labore doloremque cum impedit laudantium?
                 </div>
             </div>

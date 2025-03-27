@@ -4,9 +4,9 @@ import styles from './Post.module.css'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { jwtDecode } from 'jwt-decode'
-const urlPost = 'http://localhost:1526/user/post'
 
-const Post = ({isClose, setClose, addNewPost}) => {
+//PostEdit são os dados do post passado para edição
+const Post = ({postEdit, isClose, setClose, addNewPost}) => {
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [success, setSuccess] = useState("")
@@ -14,16 +14,26 @@ const Post = ({isClose, setClose, addNewPost}) => {
     const navigate = useNavigate()
 
     useEffect(() => {
+        if (postEdit) {
+            setTitle(postEdit.title);
+            setContent(postEdit.content);
+        }
+    }, [postEdit]);
+
+    useEffect(() => {
         setClose(isClose)
     }, [isClose, setClose])
 
     const handleClose = () => {
         setClose(false)
-        setTitle("")
-        setContent("")
+        //Os inputs são reiniciados caso não seja edição
+        if(!postEdit){
+            setTitle("")
+            setContent("")
+        }
+
         setSuccess("")
     }
-
     //Função para postar
     const handlePost = async (e) => {
         e.preventDefault()
@@ -32,7 +42,19 @@ const Post = ({isClose, setClose, addNewPost}) => {
             const token = localStorage.getItem("token")
             const decoded = jwtDecode(token)
             const idUser = decoded.id
-            const res = await fetch(urlPost, {
+
+            //Caso seja edição muda de api
+            let url = ""
+            if(postEdit){
+                 url = `http://localhost:1526/user/update/post/${postEdit._id}`
+            }
+            else{
+                url = "http://localhost:1526/user/post"
+            }
+
+            console.log(typeof(postEdit))
+
+            const res = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -44,8 +66,10 @@ const Post = ({isClose, setClose, addNewPost}) => {
             console.log(resData)
             if(resData.ok){
                 addNewPost(resData.post)
+                
                 setSuccess("Postagem feita com sucesso!")
             }
+            handleClose()
         }
         catch(error){
             setError("Erro interno, por favor tente novamente!")
@@ -77,8 +101,11 @@ const Post = ({isClose, setClose, addNewPost}) => {
                             >
 
                             </textarea>
+                            
                         </div>
-                        <button type='submit' className='btn btnPost btn-outline-success'>Publicar</button>
+                        <button type='submit' className='btn btnPost btn-outline-success'>
+                           Publicar
+                        </button>
                     </form>
                 </div>
             </div>

@@ -40,5 +40,48 @@ routerPost.get('/posts', async (req, res) => {
     }
 })
 
+//Rota para excluir posts
+
+routerPost.post('/delete/post/:id', async (req, res) => {
+    try{
+        const { id } = req.params
+
+        const post = await Post.findByIdAndDelete(id)
+
+        if(!post){
+           return res.json({message: 'Postagem não encontrada!'})
+        }
+
+        res.json({message: 'Post deletado com sucesso!', post, id, ok: true})
+    }
+    catch(error){
+        res.status(500).json({message: 'Erro interno, por favor tente novamente!'})
+        console.log(error)
+    }
+})
+
+//Rota para editar postagens
+
+routerPost.post('/update/post/:id', async (req, res) => {
+    try{
+        const { id } = req.params
+        const { title, content } = req.body
+
+        const attPost = await Post.findByIdAndUpdate(id, 
+        {content: content, title: title}, 
+        { new: true })
+
+        if(!attPost){
+            return res.json({message: 'Postagem não encontrada!'})
+        }
+
+        res.json({message: 'Postagem atualizada com sucesso!', attPost, ok: true})
+    }
+    catch(error){
+        res.status(500).json({message: 'Erro interno, tente novamente!'})
+        console.log(error)
+    }
+})
+
 
 export default routerPost
