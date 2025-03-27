@@ -38,21 +38,20 @@ const Post = ({postEdit, isClose, setClose, addNewPost}) => {
     const handlePost = async (e) => {
         e.preventDefault()
 
+        //Validações
+        if(!content){
+            setError("Preecha o(s) campos!")
+            return
+        }
+
         try{
             const token = localStorage.getItem("token")
             const decoded = jwtDecode(token)
             const idUser = decoded.id
 
             //Caso seja edição muda de api
-            let url = ""
-            if(postEdit){
-                 url = `http://localhost:1526/user/update/post/${postEdit._id}`
-            }
-            else{
-                url = "http://localhost:1526/user/post"
-            }
+            let url = "http://localhost:1526/user/post"
 
-            console.log(typeof(postEdit))
 
             const res = await fetch(url, {
                 method: 'POST',
@@ -65,11 +64,13 @@ const Post = ({postEdit, isClose, setClose, addNewPost}) => {
             const resData = await res.json()
             console.log(resData)
             if(resData.ok){
-                addNewPost(resData.post)
-                
                 setSuccess("Postagem feita com sucesso!")
+                setError("")
+                addNewPost(resData.post)
             }
-            handleClose()
+            await setTimeout(() => {
+                handleClose()
+            }, 800)
         }
         catch(error){
             setError("Erro interno, por favor tente novamente!")

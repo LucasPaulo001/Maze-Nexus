@@ -27,13 +27,29 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 5px;
     padding: .5em;
     border-radius: 6px;
 }
-.spinner{
-    position: absolute;
-    left: 2px;
+.list{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.btnsCondition{
+    gap: 10px;
+    display: flex;
+    gap: 10px;
+    display: none;
+}
+.openConditions{
+    background-color: white;
+    border-radius: 5px;
+    padding: .4em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 .spinner span{
     font-size: 1.5em;

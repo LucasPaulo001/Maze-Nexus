@@ -70,6 +70,7 @@ routerPost.post('/update/post/:id', async (req, res) => {
         const attPost = await Post.findByIdAndUpdate(id, 
         {content: content, title: title}, 
         { new: true })
+        .populate('author', 'username')
 
         if(!attPost){
             return res.json({message: 'Postagem não encontrada!'})

@@ -7,13 +7,14 @@ const urlPosts = 'http://localhost:1526/user/posts'
 function Home(){
     const [loading, setLoading] = useState(false)
     const [posts, setPosts] = useState([])
-    const [postEdit, setPostEdit] = useState(null)
-    const [isClose, seClose] = useState(false)
+    const [isClose, setClose] = useState(false)
     const [drop, setDrop] = useState(false)
 
     //Função para atualizar feed ao fazer postagem ou editar postagens
-    const addNewPost = (post) => {
-        setPosts((prevPosts) => [post, ...prevPosts])
+    const addNewPost = (newPost, isEditing = false) => {
+        setPosts((prevPosts) => isEditing 
+        ? prevPosts.map((p) => (p._id === newPost._id ? newPost : p))
+        :[newPost, ...prevPosts])
     }
     console.log(addNewPost)
 
@@ -43,9 +44,8 @@ function Home(){
         setPosts(posts.filter(post => post._id !== postId))
     }
 
-    const handleOpenPost = (post) => {
-        setPostEdit(post)
-        seClose(true)
+    const handleOpenPost = () => {
+        setClose(true)
     }
     const handleEnter = () => {
         setDrop(true)
@@ -88,14 +88,13 @@ function Home(){
                     {isClose && (
                         <Post 
                             isClose={isClose} 
-                            setClose={seClose} 
+                            setClose={setClose} 
                             addNewPost={addNewPost} 
-                            postEdit={postEdit}
                         />
                     )}
     
                     {posts.length > 0 ? (
-                        posts.map((post) => <PostStructure key={post._id} post={post} removePost={removePostDeleted} handleOpenPost={handleOpenPost} />)
+                        posts.map((post) => <PostStructure key={post._id} post={post} removePost={removePostDeleted} handleOpenPost={handleOpenPost} addNewPost={addNewPost} />)
                     ):( loading ? 
                         (<div className={styles.loadingPosts}>
                             <span>Carregando posts</span>
