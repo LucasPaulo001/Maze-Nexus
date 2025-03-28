@@ -14,7 +14,7 @@ router.post("/google-login", async (req, res) => {
     try {
 
         console.log('Corpo da requisição: ', req.body)
-        const { credential } = req.body; // Token JWT do Google enviado pelo frontend
+        const { credential } = req.body; 
 
         // Verifica e decodifica o token do Google
         const ticket = await client.verifyIdToken({
@@ -34,9 +34,9 @@ router.post("/google-login", async (req, res) => {
                 name: payload.name,
                 email: payload.email,
                 picture: payload.picture,
-                googleId: payload.sub, // Armazena o ID do Google
+                googleId: payload.sub, 
                 isVerified: true,
-                password: "", // Usuário do Google não precisa de senha
+                password: "",
             });
 
             await user.save();

@@ -16,7 +16,6 @@ function Home(){
         ? prevPosts.map((p) => (p._id === newPost._id ? newPost : p))
         :[newPost, ...prevPosts])
     }
-    console.log(addNewPost)
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -84,7 +83,6 @@ function Home(){
                     </div>
 
                     {/* Componente de janela modal para post */}
-                    {console.log(addNewPost)}
                     {isClose && (
                         <Post 
                             isClose={isClose} 

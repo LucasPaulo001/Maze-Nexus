@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import styles from './PostStructure.module.css'
 import ToolPosts from '../toolPosts/ToolPosts'
 import { jwtDecode } from 'jwt-decode'
+import Comments from '../modais/comments/Comments'
 
 const PostStructure = ({post, removePost, addNewPost}) => {
     const token = localStorage.getItem('token')
@@ -11,6 +12,7 @@ const PostStructure = ({post, removePost, addNewPost}) => {
     const [like, setLike] = useState(post.likes.includes(userId))
     const [likeCounts, setLikeCounts] = useState(post.likes.lenght)
     const [menuTool, setMenuTool] = useState(false)
+    const [commentsWindow, setCommentsWindow] = useState(false)
 
     const handleLike = async () => {
         // Envia a requisição ao backend para adicionar/remover o like
@@ -41,15 +43,22 @@ const PostStructure = ({post, removePost, addNewPost}) => {
         setMenuTool(prevMenuTool => !prevMenuTool)
     }
 
+    //Janela de comentários
+    const handleOpenComments = () => {
+        setCommentsWindow(true)
+    }
+
   return (
     <div className={styles.post}>
         <div className={styles.dataAuthor}>
             <div>
-                <span>Author: </span><strong>{post.author.username}</strong>
+                <span>Author: </span><strong>{post.author.username || post.author.name}</strong>
             </div>
 
             <div className={styles.toolPosts}>
-                <botton><i onClick={handleOpenTools} class="bi bi-three-dots"></i></botton>
+                <botton>
+                    <i onClick={handleOpenTools} class="bi bi-three-dots"></i>
+                </botton>
             </div>
             <div className={menuTool ? styles.open : styles.close}>
                 <ToolPosts post={post} author={post.author._id} postId={post._id} updateList={removePost}  addNewPost={addNewPost}/>
@@ -72,7 +81,17 @@ const PostStructure = ({post, removePost, addNewPost}) => {
                     <span>{likeCounts}</span>
                     {post.likes.username}
                 </div>
-                <i class="bi bi-chat-left-dots"></i>
+                <div>
+                    <button onClick={handleOpenComments}>
+                        <i class="bi bi-chat-left-dots"></i>
+                    </button>
+
+                    {/* Janela de comentários */}
+                    <div className={commentsWindow ? styles.openComment : styles.CloseComment}>
+                        <Comments postData={post} isClose={commentsWindow} setClose={setCommentsWindow} />
+                    </div>
+                    
+                </div>
             </div>
         </div>
     </div>

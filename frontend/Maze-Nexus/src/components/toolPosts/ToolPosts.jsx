@@ -62,13 +62,10 @@ const ToolPosts = ({post, postId, updateList, author, addNewPost}) => {
     setClose(true)
   }
 
-  useEffect(() => {
-    console.log("isClose mudou para:", isClose);
-  }, [isClose]);
-
   return (
     <div className={styles.toolMenu}>
         <ul className={styles.listTools}>
+          {/* Links de postagens do autor */}
           {isAuthor ? (
             <>
               <li onClick={handleOpenPost}>
@@ -112,15 +109,21 @@ const ToolPosts = ({post, postId, updateList, author, addNewPost}) => {
               </li>
             </>
           ) : (
+            // Links de publicações de terceiros
             <>
-              <li>
+            <li>
+              <div className={styles.list}>
                 <i class="bi bi-bookmark"></i>
                 Salvar
-              </li>
-              <li>
-                <i class="bi bi-flag"></i>
-                Denunciar publicação
-              </li>
+              </div>
+            </li>
+
+            <li>
+              <div className={styles.list}>
+                  <i class="bi bi-flag"></i>
+                  Denunciar publicação
+              </div>
+            </li>
             </>
           )}
         </ul>
