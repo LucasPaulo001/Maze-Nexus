@@ -70,3 +70,14 @@
 .localTools i:hover{
     color: blueviolet;
 }
+.localLike{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+@media(max-width: 640px){
+    .localTools i{
+        font-size: 6vw;
+    }
+}

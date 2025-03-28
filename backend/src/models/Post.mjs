@@ -13,7 +13,11 @@ const PostSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
-    }
+    },
+    likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 })
 
 export default mongoose.model('Post', PostSchema)

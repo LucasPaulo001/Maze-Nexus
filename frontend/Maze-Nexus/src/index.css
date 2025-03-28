@@ -58,6 +58,10 @@ input{
     justify-content: center;
 }
 
+.windowEdit .edit{
+    transform: translateX(0);
+}
+
 .edit{
     background-color: white;
     padding: 2em;
@@ -93,4 +97,13 @@ input{
     padding: .8em;
     border: none;
     outline: none;
+}
+
+@media(max-width: 640px){
+    .edit{
+        width: 95%;
+    }
+    .edit i{
+        font-size: 7vw;
+    }
 }

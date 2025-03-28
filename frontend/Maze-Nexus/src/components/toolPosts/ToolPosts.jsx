@@ -25,9 +25,6 @@ const ToolPosts = ({post, postId, updateList, author, addNewPost}) => {
     }
     setCondition(true)
   }
-
-  console.log(resp)
-
     useEffect(() => {
       if(resp){
         setLoading(true)

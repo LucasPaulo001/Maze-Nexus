@@ -1,19 +1,40 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './PostStructure.module.css'
 import ToolPosts from '../toolPosts/ToolPosts'
+import { jwtDecode } from 'jwt-decode'
 
 const PostStructure = ({post, removePost, addNewPost}) => {
-    const [like, setLike] = useState(false)
+    const token = localStorage.getItem('token')
+    const decoded = token ? jwtDecode(token) : null
+    const userId = decoded?.id
+
+    const [like, setLike] = useState(post.likes.includes(userId))
+    const [likeCounts, setLikeCounts] = useState(post.likes.lenght)
     const [menuTool, setMenuTool] = useState(false)
 
-    const handleLike = () => {
-        if(like){
-            setLike(false)
+    const handleLike = async () => {
+        // Envia a requisição ao backend para adicionar/remover o like
+        try {
+            const url = `http://localhost:1526/user/like/post/${post._id}`;
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userId }),
+            });
+            const resJson = await res.json();
+
+            if (resJson.liked) {
+                setLike(true)
+                setLikeCounts(resJson.likeCount)
+            } else {
+                setLike(false);
+                setLikeCounts(resJson.likeCount);
+            }
+        } catch (error) {
+            console.log(error);
         }
-        else{
-            setLike(true)
-        }
-        console.log(menuTool)
     }
 
     const handleOpenTools = () => {
@@ -38,7 +59,7 @@ const PostStructure = ({post, removePost, addNewPost}) => {
             <h3>{post.title}</h3>
             <p>{post.content}</p>
             <div className={styles.localTools}>
-                <div onClick={handleLike}>
+                <div className={styles.localLike} onClick={handleLike}>
                     {like ? (
                         <button className={styles.like}>
                             <i class="bi bi-heart-fill"></i>
@@ -48,6 +69,8 @@ const PostStructure = ({post, removePost, addNewPost}) => {
                             <i class="bi bi-heart"></i>
                         </button>
                     )}
+                    <span>{likeCounts}</span>
+                    {post.likes.username}
                 </div>
                 <i class="bi bi-chat-left-dots"></i>
             </div>

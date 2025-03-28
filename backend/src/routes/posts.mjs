@@ -84,5 +84,36 @@ routerPost.post('/update/post/:id', async (req, res) => {
     }
 })
 
+//Rota para likes
+
+routerPost.post('/like/post/:postId', async (req, res) => {
+    try{
+        const { postId } = req.params
+        const { userId } = req.body
+
+        const post = await Post.findById(postId)
+
+        if(!post){
+            return res.status(404).json({message: 'Postagem não encontrada!'})
+        }
+
+        const alreadyLike = post.likes.includes(userId)
+
+        if(alreadyLike){
+            await Post.findByIdAndUpdate(postId, { $pull: { likes: userId } })
+            res.json({message: 'Like removido!',likeCount: post.likes.length - 1, liked: false})
+        }
+        else{
+            await Post.findByIdAndUpdate(postId, { $addToSet: { likes: userId } })
+            res.json({message: 'Like adicionado!', likeCount: post.likes.length + 1, liked: true})
+        }
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).json({message: 'Erro interno, por favor tente novamente mais tarde!'})
+    }
+
+})
+
 
 export default routerPost

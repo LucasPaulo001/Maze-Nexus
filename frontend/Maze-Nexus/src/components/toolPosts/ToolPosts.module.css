@@ -13,7 +13,7 @@
 .listTools{
     width: 100%;
     display: flex;
-    padding: .5em !important;
+    padding: .5em;
     flex-direction: column;
     align-items: flex-start;
 }
@@ -56,5 +56,16 @@
 }
 .listTools li:hover{
     background-color: rgba(137, 43, 226, 0.342);
+}
 
+@media(max-width: 640px){
+    .toolMenu{
+        width: 250px;
+    }
+    .listTools{
+        padding: 0;
+    }
+    .listTools li{
+        flex-direction: column;
+    }
 }
