@@ -1,0 +1,13 @@
+.editComment{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.editComment form{
+    width: 100%;
+}
+.editComment i{
+    position: absolute;
+    right: 0;
+    top: 0;
+}

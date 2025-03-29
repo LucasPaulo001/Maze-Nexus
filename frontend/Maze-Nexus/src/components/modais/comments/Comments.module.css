@@ -45,11 +45,25 @@
 }
 .toolComment{
     display: flex;
-    gap: 10px;
+    gap: 4em;
+}
+.liked:active{
+   color: blueviolet;
+   transform: scale(1.3);
 }
 .dataComment{
     display: flex;
     justify-content: space-between;
+    position: relative;
+}
+.dataComment button{
+    z-index: 9;
+}
+.openToolComment{
+    display: flex;
+}
+.closeToolComment{
+    display: none;
 }
 
 @media(max-width: 640px){

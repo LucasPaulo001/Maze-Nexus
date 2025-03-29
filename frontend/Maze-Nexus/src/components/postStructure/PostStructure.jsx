@@ -14,6 +14,7 @@ const PostStructure = ({post, removePost, addNewPost}) => {
     const [menuTool, setMenuTool] = useState(false)
     const [commentsWindow, setCommentsWindow] = useState(false)
 
+
     const handleLike = async () => {
         // Envia a requisição ao backend para adicionar/remover o like
         try {

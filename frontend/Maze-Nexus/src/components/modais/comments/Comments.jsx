@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react'
 import styles from './Comments.module.css'
 import { jwtDecode } from 'jwt-decode'
+import ToolComments from '../../toolComments/ToolComments'
 
 const Comments = ({setClose, postData}) => {
+
+    //Buscando dados do usuário do token e decodificando
     const token = localStorage.getItem("token")
     const decode = jwtDecode(token)
     const userId = decode.id
 
+    //Estados de componentes
     const [comment, setComment] = useState([])
     const [newComment, setNewComment] = useState("")
-    const [likeComment, setLikeComment] = useState()
+    const [like, setLike] = useState()
+    const [isToolComment, setIsToolComment] = useState({})
 
     const url = `http://localhost:1526/user/post/comment/${postData._id}`
 
@@ -19,7 +24,6 @@ const Comments = ({setClose, postData}) => {
     }
 
     //Buscando comentários
-   
     const fetchData = async () => {
         try{
             const res = await fetch(url)
@@ -31,6 +35,7 @@ const Comments = ({setClose, postData}) => {
         }
     } 
 
+    //Chamando a função de busca de dados toda vez que o componente atualizar
     useEffect(() => {
         fetchData()
     }, [postData._id])
@@ -56,7 +61,9 @@ const Comments = ({setClose, postData}) => {
                 setComment((prevComments) => [...prevComments, json.newComment])
                 setNewComment("")
                 fetchData()
-                console.log(comment)
+            }
+            else{
+                console.log('erro')
             }
         }
         catch(error){
@@ -66,21 +73,36 @@ const Comments = ({setClose, postData}) => {
 
     //Função para dar like no comentário
     const handleLikeComment = async (commentId) => {
+        try{
+            const urlLikeComment = `http://localhost:1526/user/post/${postData._id}/comment/${commentId}/like`
 
-        const urlLikeComment = `http://localhost:1526/user/post/${postData._id}/comment/${commentId}/like`
+            const res = await fetch(urlLikeComment, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({ userId })
+            })
 
-        const res = await fetch(urlLikeComment, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({ userId })
-        })
-
-        const json = await res.json()
-        if(json.ok){
-
+            const json = await res.json()
+            if(json.ok){
+                console.log(json.liked)
+                console.log(json.newLike)
+                setLike(json.newLike)
+                fetchData()
+            }
         }
+        catch(error){
+            console.log(error)
+        }
+    }
+
+    //Função para abrir ferramentas de comentários
+    const handleToolComment = (commentId) => {
+        setIsToolComment((prev) => ({
+            ...prev,
+        [commentId]: !prev[commentId],
+        }))
     }
 
 
@@ -100,17 +122,36 @@ const Comments = ({setClose, postData}) => {
                             <span> 
                                 <strong>{comment.userId.username || comment.userId.name}</strong>
                             </span>
-                            <i class="bi bi-three-dots"></i>
+
+                            {/* Botão de janela de ferramentas para comentários */}
+                            <button onClick={() => handleToolComment(comment._id)}>
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+
+                            {/* Janela de Ferramentas de comentários */}
+                            {isToolComment[comment._id] && 
+                                <div className='windowTool'>
+                                    <ToolComments 
+                                    attComments={fetchData()} //Função para requisitar novamente os dados
+                                    commentValue={comment.comment}
+                                    commentId={comment._id} 
+                                    postId={postData._id} 
+                                    author={comment.userId._id} />
+                                </div> 
+                            }
                         </div>
                         {/* Comentário */}
                         {comment.comment}
                         {/* Interassão com o comentário - like e respostas */}
                         <div className={styles.toolComment}>
-                            <button onClick={() => {handleLikeComment(comment._id)}}>
+                            <button className={styles.liked} onClick={() => {handleLikeComment(comment._id)}}>
+                                
                                 <i class="bi bi-hand-thumbs-up"></i>
+                                {/* <span>{comment.likes.length}</span> */}
                             </button>
                             <i class="bi bi-chat-left-text"></i>
                         </div>
+                        
                         <hr />
                     </div>
                     
@@ -118,6 +159,7 @@ const Comments = ({setClose, postData}) => {
             ) : (
                 <p>Seja o primeiro a comentar!</p>
             )}
+            
         </div>
 
         <form onSubmit={handleComment}>

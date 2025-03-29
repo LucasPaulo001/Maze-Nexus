@@ -180,16 +180,19 @@ routerPost.post('/post/:postId/comment/:commentId/like', async (req, res) => {
 
         const alreadyLike = comment.likes.includes(userId)
 
-        if(!alreadyLike){
-            comment.likes = comment.likes.filter(id => id !== userId)
+        if(alreadyLike){
+            comment.likes = comment.likes.filter(id => id.toString() !== userId)
+            //res.json({liked: false})
         }
         else{ 
             comment.likes.push(userId)
+            //res.json({liked: true})
         }
 
         await post.save()
+        const newLike = comment.likes.length
 
-        res.json({message: 'Like adicionado ao comentário', ok: true})
+        res.json({message: 'Like adicionado ao comentário', ok: true, liked: true, newLike})
 
     }
     catch(error){
