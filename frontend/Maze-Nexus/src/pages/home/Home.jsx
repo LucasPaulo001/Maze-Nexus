@@ -92,7 +92,14 @@ function Home(){
                     )}
     
                     {posts.length > 0 ? (
-                        posts.map((post) => <PostStructure key={post._id} post={post} removePost={removePostDeleted} handleOpenPost={handleOpenPost} addNewPost={addNewPost} />)
+                        posts.map((post) => 
+                        <PostStructure key={post._id} 
+                        post={post} 
+                        removePost={removePostDeleted} 
+                        handleOpenPost={handleOpenPost} 
+                        addNewPost={addNewPost} 
+                        
+                        />)
                     ):( loading ? 
                         (<div className={styles.loadingPosts}>
                             <span>Carregando posts</span>

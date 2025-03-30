@@ -58,6 +58,9 @@
     padding: .8em;
     border-radius: 5px;
 }
+.closeEdit{
+    display: none;
+}
 
 @media(max-width: 640px){
     .formEditRes{
@@ -68,9 +71,19 @@
         left: 0;
         top: 46%;
         z-index: 99;
+        padding: 3em;
     }
     .formEditRes button{
-        top: 46%;
+        top: 50%;
+    }
+    .closeEdit{
+        display: flex;
+        top: 44% !important;
+    }
+    .closeEdit i::before{
+        background-color: red;
+        border-radius: 20px;
+        color: white;
     }
     .formEditRes i{
         z-index: 999;

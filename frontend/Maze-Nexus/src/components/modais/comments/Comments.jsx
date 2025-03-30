@@ -118,6 +118,8 @@ const Comments = ({setClose, postData}) => {
 
   return (
     <div className={styles.comments}>
+        <h4>Comentários:</h4>
+        <hr />
         <div className={styles.close}>
             <i onClick={handleClose} class="bi bi-x-circle"></i>
         </div>
@@ -166,16 +168,18 @@ const Comments = ({setClose, postData}) => {
                             
 
                             {/* Botão de comentar */}
-                            <button onClick={() => handleOpenResp(comment._id)}>
+                            <button className='d-flex gap-2' onClick={() => handleOpenResp(comment._id)}>
                                 <i class="bi bi-chat-left-text"></i>
+                                {comment.responses.length}
                             </button>
                             
                         </div>
                        
                         {/* Componente de resposta */}
                         {resp[comment._id] && 
-                            <div className= {resp ? "d-flex w-100" : "d-none"}>
+                            <div className= {resp ? "d-flex flex-column w-100" : "d-none"}>
                                 <InputResp
+                                comment={comment}
                                 commentId={comment._id}
                                 postId={postData._id}
                                 commentAuthor={comment.userId} 

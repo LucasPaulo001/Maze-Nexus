@@ -11,6 +11,9 @@ routerToolPost.delete('/post/:postId/delete/:commentId', async (req, res) => {
 
         const { postId, commentId } = req.params
 
+        //Deletando todas as respostas associadas ao comentário
+        await Response.deleteMany({ commentId })
+
         // Deletando o comentário do banco
         const comment = await Comments.findByIdAndDelete(commentId)
 

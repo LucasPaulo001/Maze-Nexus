@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import styles from './InputResp.module.css'
 import { jwtDecode } from 'jwt-decode'
 
-const InputResp = ({fetchDataReload, commentId, postId, commentAuthor}) => {
+const InputResp = ({commentId, commentAuthor}) => {
 
   //Pegando dados do usuário logado e que fez o comentário
   const token = localStorage.getItem("token")
@@ -128,95 +128,103 @@ const InputResp = ({fetchDataReload, commentId, postId, commentAuthor}) => {
   }
 
   return (
-    
-    <div className={responses.length > 0 
-    ? `${styles.contentResps} w-100` 
-    : `${ styles.noComments }`}>
+    <>
+    <hr />
+      <h5>Respostas:</h5>
+      <div className={responses.length > 0 
+      ? `${styles.contentResps} w-100` 
+      : `${ styles.noComments }`}>
 
-      {/* Informando as respostas ao usuário */}
-      {responses.length > 0 ? ((
-        responses.map((resp, index) => (
-          <div className={styles.localResp} key={index}>
-            <div className={styles.toolResponses}>
-              <span>
-                <strong>{resp.userId.username || resp.userId.name}: </strong>
-              </span>
+        {/* Informando as respostas ao usuário */}
+        {responses.length > 0 ? ((
+          responses.map((resp, index) => (
+            <div className={styles.localResp} key={index}>
+              <div className={styles.toolResponses}>
+                <span>
+                  <strong>{resp.userId.username || resp.userId.name}: </strong>
+                </span>
 
-              {/* Ferramentas de respostas */}
-              {resp.userId._id === userId 
-              ?
-                <>
-                  <span className={styles.toolsRes}>
-                    {/* Apagar respostas */}
-                    <div className={styles.localIcons}>
-                      <button onClick={() => handleDeleteRes(resp._id)}>
-                        <i class="bi bi-trash"></i>
-                      </button>
-
-
-                      {/* Editar respostas */}
-                      <button
-                      onClick={() => {
-                        setIdRes((prevIdRes) => {
-                          const newIdRes = prevIdRes === resp._id ? null : resp._id;
-                          setOpenEdit(newIdRes !== null);
-                          
-                          if (newIdRes) {
-                            setNewRes(resp.response); // Preenche o input com o valor correto da resposta
-                          }
-                      
-                          return newIdRes;
-                        });
-                      }}>
-
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                    </div>
-                    {/* Formulário de edição de respostas */}
-                    {idRes === resp._id && (
-                      <form onSubmit={handleEditRes} 
-                      className={openEdit 
-                      ? `${styles.formEditRes} d-flex` 
-                      : `d-none`}>
-                        <button type='submit'>
-                          <i class="bi bi-check-circle"></i>
+                {/* Ferramentas de respostas */}
+                {resp.userId._id === userId 
+                ?
+                  <>
+                    <span className={styles.toolsRes}>
+                      {/* Apagar respostas */}
+                      <div className={styles.localIcons}>
+                        <button onClick={() => handleDeleteRes(resp._id)}>
+                          <i class="bi bi-trash"></i>
                         </button>
+
+
+                        {/* Editar respostas */}
+                        <button
+                        onClick={() => {
+                          setIdRes((prevIdRes) => {
+                            const newIdRes = prevIdRes === resp._id ? null : resp._id;
+                            setOpenEdit(newIdRes !== null);
+                            
+                            if (newIdRes) {
+                              setNewRes(resp.response); // Preenche o input com o valor correto da resposta
+                            }
                         
-                        <input type="text" 
-                        onChange={(e) => setNewRes(e.target.value)} 
-                        value={newRes} 
-                        
-                        />
-                      </form>
-                    )}
-                  </span>
-                </>
-              :
-                <i class="bi bi-flag"></i>
-              }
+                            return newIdRes;
+                          });
+                        }}>
+
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                      </div>
+
+                      {/* Formulário de edição de respostas */}
+                      {idRes === resp._id && (
+                        <form onSubmit={handleEditRes} 
+                        className={openEdit 
+                        ? `${styles.formEditRes} d-flex` 
+                        : `d-none`}>
+
+                          <button type='submit'>
+                            <i class="bi bi-check-circle"></i>
+                          </button>
+                          <button onClick={() => setOpenEdit(null)} className={styles.closeEdit}>
+                            <i class="bi bi-x-circle"></i>
+                          </button>
+                          
+                          <input type="text" 
+                          onChange={(e) => setNewRes(e.target.value)} 
+                          value={newRes} 
+                          
+                          />
+                        </form>
+                      )}
+                    </span>
+                  </>
+                :
+                  <i class="bi bi-flag"></i>
+                }
+              </div>
+              <span>{resp.response}</span>
+
+              <hr />
             </div>
-            <span>{resp.response}</span>
+          ))
+        )):(
+          <><p>Sem respostas por aqui...</p></>
+        )}
+        
+          <form onSubmit={handleResp}
+          className={`${styles.inputResp} w-100 d-flex`}>
+              <input 
+              onChange={(e) => {setResponse(e.target.value)}}
+              type="text" 
+              value={response} 
+              placeholder={`Responder ${commentAuthor.username || commentAuthor.name}`}/>
 
-            <hr />
-          </div>
-        ))
-      )):(
-        <><p>Sem respostas por aqui...</p></>
-      )}
-      
-        <form onSubmit={handleResp}
-        className={`${styles.inputResp} w-100 d-flex`}>
-            <input 
-            onChange={(e) => {setResponse(e.target.value)}}
-            type="text" 
-            value={response} 
-            placeholder={`Responder ${commentAuthor.username || commentAuthor.name}`}/>
-
-            <button type='submit'>
-                <i class="bi bi-send"></i>
-            </button>
-        </form>
-    </div>
+              <button type='submit'>
+                  <i class="bi bi-send"></i>
+              </button>
+          </form>
+      </div>
+    </>
   )
 }
 

@@ -13,8 +13,9 @@ const PostStructure = ({post, removePost, addNewPost}) => {
     const [likeCounts, setLikeCounts] = useState(post.likes.lenght)
     const [menuTool, setMenuTool] = useState(false)
     const [commentsWindow, setCommentsWindow] = useState(false)
+    const [quantComments, setQuantComments] = useState(post.comments.length)
 
-
+    //Função para dar like no post
     const handleLike = async () => {
         // Envia a requisição ao backend para adicionar/remover o like
         try {
@@ -83,8 +84,9 @@ const PostStructure = ({post, removePost, addNewPost}) => {
                     {post.likes.username}
                 </div>
                 <div>
-                    <button onClick={handleOpenComments}>
+                    <button className='d-flex align-items-center gap-2' onClick={handleOpenComments}>
                         <i class="bi bi-chat-left-dots"></i>
+                        <span>{quantComments}</span>
                     </button>
 
                     {/* Janela de comentários */}
