@@ -28,6 +28,7 @@ const ToolComments = ({attComments, commentValue, commentId, postId, author}) =>
         const dataJson = await res.json()
         if(dataJson.ok){
           setLoading(false)
+          console.log(dataJson)
         }
       }
       catch(error){

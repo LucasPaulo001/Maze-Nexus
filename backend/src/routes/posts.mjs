@@ -1,5 +1,7 @@
 import express from 'express'
 import Post from '../models/Post.mjs'
+import Comments from '../models/Comments.mjs'
+
 const routerPost = express.Router()
 
 //Rota para postagem no feed
@@ -115,64 +117,47 @@ routerPost.post('/like/post/:postId', async (req, res) => {
 })
 
 //Rota para comentários
-routerPost.post('/post/comment/:postId', async (req, res) => {
-    try{
+routerPost.post('/post/:postId/comment', async (req, res) => {
+    try {
         const { postId } = req.params
         const { userId, comment } = req.body
-        const newComment = { userId, comment }
 
-        const post = await Post.findById(postId)
-        .populate('comments.userId', 'name username')
+        const newComment = new Comments({ postId, userId, comment })
+        await newComment.save()
 
-        if(!post){
-            return res.status(404).json({message: 'Postagem não encontrada!'})
-        }
+        // Adicionar o ID do comentário ao post
+        await Post.findByIdAndUpdate(postId, { $push: { comments: newComment._id } })
 
-        post.comments.push(newComment)
-        await post.save()
-
-        res.json({message: 'Comentário feito com sucesso!', ok: true, newComment })
-
-    }
-    catch(error){
+        res.json({ message: 'Comentário adicionado com sucesso!', ok: true, newComment })
+    } catch (error) {
         console.log(error)
-        res.status(500).json({message: 'Erro interno do servidor!'})
+        res.status(500).json({ message: 'Erro interno do servidor!' })
     }
 })
+
 
 //Rota para buscar comentários
-routerPost.get('/post/comment/:postId', async (req, res) => {
-    try{
+routerPost.get('/post/:postId/comment', async (req, res) => {
+    try {
         const { postId } = req.params
-        const post = await Post.findById(postId)
-        .populate('comments.userId', 'name username')
 
-        if(!post){
-            return res.status(404).json({comment: 'Postagem não encontrada!'})
-        }
-
-        res.json({comment: post.comments})
-
-    }
-    catch(error){
+        const comments = await Comments.find({ postId })
+        .populate('userId', 'name username')
+        res.json({ comments, ok: true })
+    } catch (error) {
         console.log(error)
-        res.status(500).json({message: 'Erro interno do servidor!'})
+        res.status(500).json({ message: 'Erro interno do servidor!' })
     }
 })
 
+
 //Rota para curtir comentários
-routerPost.post('/post/:postId/comment/:commentId/like', async (req, res) => {
+routerPost.post('/comment/:commentId/like', async (req, res) => {
     try{
-        const { postId, commentId } = req.params
+        const { commentId } = req.params
         const { userId } = req.body
 
-        const post = await Post.findById(postId)
-
-        if(!post){
-            return res.status(500).json({message: 'Postagem não encontrada'})
-        }
-
-        const comment = post.comments.id(commentId)
+        const comment = await Comments.findById(commentId)
 
         if(!comment){
             return res.status(404).json({message: 'Comentário não encontrado!'})
@@ -189,7 +174,7 @@ routerPost.post('/post/:postId/comment/:commentId/like', async (req, res) => {
             //res.json({liked: true})
         }
 
-        await post.save()
+        await comment.save()
         const newLike = comment.likes.length
 
         res.json({message: 'Like adicionado ao comentário', ok: true, liked: true, newLike})

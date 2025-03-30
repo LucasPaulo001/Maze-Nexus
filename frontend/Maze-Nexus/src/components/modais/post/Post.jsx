@@ -49,7 +49,7 @@ const Post = ({postEdit, isClose, setClose, addNewPost}) => {
             const decoded = jwtDecode(token)
             const idUser = decoded.id
 
-            //Caso seja edição muda de api
+            
             let url = "http://localhost:1526/user/post"
 
 

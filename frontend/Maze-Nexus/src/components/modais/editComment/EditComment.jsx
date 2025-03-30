@@ -7,12 +7,14 @@ const EditComment = ({postId, commentId, setOpen, isOpen, commentValue}) => {
     //const [value, setValue] = useState(commentValue)
     const [value, setValue] = useState(commentValue)
     const [success, setSuccess] = useState("")
+    //console.log(isEditd)
 
     const handleClose = () => {
         setOpen(!isOpen)
     }
 
-    const url = `http://localhost:1526/user/post/${postId}/${commentId}`
+    const url = `http://localhost:1526/user/comment/${commentId}`
+
     //Função para editar comentário
       const handleEditComment = async (e) => {
         e.preventDefault()

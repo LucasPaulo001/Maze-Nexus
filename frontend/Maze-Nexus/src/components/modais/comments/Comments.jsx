@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import styles from './Comments.module.css'
 import { jwtDecode } from 'jwt-decode'
 import ToolComments from '../../toolComments/ToolComments'
+import InputResp from '../../inputRespComment/InputResp'
 
 const Comments = ({setClose, postData}) => {
 
@@ -15,8 +16,10 @@ const Comments = ({setClose, postData}) => {
     const [newComment, setNewComment] = useState("")
     const [like, setLike] = useState()
     const [isToolComment, setIsToolComment] = useState({})
+    const [resp, setResp] = useState(false)
+    const [responses, setResponses] = useState({})
 
-    const url = `http://localhost:1526/user/post/comment/${postData._id}`
+    const url = `http://localhost:1526/user/post/${postData._id}/comment`
 
     //Função de fechamento de comentários
     const handleClose = () => {
@@ -28,7 +31,7 @@ const Comments = ({setClose, postData}) => {
         try{
             const res = await fetch(url)
             const data = await res.json()
-            setComment(data.comment)
+            setComment(data.comments)
         }
         catch(error){
             console.log(error)
@@ -74,7 +77,7 @@ const Comments = ({setClose, postData}) => {
     //Função para dar like no comentário
     const handleLikeComment = async (commentId) => {
         try{
-            const urlLikeComment = `http://localhost:1526/user/post/${postData._id}/comment/${commentId}/like`
+            const urlLikeComment = `http://localhost:1526/user/comment/${commentId}/like`
 
             const res = await fetch(urlLikeComment, {
                 method: 'POST',
@@ -105,6 +108,13 @@ const Comments = ({setClose, postData}) => {
         }))
     }
 
+    //Função para abrir input de respostas (responder comentários)
+    const handleOpenResp = (commentId) => {
+        setResp((res) => ({
+            ...res, [commentId]: !res[commentId]
+        }))
+    }
+
 
   return (
     <div className={styles.comments}>
@@ -112,7 +122,7 @@ const Comments = ({setClose, postData}) => {
             <i onClick={handleClose} class="bi bi-x-circle"></i>
         </div>
         <div className={styles.bodyComment}>
-            {comment.length > 0 ? (
+            {Array.isArray(comment) && comment.length > 0 ? (
                 comment.map((comment, index) => (
                     // Corpo do comentário
                     <div className={styles.contentComment} key={index}>
@@ -136,21 +146,44 @@ const Comments = ({setClose, postData}) => {
                                     commentValue={comment.comment}
                                     commentId={comment._id} 
                                     postId={postData._id} 
-                                    author={comment.userId._id} />
+                                    author={comment.userId._id} 
+                                    
+                                    />
                                 </div> 
                             }
                         </div>
                         {/* Comentário */}
                         {comment.comment}
+
                         {/* Interassão com o comentário - like e respostas */}
                         <div className={styles.toolComment}>
+
+                            {/* Botão de like */}
                             <button className={styles.liked} onClick={() => {handleLikeComment(comment._id)}}>
-                                
                                 <i class="bi bi-hand-thumbs-up"></i>
-                                {/* <span>{comment.likes.length}</span> */}
+                                {comment.likes.length}
                             </button>
-                            <i class="bi bi-chat-left-text"></i>
+                            
+
+                            {/* Botão de comentar */}
+                            <button onClick={() => handleOpenResp(comment._id)}>
+                                <i class="bi bi-chat-left-text"></i>
+                            </button>
+                            
                         </div>
+                       
+                        {/* Componente de resposta */}
+                        {resp[comment._id] && 
+                            <div className= {resp ? "d-flex w-100" : "d-none"}>
+                                <InputResp
+                                commentId={comment._id}
+                                postId={postData._id}
+                                commentAuthor={comment.userId} 
+                                //fetchDataReload={fetchData()}
+                                />
+                                                
+                            </div>
+                        }
                         
                         <hr />
                     </div>
