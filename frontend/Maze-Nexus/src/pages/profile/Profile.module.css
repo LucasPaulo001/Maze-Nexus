@@ -1,0 +1,16 @@
+.bodyProfile{
+    height: 100vh;
+    width: 100%;
+}
+.listLinks{
+    display: flex;
+    justify-content: space-between;
+}
+.listLinks li{
+    cursor: pointer;
+    opacity: .7;
+    border-bottom: 2px solid transparent;
+}
+.listLinks li:hover{
+    border-bottom: 2px solid blueviolet;
+}

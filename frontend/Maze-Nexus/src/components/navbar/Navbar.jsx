@@ -3,8 +3,25 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useContext, useState } from 'react'
 import { NavLink } from "react-router-dom"
+import { jwtDecode } from 'jwt-decode'
 
 function Navbar(){
+    //Dados do usuário logado
+    const token = localStorage.getItem("token")
+    let userId = null
+    if(token){
+        try{
+            const decode = jwtDecode(token)
+            userId = decode.id
+        }
+        catch(error){
+            console.log(error)
+            localStorage.removeItem("token")
+        }
+    }
+    
+    
+
     const [loading, setLoading] = useState(false)
     const {user, logout} = useContext(AuthContext)
     const navigate = useNavigate()
@@ -21,6 +38,7 @@ function Navbar(){
 
     return(
         <nav className={user ? styles.navbar : styles.navbarLC}>
+            {/* Logo */}
             <span>
                 <NavLink 
                 to="/"
@@ -29,6 +47,7 @@ function Navbar(){
                     <span className='textLogo'>Maze Nexus</span>
                 </NavLink>
             </span>
+            {/* Links do navbar */}
             <ul className={styles.linkList}>
                 {user ? (
                     <>
@@ -44,12 +63,9 @@ function Navbar(){
                                 <small>Notificações</small>
                             </NavLink>
                         </li>
-                        <li>
+                        {/* <li>
                             <NavLink to="/about">Sobre</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/profile">Perfil</NavLink>
-                        </li>
+                        </li> */}
                         <li>
                             <button className={styles.logout} onClick={handlelogout}>
                                 {loading ? (
@@ -63,6 +79,11 @@ function Navbar(){
                                     "Sair"
                                 )}
                             </button>
+                        </li>
+                        <li className={styles.profile}>
+                            <NavLink to={`/profile/${userId}`}>
+                                <i class="bi bi-person-circle"></i>
+                            </NavLink>
                         </li>
                     </>
                 ) : (

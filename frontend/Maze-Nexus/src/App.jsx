@@ -12,9 +12,11 @@ import Footer from './components/footer/Footer'
 import PrivateRoute from './routes/PrivateRoute'
 import { AuthContext, AuthProvider } from './contexts/AuthContext'
 import { useContext } from 'react'
+import Profile from './pages/profile/Profile'
 
 //Config react router
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+
 
 
 
@@ -32,6 +34,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/Register' element={<Register />} />
             <Route path='/about' element={<About />} />
+            <Route path='/profile/:userId' element={<Profile />} />
             <Route path='*' element={<NotFound />} />
             <Route path='/'
             element={

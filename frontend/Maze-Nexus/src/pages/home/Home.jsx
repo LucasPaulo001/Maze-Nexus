@@ -59,7 +59,7 @@ function Home(){
     return(
         <>
         {/* Feed */}
-            <div className={styles.contentFeed}>
+            <div className='contentFeed'>
 
                 {/* Janela de grupos e outras informações */}
                 <div className={styles.toolsMenu}>
@@ -93,7 +93,8 @@ function Home(){
     
                     {posts.length > 0 ? (
                         posts.map((post) => 
-                        <PostStructure key={post._id} 
+                        <PostStructure 
+                        key={post._id} 
                         post={post} 
                         removePost={removePostDeleted} 
                         handleOpenPost={handleOpenPost} 
