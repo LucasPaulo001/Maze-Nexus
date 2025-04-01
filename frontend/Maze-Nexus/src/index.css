@@ -9,7 +9,8 @@
     display: grid;
     grid-template-columns: 20% 1fr 20%;
     column-gap: 3em;
-    
+    margin-bottom: 20%;
+    margin-top: 2em;
 }
 .bodyPage{
     margin: 2em 3em;
@@ -104,8 +105,12 @@ input{
     height: 250px;
     text-indent: 15px;
     padding: .8em;
-    border: none;
+    border-bottom: 1px solid blueviolet;
+    border-left: 1px solid blueviolet;
+    border-right: 1px solid blueviolet;
+    border-top: none;
     outline: none;
+    margin-top: 2em;
 }
 
 .windowTool{

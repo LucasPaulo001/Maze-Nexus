@@ -35,7 +35,8 @@ const MyPosts = ({userId}) => {
     }, [userId])
 
   return (
-    <div>
+    <div className={styles.posts}>
+        <h4 className='mt-4'>Postagens: {posts.length} post(s) </h4>
         {
             loading ? (
                 <div class="spinner-grow text-primary d-flex justify-content-center" role="status">
@@ -50,7 +51,7 @@ const MyPosts = ({userId}) => {
             ))
             )
             :(
-                <p>Você não fez nenhuma postagem...</p>
+                <p>Você não tem postagens...</p>
             ) 
         }
     </div>

@@ -45,22 +45,6 @@
     justify-content: center;
     align-items: center;
 }
-.logout{
-    display: flex;
-    height: 3vw;
-    width: auto;
-    border-radius: 5px;
-    width: 10vw;
-    gap: 5px;
-    background-color: #ff5050;
-    color: white;
-    border: none;
-    align-items: center;
-    justify-content: center;
-}
-.logout:hover{
-    background-color: #ff3939;
-}
 .linkList li{
     list-style: none;
     margin: .2em .9em;

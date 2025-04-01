@@ -20,21 +20,7 @@ function Navbar(){
         }
     }
     
-    
-
-    const [loading, setLoading] = useState(false)
     const {user, logout} = useContext(AuthContext)
-    const navigate = useNavigate()
-
-    const handlelogout = () => {
-        setLoading(true)
-
-        setInterval(() => {
-            logout()
-            navigate('/login')
-        }, 900)
-        
-    }
 
     return(
         <nav className={user ? styles.navbar : styles.navbarLC}>
@@ -66,20 +52,7 @@ function Navbar(){
                         {/* <li>
                             <NavLink to="/about">Sobre</NavLink>
                         </li> */}
-                        <li>
-                            <button className={styles.logout} onClick={handlelogout}>
-                                {loading ? (
-                                    <>
-                                    Saindo...
-                                    <div className="spinner-grow text-light" role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                    </div>
-                                    </>
-                                ) : (
-                                    "Sair"
-                                )}
-                            </button>
-                        </li>
+                        
                         <li className={styles.profile}>
                             <NavLink to={`/profile/${userId}`}>
                                 <i class="bi bi-person-circle"></i>

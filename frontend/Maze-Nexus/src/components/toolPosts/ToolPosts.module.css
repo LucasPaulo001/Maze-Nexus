@@ -17,6 +17,10 @@
     flex-direction: column;
     align-items: flex-start;
 }
+
+.list button, .list{
+    width: 100% !important;
+}
 .listTools li i{
     font-size: 1.3em;
 }

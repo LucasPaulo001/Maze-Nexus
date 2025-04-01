@@ -1,6 +1,6 @@
 .bodyProfile{
-    height: 100vh;
     width: 100%;
+    margin-bottom: 20%;
 }
 .listLinks{
     display: flex;
@@ -13,4 +13,30 @@
 }
 .listLinks li:hover{
     border-bottom: 2px solid blueviolet;
+}
+.logout{
+    display: flex;
+    height: 3vw;
+    width: auto;
+    border-radius: 5px;
+    width: 10vw;
+    gap: 5px;
+    background-color: #ff5050;
+    color: white;
+    border: none;
+    align-items: center;
+    justify-content: center;
+}
+.logout:hover{
+    background-color: #ff3939;
+}
+.topProfile{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.bio{
+    height: 25vh;
+    background-color: #8a2be217;
+    border-radius: 10px;
 }

@@ -2,6 +2,7 @@
     border: 1px solid #471ba7;
     border-radius: 5px;
     padding: 2em;
+    max-height: 50%;
 }
 .loadingPosts{
     display: flex;

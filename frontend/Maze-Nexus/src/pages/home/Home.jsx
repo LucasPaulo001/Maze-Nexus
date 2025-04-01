@@ -64,7 +64,7 @@ function Home(){
                 {/* Janela de grupos e outras informações */}
                 <div className={styles.toolsMenu}>
                     <h4>Janela de grupos e outras informações</h4>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus sapiente rerum corporis magnam veritatis eum repudiandae quasi necessitatibus, obcaecati consectetur, perferendis facilis cum earum, reprehenderit eligendi totam commodi ipsum maiores.
+                    
                 </div>
 
                 {/* Janela de postagens */}
@@ -119,7 +119,7 @@ function Home(){
                 {/* Janela de Sugestões e conteúdos relevântes */}
                 <div className={styles.toolRelevants}>
                     <h4>Janela de Sugestões e conteúdos relevantes</h4>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum iusto numquam quas nobis pariatur incidunt doloremque. Porro pariatur ullam cumque debitis id itaque suscipit, voluptatum, labore doloremque cum impedit laudantium?
+                   
                 </div>
             </div>
         </>

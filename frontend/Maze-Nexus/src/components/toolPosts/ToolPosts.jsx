@@ -15,6 +15,7 @@ const ToolPosts = ({post, postId, updateList, author, addNewPost}) => {
   const token = localStorage.getItem("token")
   const loggedUser = token ? jwtDecode(token) : null
   const isAuthor = loggedUser && loggedUser.id === author
+  const userId = loggedUser.id
 
   //Função para deletar postagem
   const handleDelete = () => {
@@ -58,8 +59,23 @@ const ToolPosts = ({post, postId, updateList, author, addNewPost}) => {
       }
     }, [resp])
 
+  //Abrir janela de postagem
   const handleOpenPost = () => {
     setClose(true)
+  }
+
+  //Salvar postagem
+  const handleSave = async () => {
+    const res = await fetch(`http://localhost:1526/user/profile/${userId}/post/${postId}`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+
+    const resJson = await res.json()
+    console.log(userId, postId)
+    console.log(resJson)
   }
 
   return (
@@ -113,8 +129,10 @@ const ToolPosts = ({post, postId, updateList, author, addNewPost}) => {
             <>
             <li>
               <div className={styles.list}>
-                <i class="bi bi-bookmark"></i>
-                Salvar
+                <button onClick={handleSave} className='d-flex align-items-center gap-2'>
+                  <i class="bi bi-bookmark"></i>
+                  Salvar
+                </button>
               </div>
             </li>
 
