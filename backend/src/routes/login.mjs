@@ -45,7 +45,10 @@ router.post("/google-login", async (req, res) => {
 
         //Gerando token
         const token = jwt.sign(
-            {id: user._id, email: user.email},
+            {id: user._id, 
+            email: user.email,
+            postsSaves: user.postsSaves
+            },
             process.env.JWT_SECRET,
             { expiresIn: "2h" }
         )

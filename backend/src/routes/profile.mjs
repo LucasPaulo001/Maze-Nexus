@@ -88,7 +88,6 @@ routerProfile.post('/profile/:userId/post/:postId', async (req, res) => {
             { $addToSet: { postsSaves: postId } },
             { new: true }
         )
-        .populate('author', 'name username')
 
         if(!user){
             return res.status(404).json({message: 'Usuário não encontrado'})
@@ -122,9 +121,32 @@ routerProfile.get('/profile/:userId/savedPosts', async (req, res) => {
         //Filtrando os posts salvos a partir do array de ids 
         const savedPosts = await Post.find({ _id: { $in: user.postsSaves } })
         .populate('author', 'name username')
+        console.log(savedPosts)
 
         res.status(200).json({message: 'Posts salvos encontrados: ', posts: savedPosts})
 
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).json({message: 'Erro interno do servidor'})
+    }
+})
+
+//Rota para remover postagens salvas
+routerProfile.delete('/profile/:userId/post/:postId', async (req, res) => {
+    try{
+        const { postId, userId } = req.params
+
+        const user = await User.findByIdAndUpdate(userId,
+            { $pull: { postsSaves: postId } },
+            { new: true }
+        )
+
+        if(!user){
+            return res.status(404).json({message: 'Usuário não encontrado'})
+        }
+
+        res.status(200).json({message: 'Postagem removida dos salvos!'})
     }
     catch(error){
         console.log(error)

@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react"
 import styles from './PostsSaved.module.css'
 import PostStructure from "../postStructure/PostStructure"
+import { useContext } from "react"
+import { PostContext } from "../../contexts/PostsContext"
 
 const PostsSaved = ({userId}) => {
     const [savedPosts, setSavedPosts] = useState([])
     const [loading, setLoading] = useState(false)
+    const [savedConfirm, setSavedConfirm] = useState(null)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -16,6 +19,7 @@ const PostsSaved = ({userId}) => {
 
                 console.log(resJson.posts)
                 setSavedPosts(resJson.posts)
+                setSavedConfirm(true)
                 setLoading(false)
             }
             catch(error){
@@ -36,10 +40,11 @@ const PostsSaved = ({userId}) => {
                     <span class="visually-hidden">Loading...</span>
                 </div>
             ):savedPosts.length > 0 ?
-             (savedPosts.map((post) => (
+             (savedPosts.map((saved) => (
                 <PostStructure 
-                key={post._id} 
-                post={post}
+                key={saved._id} 
+                post={saved}
+                savedPosts={savedConfirm}
                 />
             ))
             )

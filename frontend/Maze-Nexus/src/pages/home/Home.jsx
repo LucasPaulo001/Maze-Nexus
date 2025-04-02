@@ -1,47 +1,51 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styles from './Home.module.css'
 import Post from '../../components/modais/post/Post'
 import PostStructure from '../../components/postStructure/PostStructure'
+import { PostContext } from '../../contexts/PostsContext'
 const urlPosts = 'http://localhost:1526/user/posts'
 
 function Home(){
-    const [loading, setLoading] = useState(false)
-    const [posts, setPosts] = useState([])
+    
     const [isClose, setClose] = useState(false)
     const [drop, setDrop] = useState(false)
+    const { posts, loading } = useContext(PostContext)
 
     //Função para atualizar feed ao fazer postagem ou editar postagens
-    const addNewPost = (newPost, isEditing = false) => {
-        setPosts((prevPosts) => isEditing 
-        ? prevPosts.map((p) => (p._id === newPost._id ? newPost : p))
-        :[newPost, ...prevPosts])
-    }
+    // const addNewPost = (newPost, isEditing = false) => {
+    //     setPosts((prevPosts) => isEditing 
+    //     ? prevPosts.map((p) => (p._id === newPost._id ? newPost : p))
+    //     :[newPost, ...prevPosts])
+    // }
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            setLoading(true)
-            try{
-                const res = await fetch(urlPosts)
+    // useEffect(() => {
+    //     const fetchPosts = async () => {
+    //         setLoading(true)
+    //         try{
+    //             const res = await fetch(urlPosts)
 
-                const resData = await res.json()
-                console.log(resData)
-                if(resData.ok){
-                    setTimeout(() => {
-                        setLoading(false)
-                    }, 1500)
-                    setPosts(resData.posts)
-                }
-            }
-            catch(error){
-                console.log(error)
-            }
-        }
-        fetchPosts()
-    }, [urlPosts])
+    //             const resData = await res.json()
+    //             console.log(resData)
+    //             if(resData.ok){
+    //                 setTimeout(() => {
+    //                     setLoading(false)
+    //                 }, 1500)
+    //                 setPosts(resData.posts)
+    //             }
+    //         }
+    //         catch(error){
+    //             console.log(error)
+    //         }
+    //     }
+    //     fetchPosts()
+    // }, [urlPosts])
 
-    const removePostDeleted = (postId) => {
-        setPosts(posts.filter(post => post._id !== postId))
-    }
+    //Exibir postagens no feed
+
+
+    // const removePostDeleted = (postId) => {
+    //     setPosts(posts.filter(post => post._id !== postId))
+    // }
 
     const handleOpenPost = () => {
         setClose(true)
@@ -87,7 +91,7 @@ function Home(){
                         <Post 
                             isClose={isClose} 
                             setClose={setClose} 
-                            addNewPost={addNewPost} 
+             
                         />
                     )}
     
@@ -96,10 +100,8 @@ function Home(){
                         <PostStructure 
                         key={post._id} 
                         post={post} 
-                        removePost={removePostDeleted} 
                         handleOpenPost={handleOpenPost} 
-                        addNewPost={addNewPost} 
-                        
+    
                         />)
                     ):( loading ? 
                         (<div className={styles.loadingPosts}>

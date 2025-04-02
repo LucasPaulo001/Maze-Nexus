@@ -10,42 +10,40 @@ import About from './pages/about/About'
 import NotFound from './components/not_found/NotFound'
 import Footer from './components/footer/Footer'
 import PrivateRoute from './routes/PrivateRoute'
-import { AuthContext, AuthProvider } from './contexts/AuthContext'
-import { useContext } from 'react'
+import { AuthProvider } from './contexts/AuthContext'
+import { PostProvider } from './contexts/PostsContext'
 import Profile from './pages/profile/Profile'
 
 //Config react router
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-
-
-
-
 
 function App() {
 
   return (
     <>
     <AuthProvider>
-      <BrowserRouter>
-        <Navbar />
-        <div className='containerBody'>
-          <Routes>
-            <Route path='/verify/:token' element={<Auth />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/Register' element={<Register />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/profile/:userId' element={<Profile />} />
-            <Route path='*' element={<NotFound />} />
-            <Route path='/'
-            element={
-              <PrivateRoute>
-                <Home />
-              </PrivateRoute>
-            } />
-          </Routes>
-        </div>
-        <Footer />
-      </BrowserRouter>
+      <PostProvider>
+        <BrowserRouter>
+          <Navbar />
+          <div className='containerBody'>
+            <Routes>
+              <Route path='/verify/:token' element={<Auth />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/Register' element={<Register />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/profile/:userId' element={<Profile />} />
+              <Route path='*' element={<NotFound />} />
+              <Route path='/'
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              } />
+            </Routes>
+          </div>
+          <Footer />
+        </BrowserRouter>
+      </PostProvider>
     </AuthProvider>
     </>
   )

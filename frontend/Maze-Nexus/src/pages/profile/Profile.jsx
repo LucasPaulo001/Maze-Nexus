@@ -32,7 +32,7 @@ const Profile = () => {
     const [openSettings, setOpenSettings] = useState(null)
     const [openSaves, setOpenSaves] = useState(null)
     
-    const {user, logout} = useContext(AuthContext)
+    const {logout} = useContext(AuthContext)
     const navigate = useNavigate()
 
     //Buscando usuário

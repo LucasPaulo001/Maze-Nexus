@@ -188,4 +188,7 @@ button{
         right: 15px;
         top: 30px;
     }
+    .contentFeed{
+        grid-template-columns: 1fr;
+    }
 }

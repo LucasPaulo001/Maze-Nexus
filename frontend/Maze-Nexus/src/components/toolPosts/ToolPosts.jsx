@@ -3,80 +3,39 @@ import styles from './ToolPosts.module.css'
 import { jwtDecode } from 'jwt-decode'
 import { AuthContext } from '../../contexts/AuthContext'
 import EditPost from '../modais/editPost/EditPost'
+import { PostContext } from '../../contexts/PostsContext'
 
-const ToolPosts = ({post, postId, updateList, author, addNewPost}) => {
-  const [loading, setLoading] = useState(false)
+const ToolPosts = ({post, postId, author, addNewPost}) => {
   const [isClose, setClose] = useState(false)
   const [condition, setCondition] = useState(false)
   const [resp, setResp] = useState(null)
-  const { user } = useContext(AuthContext)
+  const { savePost, savedPosts, removePostsSaved, success, deletePost, loading } = useContext(PostContext)
 
   
   const token = localStorage.getItem("token")
   const loggedUser = token ? jwtDecode(token) : null
   const isAuthor = loggedUser && loggedUser.id === author
   const userId = loggedUser.id
+  const user = loggedUser
 
-  //Função para deletar postagem
+  //Confirmação para a exclusão do post
   const handleDelete = () => {
-    //const confirmation = confirm("Tem certeza que deseja deletar a postagem?")
-    if(condition){
-      setCondition(false)
-      return
-    }
-    setCondition(true)
-  }
-    useEffect(() => {
-      if(resp){
-        setLoading(true)
-        setTimeout(() => {
-          const respDelete = async () => {
-            try{  
-              const urlDelete = `http://localhost:1526/user/delete/post/${postId}`
-        
-              const res = await fetch(urlDelete, {
-                method: 'POST',
-              })
-              const data = await res.json()
-              console.log(data)
-              if(data.ok){
-                setLoading(false)
-                updateList(postId)
-              }
-            }
-            catch(error){
-              setLoading(false)
-              console.log(error)
-            }
-            finally{
-              setLoading(false)
-              setResp(null)
-              setCondition(false)
-            }
-          }
-          respDelete()
-        }, 900)
+      if(condition){
+        setCondition(false)
+        return
       }
-    }, [resp])
-
+      setCondition(true)
+  }
+  if(resp){
+    deletePost(postId)
+  }
+  
   //Abrir janela de postagem
   const handleOpenPost = () => {
     setClose(true)
   }
 
-  //Salvar postagem
-  const handleSave = async () => {
-    const res = await fetch(`http://localhost:1526/user/profile/${userId}/post/${postId}`, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      }
-    })
-
-    const resJson = await res.json()
-    console.log(userId, postId)
-    console.log(resJson)
-  }
+  const isPostSaved = savedPosts.includes(postId)
 
   return (
     <div className={styles.toolMenu}>
@@ -96,6 +55,7 @@ const ToolPosts = ({post, postId, updateList, author, addNewPost}) => {
               postEdit={post}
               addNewPost={addNewPost}
               />
+
               <li onClick={handleDelete}>
                 {loading ? (
                   <>
@@ -129,10 +89,27 @@ const ToolPosts = ({post, postId, updateList, author, addNewPost}) => {
             <>
             <li>
               <div className={styles.list}>
-                <button onClick={handleSave} className='d-flex align-items-center gap-2'>
-                  <i class="bi bi-bookmark"></i>
-                  Salvar
-                </button>
+                <div className={styles.okSave}>
+                  {success && <span className='successMessage'>{success}</span>}
+                </div>
+                <button
+                  onClick={() => {
+                      console.log(`Clicado no botão -> isPostSaved: ${isPostSaved}, postId: ${postId}`);
+                      isPostSaved ? removePostsSaved(userId, postId) : savePost(userId, postId);
+                  }}
+                  className='d-flex align-items-center gap-2'
+              >
+                  {isPostSaved ? (
+                      <>
+                          <i className="bi text-success bi-bookmark-fill"></i> Remover
+                      </>
+                  ) : (
+                      <>
+                          <i className="bi bi-bookmark"></i> Salvar
+                      </>
+                  )}
+              </button>
+
               </div>
             </li>
 

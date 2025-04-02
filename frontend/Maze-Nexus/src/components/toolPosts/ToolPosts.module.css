@@ -61,6 +61,11 @@
 .listTools li:hover{
     background-color: rgba(137, 43, 226, 0.342);
 }
+.okSave{
+    position: absolute;
+    right: 0;
+    top: 20px;
+}
 
 @media(max-width: 640px){
     .toolMenu{
