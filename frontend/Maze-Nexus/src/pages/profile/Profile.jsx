@@ -9,6 +9,7 @@ import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
 import Settings from '../../components/settings/Settings'
 import PostsSaved from '../../components/postsSaves/PostsSaved'
+import MyStudies from '../../components/myStudies/MyStudies'
 
 const Profile = () => {
     //Dados do usuário logado
@@ -31,6 +32,7 @@ const Profile = () => {
     const [dataUser, setDataUser] = useState(null)
     const [openSettings, setOpenSettings] = useState(null)
     const [openSaves, setOpenSaves] = useState(null)
+    const [openStudies, setOpenStudies] = useState(null)
     
     const {logout} = useContext(AuthContext)
     const navigate = useNavigate()
@@ -62,6 +64,7 @@ const Profile = () => {
         setOpenMyPosts(!openMyPosts)
         setOpenSettings(false)
         setOpenSaves(false)
+        setOpenStudies(false)
     }
 
     //Função para abrir as configurações
@@ -69,11 +72,21 @@ const Profile = () => {
         setOpenSettings(!openSettings)
         setOpenMyPosts(false)
         setOpenSaves(false)
+        setOpenStudies(false)
     }
 
     //Função para abrir postagens salvas
     const handleOpenSaves = () => {
         setOpenSaves(!openSaves)
+        setOpenMyPosts(false)
+        setOpenSettings(false)
+        setOpenStudies(false)
+    }
+
+    //Função para abrir estudos do usuário
+    const handleOpenStudies = () => {
+        setOpenStudies(!openStudies)
+        setOpenSaves(false)
         setOpenMyPosts(false)
         setOpenSettings(false)
     }
@@ -149,7 +162,7 @@ const Profile = () => {
                             Configurações
                         </button>
                     </li>
-                    <li>
+                    <li onClick={handleOpenStudies}>
                         <button>
                             Meus estudos
                         </button>
@@ -166,6 +179,9 @@ const Profile = () => {
 
             {/* Componente de postagens salvas */}
             {openSaves && <PostsSaved userId={userId} />}
+
+            {/* Componente de estudos */}
+            {openStudies && <MyStudies userId={userId} /> }
         </>
         ) : (
             <div class="spinner-grow text-primary d-flex justify-content-center" role="status">

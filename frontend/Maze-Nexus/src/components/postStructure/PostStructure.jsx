@@ -28,7 +28,7 @@ const PostStructure = ({savedPosts, post, removePost, addNewPost}) => {
   return (
     <div className={styles.post}>
         <div className={styles.dataAuthor}>
-            <div>
+            <div> 
                 <span>Author: </span><strong>{post.author.username || post.author.name}</strong>
             </div>
 
@@ -65,7 +65,6 @@ const PostStructure = ({savedPosts, post, removePost, addNewPost}) => {
                         </button>
                     )}
                     <span>{post.likes.length}</span>
-                    
                     
                 </div>
                 <div>
