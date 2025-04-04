@@ -25,7 +25,7 @@ function App() {
   const requestPermission = async () => {
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
-      const token = await getToken(messaging, { vapidKey: "AIzaSyC9pz7yL-tArHEHqeUU3m_K1gHjUPMixqc" });
+      const token = await getToken(messaging, { vapidKey: import.meta.env.VITE_API_KEY_FIREBASE });
       console.log("Token FCM:", token);
     }
   };

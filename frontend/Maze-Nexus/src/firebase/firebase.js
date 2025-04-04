@@ -7,7 +7,7 @@ import { getMessaging, getToken, onMessage } from 'firebase/messaging'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC9pz7yL-tArHEHqeUU3m_K1gHjUPMixqc",
+  apiKey: import.meta.env.VITE_API_KEY_FIREBASE,
   authDomain: "maze-nexus-a8f2f.firebaseapp.com",
   projectId: "maze-nexus-a8f2f",
   storageBucket: "maze-nexus-a8f2f.firebasestorage.app",
@@ -33,7 +33,7 @@ export const requestNotificationPermission = async () => {
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
       console.log("Permissão concedida!");
-      const token = await getToken(messaging, { vapidKey: "AIzaSyC9pz7yL-tArHEHqeUU3m_K1gHjUPMixqc" });
+      const token = await getToken(messaging, { vapidKey: import.meta.env.VITE_API_KEY_FIREBASE });
       console.log("Token FCM:", token);
       return token;
     } else {
