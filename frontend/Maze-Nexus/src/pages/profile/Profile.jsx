@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import Settings from '../../components/settings/Settings'
 import PostsSaved from '../../components/postsSaves/PostsSaved'
 import MyStudies from '../../components/myStudies/MyStudies'
+import OrgStudies from '../../components/myStudies/orgStudies/OrgStudies'
 
 const Profile = () => {
     //Dados do usuário logado
@@ -33,6 +34,7 @@ const Profile = () => {
     const [openSettings, setOpenSettings] = useState(null)
     const [openSaves, setOpenSaves] = useState(null)
     const [openStudies, setOpenStudies] = useState(null)
+    const [orgs, setOrgs] = useState(true)
     
     const {logout} = useContext(AuthContext)
     const navigate = useNavigate()
@@ -65,6 +67,7 @@ const Profile = () => {
         setOpenSettings(false)
         setOpenSaves(false)
         setOpenStudies(false)
+        setOrgs(false)
     }
 
     //Função para abrir as configurações
@@ -73,6 +76,7 @@ const Profile = () => {
         setOpenMyPosts(false)
         setOpenSaves(false)
         setOpenStudies(false)
+        setOrgs(false)
     }
 
     //Função para abrir postagens salvas
@@ -81,6 +85,7 @@ const Profile = () => {
         setOpenMyPosts(false)
         setOpenSettings(false)
         setOpenStudies(false)
+        setOrgs(false)
     }
 
     //Função para abrir estudos do usuário
@@ -89,7 +94,16 @@ const Profile = () => {
         setOpenSaves(false)
         setOpenMyPosts(false)
         setOpenSettings(false)
+        setOrgs(false)
     }
+
+    useEffect(() => {
+        if (!openMyPosts && !openSaves && !openSettings && !openStudies) {
+            setOrgs(true)
+        } else {
+            setOrgs(false)
+        }
+    }, [openMyPosts, openSaves, openSettings, openStudies])
 
     //logout
     const handlelogout = () => {
@@ -189,6 +203,11 @@ const Profile = () => {
             </div>
         )}
         <hr />
+
+        <div className={orgs ? 'd-flex w-100' : 'd-none'}>
+            <OrgStudies dNone={true} />
+        </div>
+        
 
     </div>
   )

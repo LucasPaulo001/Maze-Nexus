@@ -36,12 +36,14 @@ import routerLogin from './routes/login.mjs'
 import routerPost from './routes/posts.mjs'
 import routerToolPost from './routes/toolComments.mjs'
 import routerProfile from './routes/profile.mjs'
+import routerStudy from './routes/studiesTools.mjs'
 
 app.use('/user', routerRegister)
 app.use('/user', routerLogin)
 app.use('/user', routerPost)
 app.use('/user', routerToolPost)
 app.use('/user', routerProfile)
+app.use('/user', routerStudy)
 
 //Inicialização do servidor
 const PORT = process.env.PORT
