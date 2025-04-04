@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react"
 
+
 //Criando o context
 export const AuthContext = createContext()
 

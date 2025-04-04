@@ -13,11 +13,26 @@ import PrivateRoute from './routes/PrivateRoute'
 import { AuthProvider } from './contexts/AuthContext'
 import { PostProvider } from './contexts/PostsContext'
 import Profile from './pages/profile/Profile'
+import { useEffect } from 'react'
+import { messaging, getToken } from './firebase/firebase'
 
 //Config react router
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 function App() {
+
+  {/* Permição para notificações */}
+  const requestPermission = async () => {
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+      const token = await getToken(messaging, { vapidKey: "AIzaSyC9pz7yL-tArHEHqeUU3m_K1gHjUPMixqc" });
+      console.log("Token FCM:", token);
+    }
+  };
+  // Notification.requestPermission().then(permission => console.log(permission));
+  useEffect(() => {
+    requestPermission();
+  }, []);
 
   return (
     <>
