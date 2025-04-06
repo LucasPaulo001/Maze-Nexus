@@ -1,12 +1,8 @@
 import { jwtDecode } from "jwt-decode"
 import { createContext, useContext, useEffect, useState } from "react"
-
 export const ProfileContext = createContext()
-const token = localStorage.getItem("token")
-const decode = jwtDecode(token)
-const userId = decode.id
 
-const url = `https://maze-nexus.onrender.com/user/profile/${userId}/schedule/note`
+
 
 export const ProfileProvider = ({ children }) => {
     const [notes, setNotes] = useState([{}])
@@ -18,6 +14,12 @@ export const ProfileProvider = ({ children }) => {
     //Buscando anotações
         const fetchData = async () => {
             try{
+              
+                const token = localStorage.getItem("token")
+                const decode = jwtDecode(token)
+                const userId = decode.id
+                const url = `https://maze-nexus.onrender.com/user/profile/${userId}/schedule/note`
+
                 const res = await fetch(url)
 
                 const data = await res.json()
@@ -36,7 +38,7 @@ export const ProfileProvider = ({ children }) => {
 
     useEffect(() => {
         fetchData()
-    }, [url])
+    }, [])
 
     //Salvar anotações
       const handleSaveNote = async (userId, id, newNote) => {
