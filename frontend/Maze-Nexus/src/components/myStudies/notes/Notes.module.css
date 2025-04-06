@@ -36,3 +36,45 @@
     display: flex;
     background-color: #00000094;
 }
+
+.localSearch{
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+.localSearch input{
+    text-indent: 0;
+}
+.localInput{
+    width: 35%;
+}
+.localInput i{
+    bottom: 16px;
+    font-size: 1.5vw;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+
+@media(max-width: 640px){
+    .localInput{
+        width: 85%;
+    }
+    .localInput i{
+        font-size: 6vw;
+        right: 25px;
+    }
+    .localSearch{
+        justify-content: center;
+    }
+    .content{
+        justify-content: center;
+        margin-top: 1em;
+    }
+    .icon{
+        font-size: 10vw;
+    }
+    .card{
+        width: 75% !important;
+    }
+}

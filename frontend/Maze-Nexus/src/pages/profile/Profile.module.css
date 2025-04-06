@@ -3,7 +3,7 @@
     margin-bottom: 20%;
 }
 .listLinks{
-    display: flex;
+    display: flex !important;
     justify-content: space-between;
 }
 .listLinks li{
@@ -40,8 +40,39 @@
     background-color: #8a2be217;
     border-radius: 10px;
 }
+.menuMob{
+    display: none;
+}
+
 
 @media(max-width: 640px){
+    .menuMob{
+        display: flex;
+        justify-content: center;
+    }
+    .mobMenu{
+        position: absolute;
+        background-color: white;
+        width: 100%;
+        right: 0;
+        bottom: -70px;
+        z-index: 9;
+    }
+    .mobListLinks{
+        border-bottom: 2px solid blueviolet;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        height: 200px;
+        padding: 1em !important;
+    }
+    .listLinks{
+        display: none !important;
+    }
+    .menuMob i{
+        font-size: 10vw;
+    }
     .topProfile{
         flex-direction: column;
         gap: 10px;
