@@ -18,7 +18,7 @@ export const PostProvider = ({children}) => {
         setLoading(true)
         const fetchPosts = async () => {
             try{    
-                const res = await fetch('http://localhost:1526/user/posts')
+                const res = await fetch('https://maze-nexus.onrender.com/user/posts')
 
                 const dataJson = await res.json()
 
@@ -39,7 +39,7 @@ export const PostProvider = ({children}) => {
                     const decodeToken = jwtDecode(token)
                     const userId = decodeToken.id
 
-                    const res = await fetch(`http://localhost:1526/user/profile/${userId}/savedPosts`)
+                    const res = await fetch(`https://maze-nexus.onrender.com/user/profile/${userId}/savedPosts`)
 
                     const resJson = await res.json()
 
@@ -59,7 +59,7 @@ export const PostProvider = ({children}) => {
     const addPost = async (newPost) => {
         setLoading(true)
         try{
-            const res = await fetch('http://localhost:1526/user/post', {
+            const res = await fetch('https://maze-nexus.onrender.com/user/post', {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -88,7 +88,7 @@ export const PostProvider = ({children}) => {
     const deletePost = async (postId) => {
         setLoading(true)
         try{
-            const res = await fetch(`http://localhost:1526/user/delete/post/${postId}`, {
+            const res = await fetch(`https://maze-nexus.onrender.com/user/delete/post/${postId}`, {
                 method: 'DELETE',
             })
 
@@ -107,7 +107,7 @@ export const PostProvider = ({children}) => {
     const editPost = async (postId, updateData) => {
         setLoading(true)
         try{
-            const res = await fetch(`http://localhost:1526/user/update/post/${postId}`, {
+            const res = await fetch(`https://maze-nexus.onrender.com/user/update/post/${postId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json'
@@ -139,7 +139,7 @@ export const PostProvider = ({children}) => {
     //Dar like nas postagens
     const likePost = async (userId, postId) => {
         try{
-            const res = await fetch(`http://localhost:1526/user/like/post/${postId}`, {
+            const res = await fetch(`https://maze-nexus.onrender.com/user/like/post/${postId}`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -164,9 +164,9 @@ export const PostProvider = ({children}) => {
 
     //Salvar postagens
     const savePost = async (userId, postId) =>{
-        console.log(`http://localhost:1526/user/profile/${userId}/post/${postId}`)
+        console.log(`https://maze-nexus.onrender.com/user/profile/${userId}/post/${postId}`)
         try{
-            const res = await fetch(`http://localhost:1526/user/profile/${userId}/post/${postId}`, {
+            const res = await fetch(`https://maze-nexus.onrender.com/user/profile/${userId}/post/${postId}`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -195,9 +195,9 @@ export const PostProvider = ({children}) => {
             // Atualiza o estado local imediatamente, antes da requisição ao backend
             setSavedPosts(prev => prev.filter(id => id !== postId))
 
-            console.log(`DELETE URL: http://localhost:1526/user/profile/${userId}/post/${postId}`);
+            console.log(`DELETE URL: https://maze-nexus.onrender.com/user/profile/${userId}/post/${postId}`);
 
-            const res = await fetch(`http://localhost:1526/user/profile/${userId}/post/${postId}`, {
+            const res = await fetch(`https://maze-nexus.onrender.com/user/profile/${userId}/post/${postId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json'

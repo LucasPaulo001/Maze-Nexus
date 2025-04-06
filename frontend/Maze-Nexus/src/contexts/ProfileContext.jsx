@@ -6,7 +6,7 @@ const token = localStorage.getItem("token")
 const decode = jwtDecode(token)
 const userId = decode.id
 
-const url = `http://localhost:1526/user/profile/${userId}/schedule/note`
+const url = `https://maze-nexus.onrender.com/user/profile/${userId}/schedule/note`
 
 export const ProfileProvider = ({ children }) => {
     const [notes, setNotes] = useState([{}])
@@ -41,7 +41,7 @@ export const ProfileProvider = ({ children }) => {
     //Salvar anotações
       const handleSaveNote = async (userId, id, newNote) => {
         try{
-          const res = await fetch(`http://localhost:1526/user/profile/${userId}/schedule/${id}/note`, {
+          const res = await fetch(`https://maze-nexus.onrender.com/user/profile/${userId}/schedule/${id}/note`, {
             method: 'POST',
             headers: {
               'Content-type': 'application/json'
