@@ -1,0 +1,38 @@
+.content{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 3em;
+}
+.icon{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 3vw;
+    position: absolute;
+    right: 0;
+    color: rgb(131, 131, 131);
+    top: 0;
+}
+.icon i{
+    display: flex
+}
+.card{
+    width: 100% !important;
+}
+.noteDetail{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    height: 100%;
+    position: absolute;
+    left: -7px;
+    justify-content: space-around;
+}
+.noteDetail span{
+    height: 5px;
+    width: 15px;
+    border-radius: 10px;
+    display: flex;
+    background-color: #00000094;
+}

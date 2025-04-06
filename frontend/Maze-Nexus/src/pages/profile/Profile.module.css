@@ -40,3 +40,14 @@
     background-color: #8a2be217;
     border-radius: 10px;
 }
+
+@media(max-width: 640px){
+    .topProfile{
+        flex-direction: column;
+        gap: 10px;
+    }
+    .topProfile button{
+        height: 40px;
+        width: 100px;
+    }
+}

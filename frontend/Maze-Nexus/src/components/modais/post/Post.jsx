@@ -35,53 +35,6 @@ const Post = ({postEdit, isClose, setClose, addNewPost}) => {
         setSuccess("")
     }
 
-    //Função para postar
-    // const handlePost = async (e) => {
-    //     e.preventDefault()
-
-    //     //Validações
-    //     if(!content){
-    //         setError("Preecha o(s) campos!")
-    //         return
-    //     }
-
-    //     try{
-    //         const token = localStorage.getItem("token")
-    //         const decoded = jwtDecode(token)
-    //         const idUser = decoded.id
-
-            
-    //         let url = "http://localhost:1526/user/post"
-
-
-    //         const res = await fetch(url, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-type': 'application/json'
-    //             },
-    //             body: JSON.stringify({title, content, idUser})
-    //         })
-            
-    //         const resData = await res.json()
-    //         console.log(resData)
-    //         if(resData.ok){
-    //             setSuccess("Postagem feita com sucesso!")
-    //             setError("")
-    //             addNewPost(resData.post)
-    //         }
-    //         await setTimeout(() => {
-    //             handleClose()
-    //         }, 800)
-    //     }
-    //     catch(error){
-    //         setError("Erro interno, por favor tente novamente!")
-    //         console.log(error)
-    //     }
-    // }
-
-    //Função para postar
-   
-
   return (
     <div>
         <div className={isClose ? styles.windowPost: styles.windowPostClose}>

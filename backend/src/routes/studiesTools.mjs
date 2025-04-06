@@ -1,5 +1,6 @@
 import express from 'express'
 import Studies from '../models/Studies.mjs'
+import Note from '../models/Note.mjs'
 const routerStudy = express.Router()
 
 //Rota para criar horário de estudos
@@ -74,6 +75,67 @@ routerStudy.delete('/profile/:userId/deleteStudy/:studyId', async (req, res) => 
     catch(error){
         console.log(error)
         res.status(500).json({ message: 'Erro interno do servidor' })
+    }
+})
+
+//Rota para salvar anotações
+routerStudy.post('/profile/:userId/schedule/:id/note', async (req, res) => {
+    try{
+        const { userId, id } = req.params
+        const { notes } = req.body
+
+        const newNote = new Note({
+            userId: userId,
+            studyId: id,
+            notes: notes
+        })
+
+        await newNote.save()
+
+        res.status(200).json({message: 'Anotação salva', newNote})
+    }
+    catch(error){
+        console.log(error)
+        res.status(505).json({message: 'Erro interno do servidor'})
+    }
+})
+
+//Rota para buscar anotações
+routerStudy.get('/profile/:userId/schedule/note', async (req, res) => {
+    try{
+        const { userId } = req.params
+
+        const notes = await Note.find({userId: userId})
+
+        if(!notes){
+            return res.status(404).json({ message: 'Anotação não encontrada' })
+        }
+
+        const studyIds = notes.map(note => note.studyId)
+        
+        const  studies = await Studies.findOne({ userId })
+
+        const scheduleMap = {}
+
+        studies.schedule.forEach(item => {
+          scheduleMap[item._id.toString()] = item
+        })
+    
+        // Enriquecer cada anotação com o item correspondente da matéria
+        const notesWithSubjects = notes.map(note => {
+          const studyInfo = scheduleMap[note.studyId.toString()]
+          return {
+            ...note.toObject(),
+            subject: studyInfo ? studyInfo.subject : null,
+            fullStudyItem: studyInfo || null
+          }
+        })
+    
+        res.status(200).json({ message: 'Anotações encontradas', notes: notesWithSubjects })
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).json({message: 'Erro interno do servidor'})
     }
 })
 
