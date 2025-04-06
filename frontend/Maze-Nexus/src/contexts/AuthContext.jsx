@@ -14,7 +14,12 @@ export function AuthProvider({ children }){
         const token = localStorage.getItem("token")
 
         if(token){
-            setUser({ token })
+            try{
+                setUser({ token })
+            }   
+            catch(error){
+                console.log(error)
+            }
         }
     }, [])
 
