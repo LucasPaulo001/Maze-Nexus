@@ -35,6 +35,7 @@ const Profile = () => {
     const [openSaves, setOpenSaves] = useState(null)
     const [openStudies, setOpenStudies] = useState(null)
     const [orgs, setOrgs] = useState(true)
+    const [menuMob, setMenuMob] = useState(false)
     
     const {logout} = useContext(AuthContext)
     const navigate = useNavigate()
@@ -68,6 +69,7 @@ const Profile = () => {
         setOpenSaves(false)
         setOpenStudies(false)
         setOrgs(false)
+        setMenuMob(false)
     }
 
     //Função para abrir as configurações
@@ -77,6 +79,7 @@ const Profile = () => {
         setOpenSaves(false)
         setOpenStudies(false)
         setOrgs(false)
+        setMenuMob(false)
     }
 
     //Função para abrir postagens salvas
@@ -86,6 +89,7 @@ const Profile = () => {
         setOpenSettings(false)
         setOpenStudies(false)
         setOrgs(false)
+        setMenuMob(false)
     }
 
     //Função para abrir estudos do usuário
@@ -95,6 +99,7 @@ const Profile = () => {
         setOpenMyPosts(false)
         setOpenSettings(false)
         setOrgs(false)
+        setMenuMob(false)
     }
 
     useEffect(() => {
@@ -159,8 +164,8 @@ const Profile = () => {
 
             </div>
             <hr />
-            <nav className={styles.links}>
-                <ul className={styles.listLinks}>
+            <nav className={menuMob ? styles.mobMenu : styles.links}>
+                <ul className={menuMob ? styles.mobListLinks : styles.listLinks}>
                     <li onClick={handleOpenMyPosts}>
                         <button>
                             Minhas postagens
@@ -184,6 +189,13 @@ const Profile = () => {
                     
                 </ul>
             </nav>
+
+            <div onClick={() => {
+                setMenuMob(!menuMob);
+
+            }} className={styles.menuMob}>
+                <i class="bi bi-list"></i>
+            </div>
 
             {/* Componente de postagens do usuário */}
             {openMyPosts && <MyPosts userId={userId} />}
