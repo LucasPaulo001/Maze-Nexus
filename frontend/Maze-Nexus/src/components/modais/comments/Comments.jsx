@@ -19,7 +19,7 @@ const Comments = ({setClose, postData}) => {
     const [resp, setResp] = useState(false)
     const [responses, setResponses] = useState({})
 
-    const url = `http://localhost:1526/user/post/${postData._id}/comment`
+    const url = `https://maze-nexus.onrender.com/user/post/${postData._id}/comment`
 
     //Função de fechamento de comentários
     const handleClose = () => {
@@ -77,7 +77,7 @@ const Comments = ({setClose, postData}) => {
     //Função para dar like no comentário
     const handleLikeComment = async (commentId) => {
         try{
-            const urlLikeComment = `http://localhost:1526/user/comment/${commentId}/like`
+            const urlLikeComment = `https://maze-nexus.onrender.com/user/comment/${commentId}/like`
 
             const res = await fetch(urlLikeComment, {
                 method: 'POST',

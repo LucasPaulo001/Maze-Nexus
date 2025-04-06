@@ -44,7 +44,7 @@ const Profile = () => {
         
         const fetchData = async () => {
             try{
-                const res = await fetch(`http://localhost:1526/user/profile/${userId}`)
+                const res = await fetch(`https://maze-nexus.onrender.com/user/profile/${userId}`)
 
                 const dataJson = await res.json()
 

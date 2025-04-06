@@ -11,7 +11,7 @@ const ToolComments = ({attComments, commentValue, commentId, postId, author}) =>
   const [loading, setLoading] = useState(false)
   const [isOpenEditComment, setIsOpenEditComment] = useState(false)
 
-  const url = `http://localhost:1526/user/post/${postId}/delete/${commentId}`
+  const url = `https://maze-nexus.onrender.com/user/post/${postId}/delete/${commentId}`
 
   //Função para deletar comentário
   const handleDeleteComment = async () => {

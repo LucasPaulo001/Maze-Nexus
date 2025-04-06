@@ -3,7 +3,6 @@ import styles from './Home.module.css'
 import Post from '../../components/modais/post/Post'
 import PostStructure from '../../components/postStructure/PostStructure'
 import { PostContext } from '../../contexts/PostsContext'
-const urlPosts = 'http://localhost:1526/user/posts'
 
 function Home(){
     

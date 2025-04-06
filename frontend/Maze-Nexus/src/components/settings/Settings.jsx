@@ -11,7 +11,7 @@ const Settings = ({userId, dataUser}) => {
         try{
             e.preventDefault()
         
-            const res = await fetch(`http://localhost:1526/user/edit/profile/${userId}`, {
+            const res = await fetch(`https://maze-nexus.onrender.com/user/edit/profile/${userId}`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'

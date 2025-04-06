@@ -10,7 +10,7 @@ const OrgStudies = ({dNone}) => {
   const decode = jwtDecode(token)
   const userId = decode.id
 
-  const url = `http://localhost:1526/user/profile/studies/${userId}`
+  const url = `https://maze-nexus.onrender.com/user/profile/studies/${userId}`
 
   const [schedule, setSchedule] = useState([])
   const [newStudy, setNewStudy] = useState({
@@ -48,7 +48,7 @@ const OrgStudies = ({dNone}) => {
     e.preventDefault()
 
     try{
-      const res = await fetch(`http://localhost:1526/user/profile/studies/${userId}`, {
+      const res = await fetch(`https://maze-nexus.onrender.com/user/profile/studies/${userId}`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -78,7 +78,7 @@ const OrgStudies = ({dNone}) => {
   //Função para remover matéria
   const handleDelete = async (id) => {
     try{
-      const res = await fetch(`http://localhost:1526/user/profile/${userId}/deleteStudy/${id}`, {
+      const res = await fetch(`https://maze-nexus.onrender.com/user/profile/${userId}/deleteStudy/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-type': 'application/json'

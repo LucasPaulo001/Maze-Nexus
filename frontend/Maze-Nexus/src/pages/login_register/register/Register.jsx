@@ -3,8 +3,8 @@ import { data, Link, useNavigate } from 'react-router-dom'
 import styles from './Register.module.css'
 import { useState } from 'react'
 
-const url = 'http://localhost:1526/user/register'
-const urlCheckName = 'http://localhost:1526/user/checkName'
+const url = 'https://maze-nexus.onrender.com/user/register'
+const urlCheckName = 'https://maze-nexus.onrender.com/user/checkName'
 
 function Register() {
     const navigate = useNavigate()

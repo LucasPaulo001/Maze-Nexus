@@ -4,7 +4,7 @@ import '../../App.css'
 import { Link } from "react-router-dom"
 import Otpinput from "./otpInput/Otpinput"
 import { useNavigate } from "react-router-dom"
-const urlVerify = 'http://localhost:1526/user/verifyCode'
+const urlVerify = 'https://maze-nexus.onrender.com/user/verifyCode'
 
 function Auth(){
     const navigate = useNavigate()

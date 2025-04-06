@@ -10,8 +10,8 @@ import { AuthContext } from '../../../contexts/AuthContext'
 //Imagens
 import imgLogin from '../../../../public/images/loginPage.png'
 
-const urlLoginGoogle = 'http://localhost:1526/user/google-login'
-const urlLoginCommom = 'http://localhost:1526/user/login'
+const urlLoginGoogle = 'https://maze-nexus.onrender.com/user/google-login'
+const urlLoginCommom = 'https://maze-nexus.onrender.com/user/login'
 
 function Login(){
     
