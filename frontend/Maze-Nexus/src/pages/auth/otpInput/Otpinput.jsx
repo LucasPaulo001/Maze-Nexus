@@ -1,7 +1,7 @@
 import { useState, useRef } from "react"
 import styles from './Otpinput.module.css'
 
-const OTPinput = ({length = 4, onComplete}) => {
+const Otpinput = ({length = 4, onComplete}) => {
     const [otp, setOtp] = useState(new Array(length).fill(""))
     const inputRefs = useRef([])
 
@@ -56,4 +56,4 @@ const OTPinput = ({length = 4, onComplete}) => {
   )
 }
 
-export default OTPinput
+export default Otpinput
