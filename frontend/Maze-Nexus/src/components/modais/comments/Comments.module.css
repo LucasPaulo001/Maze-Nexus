@@ -69,6 +69,7 @@
 @media(max-width: 640px){
     .comments{
         width: 95%;
+        height: 85%;
     }
     .localInput{
         padding: .8em;

@@ -62,4 +62,7 @@
     .post i{
         font-size: 6vw;
     }
+    .textarea{
+        height: 90%;
+    }
 }

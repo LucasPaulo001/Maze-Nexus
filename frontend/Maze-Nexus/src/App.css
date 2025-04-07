@@ -18,3 +18,15 @@
     width: 50%;
     transition: .2s ease-in-out;
 }
+.menuMob{
+    display: none;
+}
+.menuMob i{
+    font-size: 10vw;
+}
+
+@media(max-width: 640px){
+    .menuMob{
+        display: flex;
+    }
+}
