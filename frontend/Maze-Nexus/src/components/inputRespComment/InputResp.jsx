@@ -212,7 +212,7 @@ const InputResp = ({commentId, commentAuthor}) => {
         )}
         
           <form onSubmit={handleResp}
-          className={`${styles.inputResp} w-100 d-flex`}>
+          className={`${styles.inputResp} inputRespDark w-100 d-flex`}>
               <input 
               onChange={(e) => {setResponse(e.target.value)}}
               type="text" 

@@ -38,13 +38,13 @@ const Post = ({postEdit, isClose, setClose, addNewPost}) => {
   return (
     <div>
         <div className={isClose ? styles.windowPost: styles.windowPostClose}>
-            <div className={styles.post}>
+            <div className={`${styles.post} postWindow`}>
             {success && <div className='successMessage'>{success}</div>}
             {error && <div className='errorMessage'>{error}</div>}
-                <div className={styles.close}>
+                <div className={`${styles.close} closeDark`}>
                     <i onClick={handleClose} class="bi bi-x-circle"></i>
                 </div>
-                <div className={styles.makePost}>
+                <div className={`${styles.makePost} makePostDark`}>
                     <form onSubmit={(e) => {e.preventDefault(), addPost({title, content, idUser})}}>
                         <div>
                             <input type="text" name='title' placeholder='Título *opcional'
