@@ -176,7 +176,13 @@ const OrgStudies = ({dNone}) => {
         
         {/* Tabela para armazenar cadastro de matérias */}
         <div className={`${styles.localTable}`}>
-          <table class="table table-striped-columns">
+          <table class={` 
+            ${document.documentElement.className === 'dark' 
+              ? 
+              'table table-dark table-striped-columns'
+              :
+              'table table-striped-columns'
+            }`}>
             <thead>
               <tr>
                 <th scope="col">Matéria</th>

@@ -34,19 +34,19 @@ const MyStudies = () => {
 
         {/* Cards clicáveis */}
         <div className={styles.cardsContent}>
-            <div className={styles.localCard}>
+            <div className={`${styles.localCard} localCardDark`}>
                 <button onClick={handleOpenOrgStudies} className={styles.card}>
                     <span>Organização de Estudos</span>
                     <BiBook className={styles.icon} size={40} />
                 </button>
             </div>
-            <div className={styles.localCard}>
+            <div className={`${styles.localCard} localCardDark`}>
                 <button onClick={handleOpenCards} className={styles.card}>
                     <span>FlashCards</span>
                     <BiClipboard className={styles.icon} size={40} />
                 </button>
             </div>
-            <div className={styles.localCard}>
+            <div className={`${styles.localCard} localCardDark`}>
                 <button onClick={handleNotes} className={styles.card}>
                     <span>Anotações</span>
                     <BiNote className={styles.icon} size={40} />

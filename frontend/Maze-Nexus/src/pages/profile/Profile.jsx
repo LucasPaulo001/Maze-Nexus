@@ -165,7 +165,7 @@ const Profile = () => {
             </div>
             <hr />
             <nav className={menuMob ? styles.mobMenu : styles.links}>
-                <ul className={menuMob ? styles.mobListLinks : styles.listLinks}>
+                <ul className={`${menuMob ? styles.mobListLinks : styles.listLinks} listLinksDark`}>
                     <li onClick={handleOpenMyPosts}>
                         <button>
                             <i class="bi bi-card-list"></i>
@@ -223,8 +223,6 @@ const Profile = () => {
         <div className={orgs ? 'd-flex w-100' : 'd-none'}>
             <OrgStudies dNone={true} />
         </div>
-        
-
     </div>
   )
 }

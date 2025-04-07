@@ -25,7 +25,7 @@ function Navbar(){
     const {user} = useContext(AuthContext)
 
     return(
-        <nav className={user ? styles.navbar : styles.navbarLC}>
+        <nav className={`${user ? styles.navbar : styles.navbarLC} navbar`}>
             {/* Logo */}
             <span>
                 <NavLink 
@@ -39,7 +39,7 @@ function Navbar(){
             <div onClick={() => setMenuMob(!menuMob)} className='menuMob'>
                 <i class="bi bi-list"></i>
             </div>
-            <ul className={menuMob ? `${styles.linkListMob}`: `${styles.linkList}`}>
+            <ul className={menuMob ? `${styles.linkListMob} linkListMob`: `${styles.linkList}`}>
                 <div onClick={() => setMenuMob(false)} className={menuMob ?`d-flex ${styles.iconClose}` : 'd-none'}>
                     <i class="bi bi-x-circle"></i>
                 </div>
