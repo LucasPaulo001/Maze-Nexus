@@ -168,21 +168,25 @@ const Profile = () => {
                 <ul className={menuMob ? styles.mobListLinks : styles.listLinks}>
                     <li onClick={handleOpenMyPosts}>
                         <button>
+                            <i class="bi bi-card-list"></i>
                             Minhas postagens
                         </button>
                     </li>
                     <li>
                         <button onClick={handleOpenSaves}>
+                            <i class="bi bi-bookmarks"></i>
                             Postagens Salvas
                         </button>
                     </li>
                     <li onClick={handleOpenSettings}>
                         <button>
+                            <i class="bi bi-gear"></i>
                             Configurações
                         </button>
                     </li>
                     <li onClick={handleOpenStudies}>
                         <button>
+                            <i class="bi bi-journal-check"></i>
                             Meus estudos
                         </button>
                     </li>
@@ -194,7 +198,7 @@ const Profile = () => {
                 setMenuMob(!menuMob);
 
             }} className={styles.menuMob}>
-                <i class="bi bi-list"></i>
+                <i class="bi bi-filter"></i>
             </div>
 
             {/* Componente de postagens do usuário */}
