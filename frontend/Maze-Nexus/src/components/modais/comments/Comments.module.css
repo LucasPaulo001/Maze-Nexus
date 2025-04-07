@@ -76,9 +76,9 @@
     }
     .localInput i{
         position: absolute;
-        right: 16px;
+        right: 1px;
         z-index: 9;
-        top: 4px;
-        font-size: 8vw;
+        top: 11px;
+        font-size: 7vw;
     }
 }

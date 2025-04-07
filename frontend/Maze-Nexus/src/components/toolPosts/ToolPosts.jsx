@@ -74,7 +74,7 @@ const ToolPosts = ({post, postId, author, addNewPost}) => {
                       <i class="bi bi-trash"></i>
                       Excluir
                     </div>
-                    <div className={condition ? styles.openConditions : styles.btnsCondition}>
+                    <div className={condition ? `${styles.openConditions} openConditionDark` : styles.btnsCondition}>
                       Excluir?
                       <button onClick={() => {setResp(true)}} className='btn btn-success'>Sim</button>
                       <button onClick={() => {setResp(false)}} className='btn btn-danger'>Não</button>
