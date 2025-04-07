@@ -18,6 +18,7 @@ import { ProfileProvider } from './contexts/ProfileContext'
 
 //Config react router
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { ThemeProvider } from './contexts/ThemeContext'
 
 
 function App() {
@@ -27,26 +28,28 @@ function App() {
     <AuthProvider>
       <PostProvider>
         <ProfileProvider>
-          <BrowserRouter>
-              <Navbar />
-              <div className='containerBody'>
-                <Routes>
-                  <Route path='/verify/:token' element={<Auth />} />
-                  <Route path='/login' element={<Login />} />
-                  <Route path='/Register' element={<Register />} />
-                  <Route path='/about' element={<About />} />
-                  <Route path='/profile/:userId' element={<Profile />} />
-                  <Route path='*' element={<NotFound />} />
-                  <Route path='/'
-                  element={
-                    <PrivateRoute>
-                      <Home />
-                    </PrivateRoute>
-                  } />
-                </Routes>
-              </div>
-              <Footer />
-          </BrowserRouter>
+          <ThemeProvider>
+            <BrowserRouter>
+                <Navbar />
+                <div className='containerBody'>
+                  <Routes>
+                    <Route path='/verify/:token' element={<Auth />} />
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/Register' element={<Register />} />
+                    <Route path='/about' element={<About />} />
+                    <Route path='/profile/:userId' element={<Profile />} />
+                    <Route path='*' element={<NotFound />} />
+                    <Route path='/'
+                    element={
+                      <PrivateRoute>
+                        <Home />
+                      </PrivateRoute>
+                    } />
+                  </Routes>
+                </div>
+                <Footer />
+            </BrowserRouter>
+          </ThemeProvider>
         </ProfileProvider>
       </PostProvider>
     </AuthProvider>

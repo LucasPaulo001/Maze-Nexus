@@ -75,7 +75,7 @@ function Home(){
                     {/* Input para iniciar publicações */}
                     <div className={styles.localBtnPost}>
                         <div className={styles.contentBtns}>
-                            <button onClick={handleOpenPost} onMouseEnter={handleEnter} onMouseLeave={handleDown} className={styles.btnAddP}>
+                            <button onClick={handleOpenPost} onMouseEnter={handleEnter} onMouseLeave={handleDown} className={`${styles.btnAddP} btnAddP`}>
                                 <i class="bi bi-plus-square"></i>
                             </button>
                         </div>
