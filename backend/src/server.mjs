@@ -12,12 +12,14 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cors({
-    origin: ['https://maze-nexus-front-end.onrender.com'],
+    origin: ['http://localhost:5173', 'https://maze-nexus-front-end.onrender.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
     exposedHeaders: ['Authorization']
 }))
+
+app.options('*', cors())
 
 //Middleware de configuração de cabeçalhos
 app.use((req, res, next) => {
