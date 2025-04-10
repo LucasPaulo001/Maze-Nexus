@@ -88,7 +88,7 @@
 }
 
 .profile a i{
-    font-size: 2.4vw !important;
+    font-size: 1.5 !important;
 }
 
 @media(max-width: 640px){
@@ -97,5 +97,43 @@
     }
     .navbar .linkList li a i{
         font-size: 6vw;
+    }
+    .linkList{
+        display: none;
+    }
+    .linkListMob{
+        position: fixed;
+        top: 0;
+        display: flex;
+        right: 0;
+        height: 100vh;
+        width: 100%;
+        background-color: #fffffffa;
+        backdrop-filter: blur(3px);
+        z-index: 999 !important;
+        flex-direction: column;
+        align-items: center;
+    }
+    .linkListMob li{
+        width: 100%;
+        padding: 1em;
+        font-size: 8vw;
+        gap: 5px;
+    }
+    
+    .linkListMob li a{
+        align-items: center;
+        color: blueviolet;
+        gap: 15px;
+    }
+    .profile a i{
+        font-size: 8vw !important;
+    }
+    .iconClose{
+        position: absolute;
+        left: 0;
+        font-size: 10vw;
+        color: red;
+        margin: 5px;
     }
 }

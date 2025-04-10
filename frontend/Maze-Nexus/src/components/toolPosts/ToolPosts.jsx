@@ -38,13 +38,13 @@ const ToolPosts = ({post, postId, author, addNewPost}) => {
   const isPostSaved = savedPosts.includes(postId)
 
   return (
-    <div className={styles.toolMenu}>
+    <div className={`${styles.toolMenu} toolMenu`}>
         <ul className={styles.listTools}>
           {/* Links de postagens do autor */}
           {isAuthor ? (
             <>
               <li onClick={handleOpenPost}>
-                <div className={styles.list}>
+                <div className={`${styles.list} list`}>
                   <i class="bi bi-pencil"></i>
                   Editar
                 </div>
@@ -59,7 +59,7 @@ const ToolPosts = ({post, postId, author, addNewPost}) => {
               <li onClick={handleDelete}>
                 {loading ? (
                   <>
-                    <div className={styles.list}>
+                    <div className={`${styles.list} list`}>
                       <div className={`${styles.spinner} spinner-grow text-primary`} role="status">
                         <span class="visually-hidden">Loading...</span>
                       </div>
@@ -70,11 +70,11 @@ const ToolPosts = ({post, postId, author, addNewPost}) => {
                   </>
                 ) : (
                   <>
-                    <div className={styles.list}> 
+                    <div className={`${styles.list} list`}> 
                       <i class="bi bi-trash"></i>
                       Excluir
                     </div>
-                    <div className={condition ? styles.openConditions : styles.btnsCondition}>
+                    <div className={condition ? `${styles.openConditions} openConditionDark` : styles.btnsCondition}>
                       Excluir?
                       <button onClick={() => {setResp(true)}} className='btn btn-success'>Sim</button>
                       <button onClick={() => {setResp(false)}} className='btn btn-danger'>Não</button>
@@ -88,7 +88,7 @@ const ToolPosts = ({post, postId, author, addNewPost}) => {
             // Links de publicações de terceiros
             <>
             <li>
-              <div className={styles.list}>
+              <div className={`${styles.list} list`}>
                 <div className={styles.okSave}>
                   {success && <span className='successMessage'>{success}</span>}
                 </div>

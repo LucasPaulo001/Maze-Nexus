@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import styles from './Auth.module.css'
 import '../../App.css'
 import { Link } from "react-router-dom"
-import OTPinput from "./otpInput/OTPinput"
+import Otpinput from "./otpInput/Otpinput"
 import { useNavigate } from "react-router-dom"
-const urlVerify = 'http://localhost:1526/user/verifyCode'
+const urlVerify = 'https://maze-nexus.onrender.com/user/verifyCode'
 
 function Auth(){
     const navigate = useNavigate()
@@ -66,7 +66,7 @@ function Auth(){
             <h4>Enviamos um código de verificação para você via E-mail</h4>
             <p>Digite para validar sua conta!</p>
             <div className={styles.localOtp}>
-                <OTPinput length={4} onComplete={handleOtpComplete} />
+                <Otpinput length={4} onComplete={handleOtpComplete} />
             </div>
             {loading && (
                 <div class="spinner-grow text-primary" role="status">

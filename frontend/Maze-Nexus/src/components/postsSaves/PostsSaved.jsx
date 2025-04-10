@@ -13,7 +13,7 @@ const PostsSaved = ({userId}) => {
         const fetchData = async () => {
             setLoading(true)
             try{
-                const res = await fetch(`http://localhost:1526/user/profile/${userId}/savedPosts`)
+                const res = await fetch(`https://maze-nexus.onrender.com/user/profile/${userId}/savedPosts`)
 
                 const resJson = await res.json()
 

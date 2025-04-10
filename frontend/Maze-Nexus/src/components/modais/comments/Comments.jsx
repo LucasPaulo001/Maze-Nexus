@@ -19,7 +19,7 @@ const Comments = ({setClose, postData}) => {
     const [resp, setResp] = useState(false)
     const [responses, setResponses] = useState({})
 
-    const url = `http://localhost:1526/user/post/${postData._id}/comment`
+    const url = `https://maze-nexus.onrender.com/user/post/${postData._id}/comment`
 
     //Função de fechamento de comentários
     const handleClose = () => {
@@ -77,7 +77,7 @@ const Comments = ({setClose, postData}) => {
     //Função para dar like no comentário
     const handleLikeComment = async (commentId) => {
         try{
-            const urlLikeComment = `http://localhost:1526/user/comment/${commentId}/like`
+            const urlLikeComment = `https://maze-nexus.onrender.com/user/comment/${commentId}/like`
 
             const res = await fetch(urlLikeComment, {
                 method: 'POST',
@@ -117,7 +117,7 @@ const Comments = ({setClose, postData}) => {
 
 
   return (
-    <div className={styles.comments}>
+    <div className={`${styles.comments} commentsDark`}>
         <h4>Comentários:</h4>
         <hr />
         <div className={styles.close}>
@@ -158,19 +158,19 @@ const Comments = ({setClose, postData}) => {
                         {comment.comment}
 
                         {/* Interassão com o comentário - like e respostas */}
-                        <div className={styles.toolComment}>
+                        <div className={`${styles.toolComment} toolCommentDark`}>
 
                             {/* Botão de like */}
                             <button className={styles.liked} onClick={() => {handleLikeComment(comment._id)}}>
                                 <i class="bi bi-hand-thumbs-up"></i>
-                                {comment.likes.length}
+                                <span>{comment.likes.length}</span>
                             </button>
                             
 
                             {/* Botão de comentar */}
                             <button className='d-flex gap-2' onClick={() => handleOpenResp(comment._id)}>
                                 <i class="bi bi-chat-left-text"></i>
-                                {comment.responses.length}
+                                <span>{comment.responses.length}</span>
                             </button>
                             
                         </div>

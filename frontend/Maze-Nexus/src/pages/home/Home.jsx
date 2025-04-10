@@ -3,7 +3,6 @@ import styles from './Home.module.css'
 import Post from '../../components/modais/post/Post'
 import PostStructure from '../../components/postStructure/PostStructure'
 import { PostContext } from '../../contexts/PostsContext'
-const urlPosts = 'http://localhost:1526/user/posts'
 
 function Home(){
     
@@ -76,7 +75,7 @@ function Home(){
                     {/* Input para iniciar publicações */}
                     <div className={styles.localBtnPost}>
                         <div className={styles.contentBtns}>
-                            <button onClick={handleOpenPost} onMouseEnter={handleEnter} onMouseLeave={handleDown} className={styles.btnAddP}>
+                            <button onClick={handleOpenPost} onMouseEnter={handleEnter} onMouseLeave={handleDown} className={`${styles.btnAddP} btnAddP`}>
                                 <i class="bi bi-plus-square"></i>
                             </button>
                         </div>

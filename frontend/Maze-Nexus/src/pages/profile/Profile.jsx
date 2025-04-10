@@ -35,6 +35,7 @@ const Profile = () => {
     const [openSaves, setOpenSaves] = useState(null)
     const [openStudies, setOpenStudies] = useState(null)
     const [orgs, setOrgs] = useState(true)
+    const [menuMob, setMenuMob] = useState(false)
     
     const {logout} = useContext(AuthContext)
     const navigate = useNavigate()
@@ -44,7 +45,7 @@ const Profile = () => {
         
         const fetchData = async () => {
             try{
-                const res = await fetch(`http://localhost:1526/user/profile/${userId}`)
+                const res = await fetch(`https://maze-nexus.onrender.com/user/profile/${userId}`)
 
                 const dataJson = await res.json()
 
@@ -68,6 +69,7 @@ const Profile = () => {
         setOpenSaves(false)
         setOpenStudies(false)
         setOrgs(false)
+        setMenuMob(false)
     }
 
     //Função para abrir as configurações
@@ -77,6 +79,7 @@ const Profile = () => {
         setOpenSaves(false)
         setOpenStudies(false)
         setOrgs(false)
+        setMenuMob(false)
     }
 
     //Função para abrir postagens salvas
@@ -86,6 +89,7 @@ const Profile = () => {
         setOpenSettings(false)
         setOpenStudies(false)
         setOrgs(false)
+        setMenuMob(false)
     }
 
     //Função para abrir estudos do usuário
@@ -95,6 +99,7 @@ const Profile = () => {
         setOpenMyPosts(false)
         setOpenSettings(false)
         setOrgs(false)
+        setMenuMob(false)
     }
 
     useEffect(() => {
@@ -159,31 +164,42 @@ const Profile = () => {
 
             </div>
             <hr />
-            <nav className={styles.links}>
-                <ul className={styles.listLinks}>
+            <nav className={menuMob ? styles.mobMenu : styles.links}>
+                <ul className={`${menuMob ? styles.mobListLinks : styles.listLinks} listLinksDark`}>
                     <li onClick={handleOpenMyPosts}>
                         <button>
+                            <i class="bi bi-card-list"></i>
                             Minhas postagens
                         </button>
                     </li>
                     <li>
                         <button onClick={handleOpenSaves}>
+                            <i class="bi bi-bookmarks"></i>
                             Postagens Salvas
                         </button>
                     </li>
                     <li onClick={handleOpenSettings}>
                         <button>
+                            <i class="bi bi-gear"></i>
                             Configurações
                         </button>
                     </li>
                     <li onClick={handleOpenStudies}>
                         <button>
+                            <i class="bi bi-journal-check"></i>
                             Meus estudos
                         </button>
                     </li>
                     
                 </ul>
             </nav>
+
+            <div onClick={() => {
+                setMenuMob(!menuMob);
+
+            }} className={styles.menuMob}>
+                <i class="bi bi-filter"></i>
+            </div>
 
             {/* Componente de postagens do usuário */}
             {openMyPosts && <MyPosts userId={userId} />}
@@ -207,8 +223,6 @@ const Profile = () => {
         <div className={orgs ? 'd-flex w-100' : 'd-none'}>
             <OrgStudies dNone={true} />
         </div>
-        
-
     </div>
   )
 }

@@ -19,11 +19,13 @@ function Navbar(){
             localStorage.removeItem("token")
         }
     }
+
+    const [menuMob, setMenuMob] = useState(false)
     
-    const {user, logout} = useContext(AuthContext)
+    const {user} = useContext(AuthContext)
 
     return(
-        <nav className={user ? styles.navbar : styles.navbarLC}>
+        <nav className={`${user ? styles.navbar : styles.navbarLC} navbar`}>
             {/* Logo */}
             <span>
                 <NavLink 
@@ -34,41 +36,53 @@ function Navbar(){
                 </NavLink>
             </span>
             {/* Links do navbar */}
-            <ul className={styles.linkList}>
-                {user ? (
-                    <>
-                        <li>
-                            <NavLink to="/">
-                                <i class="bi bi-house-door-fill"></i>
-                                <small>Início</small>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/notifications">
-                                <i class="bi bi-bell-fill"></i>
-                                <small>Notificações</small>
-                            </NavLink>
-                        </li>
-                        {/* <li>
-                            <NavLink to="/about">Sobre</NavLink>
-                        </li> */}
-                        
-                        <li className={styles.profile}>
-                            <NavLink to={`/profile/${userId}`}>
-                                <i class="bi bi-person-circle"></i>
-                            </NavLink>
-                        </li>
+            <div onClick={() => setMenuMob(!menuMob)} className='menuMob'>
+                <i class="bi bi-list"></i>
+            </div>
+            <ul className={menuMob ? `${styles.linkListMob} linkListMob`: `${styles.linkList}`}>
+                <div onClick={() => setMenuMob(false)} className={menuMob ?`d-flex ${styles.iconClose}` : 'd-none'}>
+                    <i class="bi bi-x-circle"></i>
+                </div>
+                    <> 
+                        {user ? (
+                            <>
+                                <li>
+                                    <NavLink onClick={() => setMenuMob(false)} to="/">
+                                        <i class="bi bi-house-door-fill"></i>
+                                        <small>Início</small>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink onClick={() => setMenuMob(false)} to="/notifications">
+                                        <i class="bi bi-bell-fill"></i>
+                                        <small>Notificações</small>
+                                    </NavLink>
+                                </li>
+                                {/* <li>
+                                    <NavLink to="/about">Sobre</NavLink>
+                                </li> */}
+                                
+                                <li className={styles.profile}>
+                                    <NavLink onClick={() => setMenuMob(false)} to={`/profile/${userId}`}>
+                                        <i class="bi bi-person-circle"></i>
+                                        <small>Perfil</small>
+                                    </NavLink>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li>
+                                    <NavLink onClick={() => setMenuMob(false)} to="/about">Sobre</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink onClick={() => setMenuMob(false)} to="/login">Login/Cadastro</NavLink>
+                                </li>
+                        </> 
+                        )}
                     </>
-                ) : (
-                    <>
-                        <li>
-                            <NavLink to="/about">Sobre</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/login">Login/Cadastro</NavLink>
-                        </li>
-                    </>
-                )}
+                    
+                 
+            
             </ul>
         </nav>
     )

@@ -16,7 +16,7 @@ const InputResp = ({commentId, commentAuthor}) => {
   const [idRes, setIdRes] = useState(null)
   const [openEdit, setOpenEdit] = useState(false)
 
-  const url = `http://localhost:1526/user/comment/${commentId}/response`
+  const url = `https://maze-nexus.onrender.com/user/comment/${commentId}/response`
 
 
   const handleResp = async (e) => {
@@ -50,7 +50,7 @@ const InputResp = ({commentId, commentAuthor}) => {
   }
 
   //Função para buscar respostas
-  const urlSearch = `http://localhost:1526/user/comment/${commentId}/responses`
+  const urlSearch = `https://maze-nexus.onrender.com/user/comment/${commentId}/responses`
     const fetchData = async () => {
       try{
 
@@ -72,7 +72,7 @@ const InputResp = ({commentId, commentAuthor}) => {
   //Função para deletar respostas
   const handleDeleteRes = async (respId) => {
 
-    const urlDelete = `http://localhost:1526/user/comment/${commentId}/response/${respId}` 
+    const urlDelete = `https://maze-nexus.onrender.com/comment/${commentId}/response/${respId}` 
 
     try{
       const res = await fetch(urlDelete, {
@@ -104,7 +104,7 @@ const InputResp = ({commentId, commentAuthor}) => {
 
     try{
 
-      const res = await fetch(`http://localhost:1526/user/response/${idRes}`, {
+      const res = await fetch(`https://maze-nexus.onrender.com/user/response/${idRes}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json'
@@ -212,7 +212,7 @@ const InputResp = ({commentId, commentAuthor}) => {
         )}
         
           <form onSubmit={handleResp}
-          className={`${styles.inputResp} w-100 d-flex`}>
+          className={`${styles.inputResp} inputRespDark w-100 d-flex`}>
               <input 
               onChange={(e) => {setResponse(e.target.value)}}
               type="text" 

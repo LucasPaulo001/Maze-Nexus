@@ -26,7 +26,7 @@ const PostStructure = ({savedPosts, post, removePost, addNewPost}) => {
     }
 
   return (
-    <div className={styles.post}>
+    <div className={`${styles.post} post`}>
         <div className={styles.dataAuthor}>
             <div> 
                 <span>Author: </span><strong>{post.author.username || post.author.name}</strong>
@@ -51,7 +51,7 @@ const PostStructure = ({savedPosts, post, removePost, addNewPost}) => {
         <div className={styles.contentPost}>
             <h3>{post.title}</h3>
             <p>{post.content}</p>
-            <div className={styles.localTools}>
+            <div className={`${styles.localTools} localTools`}>
                 <div 
                 className={styles.localLike} 
                 onClick={() => likePost(userId, post._id)}>

@@ -7,14 +7,27 @@ export const AuthContext = createContext()
 export function AuthProvider({ children }){
     const [user, setUser] = useState(() => {
         const token = localStorage.getItem("token")
-        return token ? { token } : null
+            try {
+                if (token && typeof token === "string") {
+                    return { token }
+                }
+            } catch (error) {
+                console.error("Token inválido:", error)
+                localStorage.removeItem("token")
+            }
+            return null
     })
 
     useEffect(() => {
         const token = localStorage.getItem("token")
 
         if(token){
-            setUser({ token })
+            try{
+                setUser({ token })
+            }   
+            catch(error){
+                console.log(error)
+            }
         }
     }, [])
 

@@ -10,6 +10,15 @@ const Notes = () => {
     <div>
         <hr />
           <h4 className="text-center">Minhas anotações</h4>
+          <hr />
+          {/* Buscar anotações */}  
+          <div className={`${styles.localSearch} mt-4`}>
+            <div className={`${styles.localInput} mb-3 localInputDark`}>
+              <i class="bi bi-search"></i>
+              <input type="text" placeholder="Buscar anotação..." />
+            </div>
+          </div>
+          
           {loading 
           ?(
           <div class="spinner-grow text-primary" role="status">
@@ -20,7 +29,7 @@ const Notes = () => {
               { notes.length > 0
               ?(notes.map((note) => (
                 <div key={note._id} className={`${styles.card} card`}>
-                  <div className={styles.noteDetail}>
+                  <div className={`${styles.noteDetail} noteDetailDark`}>
                     <span></span>
                     <span></span>
                     <span></span>

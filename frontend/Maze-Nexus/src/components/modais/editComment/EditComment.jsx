@@ -13,7 +13,7 @@ const EditComment = ({postId, commentId, setOpen, isOpen, commentValue}) => {
         setOpen(!isOpen)
     }
 
-    const url = `http://localhost:1526/user/comment/${commentId}`
+    const url = `https://maze-nexus.onrender.com/user/comment/${commentId}`
 
     //Função para editar comentário
       const handleEditComment = async (e) => {

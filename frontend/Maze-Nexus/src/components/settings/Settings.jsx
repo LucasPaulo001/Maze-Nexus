@@ -1,17 +1,21 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import styles from './Settings.module.css'
+import { ThemeContext } from '../../contexts/ThemeContext'
 
 const Settings = ({userId, dataUser}) => {
 
     const [newDataName, setNewDataName] = useState(dataUser.name)
     const [newDataBio, setNewDataBio] = useState(dataUser.bio)
     const [success, setSuccess] = useState("")
+    const [theme, setTheme] = useState(false)
+
+    const { themeSelect, setThemeSelect } = useContext(ThemeContext)
 
     const handleData =  async (e) => {
         try{
             e.preventDefault()
         
-            const res = await fetch(`http://localhost:1526/user/edit/profile/${userId}`, {
+            const res = await fetch(`https://maze-nexus.onrender.com/user/edit/profile/${userId}`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -36,10 +40,42 @@ const Settings = ({userId, dataUser}) => {
         }
     }
 
+    //toggle dark/light
+    const handleTheme = () => {
+        setTheme(!theme)
+        setThemeSelect(theme ? "dark": "light")
+        localStorage.setItem("Theme", themeSelect)
+    }
+
   return (
     <div className={styles.formData}>
         <h4 className='mt-4'>Configurações: </h4>
         <hr />
+        
+        <div className='mb-3 '>
+            <h4>Tema:</h4>
+            
+            <button onClick={handleTheme} className='btn d-flex gap-2 btn-dark'>
+               {theme 
+                ?
+                <>
+                    Escuro
+                    <i class="bi bi-moon-stars-fill"></i>
+                </>
+                :
+                <>
+                    Claro
+                    <i class="bi bi-cloud-sun-fill"></i>
+                </>
+                }
+                
+            </button>
+            
+        
+            
+            
+        </div>
+
         <div className={styles.contentData}>
             <div className='d-flex justify-content-center mb-3'>
                 {success && <span className='successMessage'>{success}</span>}
@@ -47,7 +83,7 @@ const Settings = ({userId, dataUser}) => {
             
 
             {/* Formulário para modificação de dados */}
-            <form onSubmit={handleData}>
+            <form onSubmit={handleData} className='styleDark'>
                 <h4>Modificar dados:</h4>
 
                 <div className='mb-3 mt-4'>
