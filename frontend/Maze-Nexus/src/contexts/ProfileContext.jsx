@@ -2,11 +2,6 @@ import { jwtDecode } from "jwt-decode"
 import { createContext, useEffect, useState } from "react"
 
 export const ProfileContext = createContext()
-const token = localStorage.getItem("token")
-const decode = jwtDecode(token)
-const userId = decode.id
-
-const url = `http://localhost:1526/user/profile/${userId}/schedule/note`
 
 export const ProfileProvider = ({ children }) => {
     const [notes, setNotes] = useState([{}])
@@ -18,15 +13,20 @@ export const ProfileProvider = ({ children }) => {
     //Buscando anotações
         const fetchData = async () => {
             try{
-                const res = await fetch(url)
+              const token = localStorage.getItem("token")
+              const decode = jwtDecode(token)
+              const userId = decode.id
 
-                const data = await res.json()
+              const url = `http://localhost:1526/user/profile/${userId}/schedule/note`
+              const res = await fetch(url)
 
-                if(res.ok){
-                    setLoading(false)
-                    console.log(data)
-                    setNotes(data.notes)
-                }
+              const data = await res.json()
+
+              if(res.ok){
+                  setLoading(false)
+                  console.log(data)
+                  setNotes(data.notes)
+              }
             }
             catch(error){
                 setLoading(false)
@@ -36,7 +36,7 @@ export const ProfileProvider = ({ children }) => {
 
     useEffect(() => {
         fetchData()
-    }, [url])
+    }, [])
 
     //Salvar anotações
       const handleSaveNote = async (userId, id, newNote) => {

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 
 //Imagens
-import imgLogin from '../../../../public/images/loginPage.png'
+import imgLogin from '../../../../public/images/logoLogin.png'
 
 const urlLoginGoogle = 'http://localhost:1526/user/google-login'
 const urlLoginCommom = 'http://localhost:1526/user/login'
@@ -141,7 +141,7 @@ function Login(){
                             <Link to="/register"><button className='btn'>Cadastro</button></Link>
                         </div>
                     </form>
-                    <div className={styles.divider}>
+                    <div className={`${styles.divider} dividerDark`}>
                         <span>ou</span>
                     </div>
                     <GoogleOAuthProvider clientId={clientId}>
@@ -152,7 +152,6 @@ function Login(){
                     </GoogleOAuthProvider>
                 </div>
                 <div className={styles.localImage}>
-                    <h3>Conecte-se, ensine e aprenda!</h3>
                     <img src={imgLogin} alt="" />
                 </div>
             </div>

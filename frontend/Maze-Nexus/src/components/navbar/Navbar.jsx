@@ -4,6 +4,8 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { useContext, useState } from 'react'
 import { NavLink } from "react-router-dom"
 import { jwtDecode } from 'jwt-decode'
+import imagLogo from '../../../public/images/logoMN.png'
+import imgLight from '../../../public/images/logoLight.png'
 
 function Navbar(){
     //Dados do usuário logado
@@ -21,6 +23,7 @@ function Navbar(){
     }
 
     const [menuMob, setMenuMob] = useState(false)
+
     
     const {user} = useContext(AuthContext)
 
@@ -32,7 +35,11 @@ function Navbar(){
                 to="/"
                 className={({ isActive }) => 
                 `${styles.navLink} ${(isActive ? styles.activeLink : styles.inactivesLink)}`}>
-                    <span className='textLogo'>Maze Nexus</span>
+                    {document.documentElement.classList.contains('light') 
+                    ?<img src={imgLight} alt='logo' height="50px" />
+                    :<img src={imagLogo} alt="logo" height="50px" />
+                    }
+                    
                 </NavLink>
             </span>
             {/* Links do navbar */}

@@ -216,6 +216,15 @@ html.dark body .openConditionDark{
     background-color: #121212;
 }
 
+html.dark .input-icon i::before{
+    color: blueviolet;
+    left: 3px;
+}
+
+html.dark .dividerDark span{
+    color: white;
+}
+
 html.dark textarea{
     color: white;
 }
