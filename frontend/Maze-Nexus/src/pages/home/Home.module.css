@@ -1,13 +1,8 @@
-.contentFeed{
-    display: grid;
-    grid-template-columns: 20% 1fr 20%;
-    column-gap: 3em;
-    margin: 10% 3em;
-}
 .toolsMenu, .toolRelevants{
     border: 1px solid #471ba7;
     border-radius: 5px;
     padding: 2em;
+    max-height: 50%;
 }
 .loadingPosts{
     display: flex;

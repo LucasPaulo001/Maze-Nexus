@@ -35,6 +35,7 @@ a{
 
 .localImage img{
     height: 30vw;
+    border-radius: 10px;
 }
 
 .divider span {

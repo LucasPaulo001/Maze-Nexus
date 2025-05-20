@@ -1,44 +1,11 @@
+import { PostContext } from '../../../contexts/PostsContext'
 import styles from './EditPost.module.css'
-import { useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 
-const EditPost = ({postEdit, isClose, setClose, addNewPost}) => {
+const EditPost = ({postEdit, isClose, setClose}) => {
     const [newTitle, setNewTitle] = useState(postEdit.title)
     const [newContent, setNewContent] = useState(postEdit.content)
-    const [success, setSuccess] = useState("")
-    const [error, setError] = useState("")
-
-    const url = `http://localhost:1526/user/update/post/${postEdit._id}`
-
-
-    const handleEdit = async (e) => {
-        e.preventDefault()
-
-        try{
-            const fetchData = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify({ title: newTitle, content: newContent })
-            })
-            
-            const json = await fetchData.json()
-            if(json.ok){
-                setError("")
-                setSuccess("Postagem editada com sucesso!")
-                addNewPost(json.attPost, true)
-
-                setTimeout(() => {
-                    setClose(false)
-                }, 900)
-                
-            }
-        }
-        catch(error){
-            setError("Erro ao editar postagem, tente novamente mais tarde!")
-            console.log(error)
-        }
-    }
+    const { success, error, editPost } = useContext(PostContext)
 
     const handleClose = () => {
         setClose(false)
@@ -53,7 +20,13 @@ const EditPost = ({postEdit, isClose, setClose, addNewPost}) => {
                 <i onClick={handleClose} class="bi bi-x-circle"></i>
             </div>
             <div>
-                <form onSubmit={handleEdit}>
+                <form onSubmit={(e) => {
+                    e.preventDefault(); 
+                    editPost(postEdit._id, { 
+                        title: newTitle, 
+                        content: newContent 
+                    })}}>
+
                     <div>
                         <input type="text" 
                         value={newTitle} 

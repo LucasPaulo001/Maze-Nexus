@@ -1,45 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styles from './PostStructure.module.css'
 import ToolPosts from '../toolPosts/ToolPosts'
 import { jwtDecode } from 'jwt-decode'
 import Comments from '../modais/comments/Comments'
+import { PostContext } from '../../contexts/PostsContext'
 
-const PostStructure = ({post, removePost, addNewPost}) => {
+const PostStructure = ({savedPosts, post, removePost, addNewPost}) => {
     const token = localStorage.getItem('token')
     const decoded = token ? jwtDecode(token) : null
     const userId = decoded?.id
 
-    const [like, setLike] = useState(post.likes.includes(userId))
-    const [likeCounts, setLikeCounts] = useState(post.likes.lenght)
     const [menuTool, setMenuTool] = useState(false)
     const [commentsWindow, setCommentsWindow] = useState(false)
-    const [quantComments, setQuantComments] = useState(post.comments.length)
+    const [quantComments] = useState(post.comments.length)
+    const { likePost } = useContext(PostContext)
 
-    //Função para dar like no post
-    const handleLike = async () => {
-        // Envia a requisição ao backend para adicionar/remover o like
-        try {
-            const url = `http://localhost:1526/user/like/post/${post._id}`;
-            const res = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ userId }),
-            });
-            const resJson = await res.json();
-
-            if (resJson.liked) {
-                setLike(true)
-                setLikeCounts(resJson.likeCount)
-            } else {
-                setLike(false);
-                setLikeCounts(resJson.likeCount);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     const handleOpenTools = () => {
         setMenuTool(prevMenuTool => !prevMenuTool)
@@ -51,9 +26,9 @@ const PostStructure = ({post, removePost, addNewPost}) => {
     }
 
   return (
-    <div className={styles.post}>
+    <div className={`${styles.post} post`}>
         <div className={styles.dataAuthor}>
-            <div>
+            <div> 
                 <span>Author: </span><strong>{post.author.username || post.author.name}</strong>
             </div>
 
@@ -63,15 +38,24 @@ const PostStructure = ({post, removePost, addNewPost}) => {
                 </botton>
             </div>
             <div className={menuTool ? styles.open : styles.close}>
-                <ToolPosts post={post} author={post.author._id} postId={post._id} updateList={removePost}  addNewPost={addNewPost}/>
+                <ToolPosts 
+                post={post} 
+                author={post.author._id} 
+                postId={post._id} 
+                updateList={removePost}  
+                addNewPost={addNewPost}
+                savedPosts={savedPosts}
+                />
             </div>
         </div>
         <div className={styles.contentPost}>
             <h3>{post.title}</h3>
             <p>{post.content}</p>
-            <div className={styles.localTools}>
-                <div className={styles.localLike} onClick={handleLike}>
-                    {like ? (
+            <div className={`${styles.localTools} localTools`}>
+                <div 
+                className={styles.localLike} 
+                onClick={() => likePost(userId, post._id)}>
+                    {post.likes.includes(userId) ? (
                         <button className={styles.like}>
                             <i class="bi bi-heart-fill"></i>
                         </button>
@@ -80,8 +64,8 @@ const PostStructure = ({post, removePost, addNewPost}) => {
                             <i class="bi bi-heart"></i>
                         </button>
                     )}
-                    <span>{likeCounts}</span>
-                    {post.likes.username}
+                    <span>{post.likes.length}</span>
+                    
                 </div>
                 <div>
                     <button className='d-flex align-items-center gap-2' onClick={handleOpenComments}>

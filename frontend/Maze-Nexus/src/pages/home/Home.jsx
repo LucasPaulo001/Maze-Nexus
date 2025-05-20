@@ -1,47 +1,51 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styles from './Home.module.css'
 import Post from '../../components/modais/post/Post'
 import PostStructure from '../../components/postStructure/PostStructure'
+import { PostContext } from '../../contexts/PostsContext'
 const urlPosts = 'http://localhost:1526/user/posts'
 
 function Home(){
-    const [loading, setLoading] = useState(false)
-    const [posts, setPosts] = useState([])
+    
     const [isClose, setClose] = useState(false)
     const [drop, setDrop] = useState(false)
+    const { posts, loading } = useContext(PostContext)
 
     //Função para atualizar feed ao fazer postagem ou editar postagens
-    const addNewPost = (newPost, isEditing = false) => {
-        setPosts((prevPosts) => isEditing 
-        ? prevPosts.map((p) => (p._id === newPost._id ? newPost : p))
-        :[newPost, ...prevPosts])
-    }
+    // const addNewPost = (newPost, isEditing = false) => {
+    //     setPosts((prevPosts) => isEditing 
+    //     ? prevPosts.map((p) => (p._id === newPost._id ? newPost : p))
+    //     :[newPost, ...prevPosts])
+    // }
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            setLoading(true)
-            try{
-                const res = await fetch(urlPosts)
+    // useEffect(() => {
+    //     const fetchPosts = async () => {
+    //         setLoading(true)
+    //         try{
+    //             const res = await fetch(urlPosts)
 
-                const resData = await res.json()
-                console.log(resData)
-                if(resData.ok){
-                    setTimeout(() => {
-                        setLoading(false)
-                    }, 1500)
-                    setPosts(resData.posts)
-                }
-            }
-            catch(error){
-                console.log(error)
-            }
-        }
-        fetchPosts()
-    }, [urlPosts])
+    //             const resData = await res.json()
+    //             console.log(resData)
+    //             if(resData.ok){
+    //                 setTimeout(() => {
+    //                     setLoading(false)
+    //                 }, 1500)
+    //                 setPosts(resData.posts)
+    //             }
+    //         }
+    //         catch(error){
+    //             console.log(error)
+    //         }
+    //     }
+    //     fetchPosts()
+    // }, [urlPosts])
 
-    const removePostDeleted = (postId) => {
-        setPosts(posts.filter(post => post._id !== postId))
-    }
+    //Exibir postagens no feed
+
+
+    // const removePostDeleted = (postId) => {
+    //     setPosts(posts.filter(post => post._id !== postId))
+    // }
 
     const handleOpenPost = () => {
         setClose(true)
@@ -59,12 +63,12 @@ function Home(){
     return(
         <>
         {/* Feed */}
-            <div className={styles.contentFeed}>
+            <div className='contentFeed'>
 
                 {/* Janela de grupos e outras informações */}
                 <div className={styles.toolsMenu}>
                     <h4>Janela de grupos e outras informações</h4>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus sapiente rerum corporis magnam veritatis eum repudiandae quasi necessitatibus, obcaecati consectetur, perferendis facilis cum earum, reprehenderit eligendi totam commodi ipsum maiores.
+                    
                 </div>
 
                 {/* Janela de postagens */}
@@ -72,7 +76,7 @@ function Home(){
                     {/* Input para iniciar publicações */}
                     <div className={styles.localBtnPost}>
                         <div className={styles.contentBtns}>
-                            <button onClick={handleOpenPost} onMouseEnter={handleEnter} onMouseLeave={handleDown} className={styles.btnAddP}>
+                            <button onClick={handleOpenPost} onMouseEnter={handleEnter} onMouseLeave={handleDown} className={`${styles.btnAddP} btnAddP`}>
                                 <i class="bi bi-plus-square"></i>
                             </button>
                         </div>
@@ -87,18 +91,17 @@ function Home(){
                         <Post 
                             isClose={isClose} 
                             setClose={setClose} 
-                            addNewPost={addNewPost} 
+             
                         />
                     )}
     
                     {posts.length > 0 ? (
                         posts.map((post) => 
-                        <PostStructure key={post._id} 
+                        <PostStructure 
+                        key={post._id} 
                         post={post} 
-                        removePost={removePostDeleted} 
                         handleOpenPost={handleOpenPost} 
-                        addNewPost={addNewPost} 
-                        
+    
                         />)
                     ):( loading ? 
                         (<div className={styles.loadingPosts}>
@@ -118,7 +121,7 @@ function Home(){
                 {/* Janela de Sugestões e conteúdos relevântes */}
                 <div className={styles.toolRelevants}>
                     <h4>Janela de Sugestões e conteúdos relevantes</h4>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum iusto numquam quas nobis pariatur incidunt doloremque. Porro pariatur ullam cumque debitis id itaque suscipit, voluptatum, labore doloremque cum impedit laudantium?
+                   
                 </div>
             </div>
         </>

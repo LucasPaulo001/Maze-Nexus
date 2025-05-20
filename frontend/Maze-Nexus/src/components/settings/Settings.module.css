@@ -1,0 +1,11 @@
+.formData{
+    margin-top: 2em;
+    border-top: 2px solid blueviolet;
+}
+.contentData form input, textarea{
+    background-color: #8a2be217;
+    margin-top: .8em !important; 
+}
+.contentData form textarea{
+    height: 150px !important;
+}

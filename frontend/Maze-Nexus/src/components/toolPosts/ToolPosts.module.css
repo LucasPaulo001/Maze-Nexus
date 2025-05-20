@@ -17,6 +17,10 @@
     flex-direction: column;
     align-items: flex-start;
 }
+
+.list button, .list{
+    width: 100% !important;
+}
 .listTools li i{
     font-size: 1.3em;
 }
@@ -56,6 +60,11 @@
 }
 .listTools li:hover{
     background-color: rgba(137, 43, 226, 0.342);
+}
+.okSave{
+    position: absolute;
+    right: 0;
+    top: 20px;
 }
 
 @media(max-width: 640px){

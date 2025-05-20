@@ -3,73 +3,48 @@ import styles from './ToolPosts.module.css'
 import { jwtDecode } from 'jwt-decode'
 import { AuthContext } from '../../contexts/AuthContext'
 import EditPost from '../modais/editPost/EditPost'
+import { PostContext } from '../../contexts/PostsContext'
 
-const ToolPosts = ({post, postId, updateList, author, addNewPost}) => {
-  const [loading, setLoading] = useState(false)
+const ToolPosts = ({post, postId, author, addNewPost}) => {
   const [isClose, setClose] = useState(false)
   const [condition, setCondition] = useState(false)
   const [resp, setResp] = useState(null)
-  const { user } = useContext(AuthContext)
+  const { savePost, savedPosts, removePostsSaved, success, deletePost, loading } = useContext(PostContext)
 
   
   const token = localStorage.getItem("token")
   const loggedUser = token ? jwtDecode(token) : null
   const isAuthor = loggedUser && loggedUser.id === author
+  const userId = loggedUser.id
+  const user = loggedUser
 
-  //Função para deletar postagem
+  //Confirmação para a exclusão do post
   const handleDelete = () => {
-    //const confirmation = confirm("Tem certeza que deseja deletar a postagem?")
-    if(condition){
-      setCondition(false)
-      return
-    }
-    setCondition(true)
-  }
-    useEffect(() => {
-      if(resp){
-        setLoading(true)
-        setTimeout(() => {
-          const respDelete = async () => {
-            try{  
-              const urlDelete = `http://localhost:1526/user/delete/post/${postId}`
-        
-              const res = await fetch(urlDelete, {
-                method: 'POST',
-              })
-              const data = await res.json()
-              console.log(data)
-              if(data.ok){
-                setLoading(false)
-                updateList(postId)
-              }
-            }
-            catch(error){
-              setLoading(false)
-              console.log(error)
-            }
-            finally{
-              setLoading(false)
-              setResp(null)
-              setCondition(false)
-            }
-          }
-          respDelete()
-        }, 900)
+      if(condition){
+        setCondition(false)
+        return
       }
-    }, [resp])
-
+      setCondition(true)
+  }
+  if(resp){
+    deletePost(postId)
+  }
+  
+  //Abrir janela de postagem
   const handleOpenPost = () => {
     setClose(true)
   }
 
+  const isPostSaved = savedPosts.includes(postId)
+
   return (
-    <div className={styles.toolMenu}>
+    <div className={`${styles.toolMenu} toolMenu`}>
         <ul className={styles.listTools}>
           {/* Links de postagens do autor */}
           {isAuthor ? (
             <>
               <li onClick={handleOpenPost}>
-                <div className={styles.list}>
+                <div className={`${styles.list} list`}>
                   <i class="bi bi-pencil"></i>
                   Editar
                 </div>
@@ -80,10 +55,11 @@ const ToolPosts = ({post, postId, updateList, author, addNewPost}) => {
               postEdit={post}
               addNewPost={addNewPost}
               />
+
               <li onClick={handleDelete}>
                 {loading ? (
                   <>
-                    <div className={styles.list}>
+                    <div className={`${styles.list} list`}>
                       <div className={`${styles.spinner} spinner-grow text-primary`} role="status">
                         <span class="visually-hidden">Loading...</span>
                       </div>
@@ -94,11 +70,11 @@ const ToolPosts = ({post, postId, updateList, author, addNewPost}) => {
                   </>
                 ) : (
                   <>
-                    <div className={styles.list}> 
+                    <div className={`${styles.list} list`}> 
                       <i class="bi bi-trash"></i>
                       Excluir
                     </div>
-                    <div className={condition ? styles.openConditions : styles.btnsCondition}>
+                    <div className={condition ? `${styles.openConditions} openConditionDark` : styles.btnsCondition}>
                       Excluir?
                       <button onClick={() => {setResp(true)}} className='btn btn-success'>Sim</button>
                       <button onClick={() => {setResp(false)}} className='btn btn-danger'>Não</button>
@@ -112,9 +88,28 @@ const ToolPosts = ({post, postId, updateList, author, addNewPost}) => {
             // Links de publicações de terceiros
             <>
             <li>
-              <div className={styles.list}>
-                <i class="bi bi-bookmark"></i>
-                Salvar
+              <div className={`${styles.list} list`}>
+                <div className={styles.okSave}>
+                  {success && <span className='successMessage'>{success}</span>}
+                </div>
+                <button
+                  onClick={() => {
+                      console.log(`Clicado no botão -> isPostSaved: ${isPostSaved}, postId: ${postId}`);
+                      isPostSaved ? removePostsSaved(userId, postId) : savePost(userId, postId);
+                  }}
+                  className='d-flex align-items-center gap-2'
+              >
+                  {isPostSaved ? (
+                      <>
+                          <i className="bi text-success bi-bookmark-fill"></i> Remover
+                      </>
+                  ) : (
+                      <>
+                          <i className="bi bi-bookmark"></i> Salvar
+                      </>
+                  )}
+              </button>
+
               </div>
             </li>
 

@@ -117,7 +117,7 @@ const Comments = ({setClose, postData}) => {
 
 
   return (
-    <div className={styles.comments}>
+    <div className={`${styles.comments} commentsDark`}>
         <h4>Comentários:</h4>
         <hr />
         <div className={styles.close}>
@@ -158,19 +158,19 @@ const Comments = ({setClose, postData}) => {
                         {comment.comment}
 
                         {/* Interassão com o comentário - like e respostas */}
-                        <div className={styles.toolComment}>
+                        <div className={`${styles.toolComment} toolCommentDark`}>
 
                             {/* Botão de like */}
                             <button className={styles.liked} onClick={() => {handleLikeComment(comment._id)}}>
                                 <i class="bi bi-hand-thumbs-up"></i>
-                                {comment.likes.length}
+                                <span>{comment.likes.length}</span>
                             </button>
                             
 
                             {/* Botão de comentar */}
                             <button className='d-flex gap-2' onClick={() => handleOpenResp(comment._id)}>
                                 <i class="bi bi-chat-left-text"></i>
-                                {comment.responses.length}
+                                <span>{comment.responses.length}</span>
                             </button>
                             
                         </div>

@@ -15,7 +15,7 @@ routerPost.post('/post', async (req, res) => {
             content,
             author: idUser
         })
-        .populate('author', 'name username')
+        .populate('author', '_id name username')
 
         await newPost.save()
 
@@ -28,12 +28,11 @@ routerPost.post('/post', async (req, res) => {
 })
 
 //Rota para listar os posts
-
 routerPost.get('/posts', async (req, res) => {
     try{
         const posts = await Post.find()
         .populate('author', 'name username')
-        console.log(posts)
+        .populate('likes')
         res.json({posts, ok: true})
     }
     catch(error){
@@ -43,8 +42,7 @@ routerPost.get('/posts', async (req, res) => {
 })
 
 //Rota para excluir posts
-
-routerPost.post('/delete/post/:id', async (req, res) => {
+routerPost.delete('/delete/post/:id', async (req, res) => {
     try{
         const { id } = req.params
 
@@ -63,8 +61,7 @@ routerPost.post('/delete/post/:id', async (req, res) => {
 })
 
 //Rota para editar postagens
-
-routerPost.post('/update/post/:id', async (req, res) => {
+routerPost.put('/update/post/:id', async (req, res) => {
     try{
         const { id } = req.params
         const { title, content } = req.body
@@ -72,7 +69,7 @@ routerPost.post('/update/post/:id', async (req, res) => {
         const attPost = await Post.findByIdAndUpdate(id, 
         {content: content, title: title}, 
         { new: true })
-        .populate('author', 'username')
+        .populate('author', 'username name')
 
         if(!attPost){
             return res.json({message: 'Postagem não encontrada!'})
@@ -87,13 +84,13 @@ routerPost.post('/update/post/:id', async (req, res) => {
 })
 
 //Rota para likes
-
 routerPost.post('/like/post/:postId', async (req, res) => {
     try{
         const { postId } = req.params
         const { userId } = req.body
 
-        const post = await Post.findById(postId)
+        let post = await Post.findById(postId)
+        
 
         if(!post){
             return res.status(404).json({message: 'Postagem não encontrada!'})
@@ -103,12 +100,19 @@ routerPost.post('/like/post/:postId', async (req, res) => {
 
         if(alreadyLike){
             await Post.findByIdAndUpdate(postId, { $pull: { likes: userId } })
-            res.json({message: 'Like removido!',likeCount: post.likes.length - 1, liked: false})
         }
         else{
             await Post.findByIdAndUpdate(postId, { $addToSet: { likes: userId } })
-            res.json({message: 'Like adicionado!', likeCount: post.likes.length + 1, liked: true})
         }
+
+        post = await Post.findById(postId)
+
+        res.json({
+            message: alreadyLike ? 'Like removido!' : 'Like adicionado!',
+            likeCount: post.likes.length, // Agora refletindo o valor atualizado
+            liked: !alreadyLike,
+            likes: post.likes // Retornando a lista atualizada de likes
+        })
     }
     catch(error){
         console.log(error)

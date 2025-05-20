@@ -13,7 +13,15 @@ const UserSchema = Schema({
         unique: true, 
         sparse: true 
     },
-
+    bio: {
+        type: String,
+        required: false
+    },
+    postsSaves: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post',
+        require: false
+    }],
     googleProfilePicture: { 
         type: String, 
         required: false 
