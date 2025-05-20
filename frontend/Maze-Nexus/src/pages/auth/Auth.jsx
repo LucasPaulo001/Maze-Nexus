@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import styles from './Auth.module.css'
 import '../../App.css'
 import { Link } from "react-router-dom"
-import OTPinput from "./otpInput/OTPinput"
+import OTPinput from "./otpInput/Otpinput"
 import { useNavigate } from "react-router-dom"
 const urlVerify = 'http://localhost:1526/user/verifyCode'
 
