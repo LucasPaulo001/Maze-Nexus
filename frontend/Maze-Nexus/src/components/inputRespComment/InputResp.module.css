@@ -1,0 +1,93 @@
+.inputResp{
+    position: sticky;
+    bottom: 0;
+    padding: 0;
+    background-color: white;
+    padding: .5em;
+    border-radius: 5px;
+}
+.inputResp input{
+    text-indent: 0;
+}
+.localResp{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.noComments{
+    height: auto;
+    width: 100%;
+    background-color: #8a2be20d;
+    padding: .8em;
+}
+.toolResponses{
+    display: flex;
+    justify-content: space-between;
+}
+.toolsRes{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    width: 100%;
+}
+.localIcons{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+.formEditRes{
+    position: relative;
+}
+.formEditRes i{
+    position: absolute;
+    right: 10px;
+    font-size: 1.8vw;
+}
+.formEditRes input{
+    text-indent: 3px;
+    
+}
+.formEditRes button{
+    position: absolute;
+    right: 0;
+}
+.contentResps{
+    overflow-y: auto;
+    height: 350px;
+    background-color: #8a2be20d;
+    padding: .8em;
+    border-radius: 5px;
+}
+.closeEdit{
+    display: none;
+}
+
+@media(max-width: 640px){
+    .formEditRes{
+        position: unset;
+    }
+    .formEditRes input{
+        position: fixed;
+        left: 0;
+        top: 46%;
+        z-index: 99;
+        padding: 3em;
+    }
+    .formEditRes button{
+        top: 50%;
+    }
+    .closeEdit{
+        display: flex;
+        top: 44% !important;
+    }
+    .closeEdit i::before{
+        background-color: red;
+        border-radius: 20px;
+        color: white;
+    }
+    .formEditRes i{
+        z-index: 999;
+        right: 0;
+        font-size: 6vw;
+    }
+}

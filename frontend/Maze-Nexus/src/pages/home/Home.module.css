@@ -1,0 +1,85 @@
+.toolsMenu, .toolRelevants{
+    border: 1px solid #471ba7;
+    border-radius: 5px;
+    padding: 2em;
+    max-height: 50%;
+}
+.loadingPosts{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 4em;
+}
+.nothing{
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.localBtnPost{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 6em;
+    
+}
+.ok{
+    opacity: 1;
+    visibility: 0;
+    position: absolute;
+    top: 0;
+    transition: .4s ease-in-out;
+}
+.no{
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    visibility: 0;
+    transition: .2s ease-in-out;
+}
+.btnAddP{
+    background: transparent;
+    border: none;
+}
+.btnAddP i:hover{
+    background-color: #5c23d6;
+    border-radius: 5px;
+    color: #d5c2ff;
+    padding: 3px;
+}
+.btnAddP i{
+    font-size: 2.5vw;
+    transition: .4s;
+}
+.contentBtns{
+    width: 100%;
+    text-align: center;
+    border: .7px solid #5c23d6ad;
+    border-radius: 7px;
+    padding: .1em;
+}
+
+@media(max-width: 640px){
+    .contentFeed{
+        display: grid;
+        grid-template-columns: 1fr;
+        margin: 20% 2em;
+    }
+    .toolsMenu, .toolRelevants{
+        display: none;
+    }
+    .localBtnPost{
+        height: 6em;
+    }
+    .btnAddP i{
+        font-size: 6vw;
+    }
+    .contentFeed{
+        margin-top: 30%;
+        width: 100%;
+    }
+    
+}

@@ -1,0 +1,345 @@
+.btnPost{
+    bottom: 0;
+    right: 17px;
+    margin-top: 1em;
+    position: absolute;
+    margin: .7em;
+}
+.contentFeed{
+    display: grid;
+    grid-template-columns: 20% 1fr 20%;
+    column-gap: 3em;
+    margin-bottom: 20%;
+    margin-top: 2em;
+}
+.bodyPage{
+    margin: 2em 3em;
+}
+ul{
+    padding: 0 !important;
+}
+li{
+    list-style: none;
+    padding: 0;
+}
+input{
+    outline: none;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 1px solid #646cff;
+    width: 100%;
+    height: 35px;
+    text-indent: 30px;
+    font-size: 1em;
+}
+.successMessage {
+    background-color: rgba(51, 255, 0, 0.397);
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(1px);
+    font-size: 1vw;
+    text-align: center;
+    margin: 20px;
+}
+.errorMessage {
+    background-color: rgb(255 0 0 / 60%);
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(1px);
+    font-size: 1vw;
+    text-align: center;
+    margin: 20px;
+    color: white;
+}
+
+.windowEdit{
+    background-color: rgba(0, 0, 0, 0.404);
+    backdrop-filter: blur(1px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.windowEdit .edit{
+    transform: translateX(0);
+}
+
+.edit{
+    background-color: white;
+    padding: 2em;
+    border-radius: 7px;
+    width: 60%;
+    height: 80%;
+    position: relative;
+    transform: translateX(-50px);
+    transition: .4s ease-in-out;
+}
+
+.windowEditClose{
+    height: 0;
+    overflow: hidden;
+}
+
+.close{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.edit i{
+    font-size: 2vw;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.textarea{
+    width: 100%;
+    height: 250px;
+    text-indent: 15px;
+    padding: .8em;
+    border-bottom: 1px solid blueviolet;
+    border-left: 1px solid blueviolet;
+    border-right: 1px solid blueviolet;
+    border-top: none;
+    outline: none;
+    margin-top: 2em;
+}
+
+.windowTool{
+    position: absolute;
+    border: 1px solid blueviolet;
+    border-radius: 5px;
+    background-color: white;
+    padding: .4em;
+    right: 30px;
+    width: 40%;
+    top: 18px;
+    z-index: 99;
+}
+.listTools{
+    width: 100%;
+    display: flex;
+    padding: .5em;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.listTools li i{
+    font-size: 1.3em;
+}
+.listTools li{
+    width: 100%;
+    padding: 8px 0;
+    transition: .4s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    padding: .5em;
+    border-radius: 6px;
+}
+
+.list{
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    align-items: center;
+}
+
+.listTools li:hover{
+    background-color: rgba(137, 43, 226, 0.342);
+}
+
+.toolMenu{
+    position: absolute;
+    right: 0;
+    top: 45px;
+    background-color: white;
+    border: 1px solid rgba(137, 43, 226, 0.425);
+    height: 150px;
+    width: 400px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+button{
+    background: transparent;
+    border: none;
+}
+
+html body{
+    transition: .4s ease-in-out;
+}
+
+/* Modo dark - cabeçalho */
+.navbar{
+    transition: .4s ease-in-out;
+}
+html.dark .navbar{
+    background-color: #09031afb !important;
+    color: white !important;
+}
+
+html.dark .navbar span, html.dark .navbar ul li a{
+    color: white
+}
+
+html.dark .navbar ul li a.active{
+    border-bottom: 1px solid white !important;
+}
+
+/* Modo dark - body */
+html.dark body, html.dark .toolMenu, html.dark .listLinksDark{
+    background-color: #121212;
+    color: #f5f5f5;
+    margin: 0;
+}
+
+html.dark body .windowTool{
+    background-color: #121212;
+}
+
+html.dark body .windowEdit .edit{
+    background-color: #121212;
+}
+
+html.dark body .openConditionDark{
+    background-color: #121212;
+}
+
+html.dark .input-icon i::before{
+    color: blueviolet;
+    left: 3px;
+}
+
+html.dark .dividerDark span{
+    color: white;
+}
+
+html.dark textarea{
+    color: white;
+}
+
+html.dark body .windowEdit .edit textarea{
+    color: white;
+}
+
+html.dark body .windowEdit .edit input{
+    background-color: #892be22c;
+    color: white;
+    border-bottom: 1px solid white;
+}
+
+html.dark body .inputRespDark{
+    background-color: #121212;
+}    
+
+html.dark body .commentsDark{
+    background-color: #121212;
+}
+
+html.dark body .commentsDark input{
+    background-color: #8a2be254;
+    color: white;
+}
+
+html.dark .list button, 
+html.dark .listLinksDark li button, 
+html.dark .styleDark input, 
+html.dark .styleDark textarea,
+html.dark .localCardDark button{
+    color: white;
+}
+
+html.dark body .toolCommentDark,
+html.dark body .toolCommentDark span{
+    color: white;
+}
+
+html.dark .noteDetailDark span,
+html.dark .card-body{
+    background-color: white;
+}
+html.dark .card-body,
+html.dark .localInputDark input{
+    background-color: #121212d7;
+    color: white;
+}
+
+html.dark .postWindow{
+    background-color: #121212;
+    border: blueviolet;
+    color: white;
+}
+
+html.dark .closeDark{
+    color: blueviolet;
+}
+
+html.dark .listLinksDark li:hover{
+    border-bottom: 2px solid white;
+}
+
+html.dark body .contentFeed .post{
+    border: 1px solid blueviolet;
+}
+
+html.dark body .btnAddP, html.dark .makePostDark textarea{
+    color: white;
+}
+
+html.dark .makePostDark input{
+    background-color: #8a2be22e;
+    border-bottom: 1px solid white;
+    color: white;
+}
+
+html.dark body .localTools i, html.dark body .localTools span{
+    color: white;
+}
+
+html.dark body .localTools i:hover{
+    color: blueviolet;
+}
+
+
+
+/* Modo dark menu mobile */
+html.dark .navbar .linkListMob{
+    background-color: #09031afb !important;
+}
+
+html.light body{
+    background-color: white;
+    color: black;
+}
+
+@media(max-width: 640px){
+    .edit{
+        width: 95%;
+    }
+    .edit i{
+        font-size: 7vw;
+    }
+    .windowTool{
+        width: 55%;
+        right: 15px;
+        top: 30px;
+    }
+    .contentFeed{
+        grid-template-columns: 1fr;
+    }
+    .successMessage{
+        padding: 5px;
+        margin: 0 0 15px;
+    }
+}

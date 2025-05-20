@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'inter'
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    height: 100px;
+    box-shadow: 1px 1px 6px #260E59;
+    background-color: #ffffff;
+    backdrop-filter: blur(1px);
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+}
+.navbarLC{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    height: 100px;
+    color: black;
+}
+
+.navLink{
+    color: rgb(0, 0, 0) !important;
+    text-decoration: none;
+    margin: 5px;
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1.5vw;
+}
+.linkList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.linkList li{
+    list-style: none;
+    margin: .2em .9em;
+    font-size: 1.2vw;
+}
+.navbar .textLogo{
+    color: rgb(0, 0, 0);
+}
+.navbarLC .textLogo{
+    color: rgb(255, 255, 255);
+}
+.navbar .linkList li a{
+    padding: 1.3vw;
+    transition: .2s ease-in-out;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border: 1px solid transparent;
+    color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    width: 8vw;
+    align-items: center;
+    opacity: .6;
+    transition: .2s;
+}
+.navbar .linkList li a i{
+    font-size: 1.5vw;
+}
+.navbarLC .linkList li a{
+    padding: 1.3vw;
+    width: 8vw;
+    transition: .2s ease-in-out;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border: 1px solid transparent;
+    color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 1;
+}
+
+.profile a i{
+    font-size: 1.5 !important;
+}
+
+@media(max-width: 640px){
+    .navLink{
+        font-size: 6vw;
+    }
+    .navbar .linkList li a i{
+        font-size: 6vw;
+    }
+    .linkList{
+        display: none;
+    }
+    .linkListMob{
+        position: fixed;
+        top: 0;
+        display: flex;
+        right: 0;
+        height: 100vh;
+        width: 100%;
+        background-color: #fffffffa;
+        backdrop-filter: blur(3px);
+        z-index: 999 !important;
+        flex-direction: column;
+        align-items: center;
+    }
+    .linkListMob li{
+        width: 100%;
+        padding: 1em;
+        font-size: 8vw;
+        gap: 5px;
+    }
+    
+    .linkListMob li a{
+        align-items: center;
+        color: blueviolet;
+        gap: 15px;
+    }
+    .profile a i{
+        font-size: 8vw !important;
+    }
+    .iconClose{
+        position: absolute;
+        left: 0;
+        font-size: 10vw;
+        color: red;
+        margin: 5px;
+    }
+}

@@ -1,0 +1,51 @@
+.studies{
+    border-top: 2px solid rgba(225, 0, 255, 0.671);
+    margin-top: 2em;
+}
+.cardsContent{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 4em;
+}
+.card{
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+    padding: 1em;
+    width: 100%;
+    gap: 20px;
+    flex-direction: column-reverse;
+    border-radius: 10px;
+    transition: .4s;
+    cursor: pointer;
+}
+.card:hover span{
+    font-weight: 800;
+    transition: .4s;
+    color: blueviolet;
+}
+.card:hover{
+    border: 1px solid blueviolet;
+}
+.icon{
+    transition: .4s ease-in-out;
+}
+.card:hover .icon{
+    color: blueviolet;
+}
+.localCard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 180px;
+}
+
+@media(max-width: 640px){
+    .card{
+        width: 90%;
+        font-size: 3vw;
+        height: 100%;
+    }
+}

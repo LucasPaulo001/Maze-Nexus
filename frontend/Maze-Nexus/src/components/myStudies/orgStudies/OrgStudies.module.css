@@ -1,0 +1,93 @@
+.localTable{
+    margin-top: 3em;
+}
+.localOrg{
+    border: 1px solid blueviolet;
+    margin-top: 2em;
+    padding: 1em;
+    border-radius: 10px;
+    background-color: #892be205;
+}
+
+.localInput{
+    width: 100%;
+    position: relative;
+}
+.localInput i{
+    font-size: 2vw;
+    position: absolute;
+    bottom: 0;
+}
+.formStudy{
+    margin: 0 1.5em;
+    display: flex;
+    flex-direction: column;
+}
+.formStudy input{
+    height: auto;
+    text-indent: 0;
+}
+.localTable{
+    margin-top: 2em;
+}
+.noBorder{
+    border: 1px solid transparent !important;
+}
+.listMobile{
+    display: none;
+}
+.toolStudy{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.window{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00000012;
+    z-index: 99;
+    backdrop-filter: blur(1px);
+}
+.localNote{
+    width: 75%;
+    height: 80%;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.btnClose{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.btnClose i{
+    font-size: 2vw;
+}
+.cardBody{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+@media(max-width: 640px){
+    .localInput i{
+        font-size: 6vw;
+    }
+    .localTable{
+        display: none;
+    }
+    .listMobile{
+        display: flex;
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,11 @@
+.otpContainer{
+    display: flex;
+    gap: 15px;
+}
+.otpContainer input{
+    border: 1px solid #646cff;
+    display: flex;
+    text-indent: 0;
+    text-align: center;
+    border-radius: 10px;
+}

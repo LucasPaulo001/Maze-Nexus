@@ -1,0 +1,102 @@
+.post{
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #00000047;
+    padding: 1em;
+    border-radius: 5px;
+}
+.dataAuthor{
+    border-bottom: 1px solid #00000047;
+    padding: .6em;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+.toolPosts i{
+    cursor: pointer;
+    padding: .7em;
+    border-radius: 100px;
+    transition: .4s ease-in-out;
+}
+.open{
+    display: flex;
+    position: absolute;
+    right: 0;
+}
+.close{
+    display: none;
+}
+.toolPosts i:hover{
+    background-color: rgba(137, 43, 226, 0.158);
+    color: blueviolet;
+}
+.contentPost{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.localTools{
+    display: flex;
+    justify-content: space-between;
+}
+.localTools button{
+    background: transparent;
+    border: none;
+}
+.like i{
+    color: blueviolet;
+}
+.like{
+    animation: likeAnimation .4s ease-in-out;
+}
+@keyframes likeAnimation {
+    0%{
+        transform: scale(0);
+    }
+    50%{
+        transform: scale(1.2)
+    }
+    100%{
+        transform: scale(0)
+    }
+}
+.localTools i{
+    font-size: 2vw;
+    cursor: pointer;
+    transition: .2s;
+}
+.localTools i:hover{
+    color: blueviolet;
+}
+.localLike{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.openComment{
+    height: 100vh;
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    background-color: #0000001c;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(1px);
+}
+
+.CloseComment{
+    display: none;
+}
+
+@media(max-width: 640px){
+    .localTools i{
+        font-size: 6vw;
+    }
+}

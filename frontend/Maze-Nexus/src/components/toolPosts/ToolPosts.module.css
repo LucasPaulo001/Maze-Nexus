@@ -1,0 +1,80 @@
+.toolMenu{
+    position: absolute;
+    right: 0;
+    top: 45px;
+    background-color: white;
+    border: 1px solid rgba(137, 43, 226, 0.425);
+    height: 150px;
+    width: 400px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+}
+.listTools{
+    width: 100%;
+    display: flex;
+    padding: .5em;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.list button, .list{
+    width: 100% !important;
+}
+.listTools li i{
+    font-size: 1.3em;
+}
+.listTools li{
+    width: 100%;
+    padding: 8px 0;
+    transition: .4s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    padding: .5em;
+    border-radius: 6px;
+}
+.list{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.btnsCondition{
+    gap: 10px;
+    display: flex;
+    gap: 10px;
+    display: none;
+}
+.openConditions{
+    background-color: white;
+    border-radius: 5px;
+    padding: .4em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.spinner span{
+    font-size: 1.5em;
+}
+.listTools li:hover{
+    background-color: rgba(137, 43, 226, 0.342);
+}
+.okSave{
+    position: absolute;
+    right: 0;
+    top: 20px;
+}
+
+@media(max-width: 640px){
+    .toolMenu{
+        width: 250px;
+    }
+    .listTools{
+        padding: 0;
+    }
+    .listTools li{
+        flex-direction: column;
+    }
+}

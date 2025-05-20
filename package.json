@@ -1,0 +1,10 @@
+{
+  "scripts": {
+  "start": "npx concurrently \"npm run server\" \"npm run client\"",
+  "server": "cd backend && npm start",
+  "client": "cd frontend/Maze-Nexus && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

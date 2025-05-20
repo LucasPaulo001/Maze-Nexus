@@ -1,0 +1,32 @@
+.active{
+    border-bottom: 2px solid blueviolet !important;
+    opacity: 1 !important; 
+}
+.containerBody{
+    display: flex;
+    justify-content: center;
+}
+
+.btnVerifyCode{
+    height: 2.8em;
+    font-weight: 700;
+    border-radius: 5px;
+    background-color: #9f72ff;
+    color: white;
+    border: 1px solid;
+    cursor: pointer;
+    width: 50%;
+    transition: .2s ease-in-out;
+}
+.menuMob{
+    display: none;
+}
+.menuMob i{
+    font-size: 10vw;
+}
+
+@media(max-width: 640px){
+    .menuMob{
+        display: flex;
+    }
+}
